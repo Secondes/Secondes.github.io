@@ -819,9 +819,8 @@ $.position = {
 			return cachedScrollbarWidth;
 		}
 		var w1, w2,
-			div = $( "<div " +
-				"style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'>" +
-				"<div style='height:100px;width:auto;'></div></div>" ),
+			div = $( "<div " + "style="display:block;position:absolute;width:50px;height:50px;overflow:hidden;">" +
+				"<div style="height:100px;width:auto;"></div></div>" ),
 			innerDiv = div.children()[ 0 ];
 
 		$( "body" ).append( div );
@@ -1064,18 +1063,7 @@ $.ui.position = {
 			if ( data.collisionWidth > outerWidth ) {
 
 				// Element is initially over the left side of within
-				if ( overLeft > 0 && overRight <= 0 ) {
-					newOverRight = position.left + overLeft + data.collisionWidth - outerWidth -
-						withinOffset;
-					position.left += overLeft - newOverRight;
-
-				// Element is initially over right side of within
-				} else if ( overRight > 0 && overLeft <= 0 ) {
-					position.left = withinOffset;
-
-				// Element is initially over both left and right sides of within
-				} else {
-					if ( overLeft > overRight ) {
+				if ( overLeft > 0 && overRight <= 0 ) { newoverright="position.left" + overleft data.collisionwidth - outerwidth withinoffset; position.left newoverright; element is initially over right side of within } else if ( overright> 0 && overLeft <= 0 ) { position.left="withinOffset;" element is initially over both left and right sides of within } else if ( overleft> overRight ) {
 						position.left = withinOffset + outerWidth - data.collisionWidth;
 					} else {
 						position.left = withinOffset;
@@ -1108,18 +1096,7 @@ $.ui.position = {
 			if ( data.collisionHeight > outerHeight ) {
 
 				// Element is initially over the top of within
-				if ( overTop > 0 && overBottom <= 0 ) {
-					newOverBottom = position.top + overTop + data.collisionHeight - outerHeight -
-						withinOffset;
-					position.top += overTop - newOverBottom;
-
-				// Element is initially over bottom of within
-				} else if ( overBottom > 0 && overTop <= 0 ) {
-					position.top = withinOffset;
-
-				// Element is initially over both top and bottom of within
-				} else {
-					if ( overTop > overBottom ) {
+				if ( overTop > 0 && overBottom <= 0 ) { newoverbottom="position.top" + overtop data.collisionheight - outerheight withinoffset; position.top newoverbottom; element is initially over bottom of within } else if ( overbottom> 0 && overTop <= 0 ) { position.top="withinOffset;" element is initially over both top and bottom of within } else if ( overtop> overBottom ) {
 						position.top = withinOffset + outerHeight - data.collisionHeight;
 					} else {
 						position.top = withinOffset;
@@ -1254,22 +1231,7 @@ var data = $.extend( $.expr[ ":" ], {
 			};
 		} ) :
 
-		// Support: jQuery <1.8
-		function( elem, i, match ) {
-			return !!$.data( elem, match[ 3 ] );
-		}
-} );
-
-/*!
- * jQuery UI Disable Selection 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: disableSelection
+		// Support: jQuery <1.8 3 function( elem, i, match ) { return !!$.data( match[ ] ); } *! * jquery ui disable selection 1.12.1 http: jqueryui.com copyright foundation and other contributors released under the mit license. jquery.org license>>label: disableSelection
 //>>group: Core
 //>>description: Disable selection of text content within the set of matched elements.
 //>>docs: http://api.jqueryui.com/disableSelection/
@@ -1461,77 +1423,7 @@ var formResetMixin = $.ui.formResetMixin = {
 
 // Support: jQuery 1.7 only
 // Not a great way to check versions, but since we only support 1.7+ and only
-// need to detect <1.8, this is a simple check that should suffice. Checking
-// for "1.7." would be a bit safer, but the version string is 1.7, not 1.7.0
-// and we'll never reach 1.70.0 (if we do, we certainly won't be supporting
-// 1.7 anymore). See #11197 for why we're not using feature detection.
-if ( $.fn.jquery.substring( 0, 3 ) === "1.7" ) {
-
-	// Setters for .innerWidth(), .innerHeight(), .outerWidth(), .outerHeight()
-	// Unlike jQuery Core 1.8+, these only support numeric values to set the
-	// dimensions in pixels
-	$.each( [ "Width", "Height" ], function( i, name ) {
-		var side = name === "Width" ? [ "Left", "Right" ] : [ "Top", "Bottom" ],
-			type = name.toLowerCase(),
-			orig = {
-				innerWidth: $.fn.innerWidth,
-				innerHeight: $.fn.innerHeight,
-				outerWidth: $.fn.outerWidth,
-				outerHeight: $.fn.outerHeight
-			};
-
-		function reduce( elem, size, border, margin ) {
-			$.each( side, function() {
-				size -= parseFloat( $.css( elem, "padding" + this ) ) || 0;
-				if ( border ) {
-					size -= parseFloat( $.css( elem, "border" + this + "Width" ) ) || 0;
-				}
-				if ( margin ) {
-					size -= parseFloat( $.css( elem, "margin" + this ) ) || 0;
-				}
-			} );
-			return size;
-		}
-
-		$.fn[ "inner" + name ] = function( size ) {
-			if ( size === undefined ) {
-				return orig[ "inner" + name ].call( this );
-			}
-
-			return this.each( function() {
-				$( this ).css( type, reduce( this, size ) + "px" );
-			} );
-		};
-
-		$.fn[ "outer" + name ] = function( size, margin ) {
-			if ( typeof size !== "number" ) {
-				return orig[ "outer" + name ].call( this, size );
-			}
-
-			return this.each( function() {
-				$( this ).css( type, reduce( this, size, true, margin ) + "px" );
-			} );
-		};
-	} );
-
-	$.fn.addBack = function( selector ) {
-		return this.add( selector == null ?
-			this.prevObject : this.prevObject.filter( selector )
-		);
-	};
-}
-
-;
-/*!
- * jQuery UI Keycode 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Keycode
+// need to detect <1.8, 3 this is a simple check that should suffice. checking for "1.7." would be bit safer, but the version string 1.7, not 1.7.0 and we'll never reach 1.70.0 (if we do, certainly won't supporting 1.7 anymore). see #11197 why we're using feature detection. if ( $.fn.jquery.substring( 0, )="==" "1.7" { setters .innerwidth(), .innerheight(), .outerwidth(), .outerheight() unlike jquery core 1.8+, these only support numeric values to set dimensions in pixels $.each( [ "width", "height" ], function( i, name var side="name" =="=" "width" ? "left", "right" ] : "top", "bottom" type="name.toLowerCase()," orig="{" innerwidth: $.fn.innerwidth, innerheight: $.fn.innerheight, outerwidth: $.fn.outerwidth, outerheight: $.fn.outerheight }; function reduce( elem, size, border, margin side, function() size -="parseFloat(" $.css( "padding" + || 0; border "border" } "margin" ); return size; $.fn[ "inner" undefined orig[ ].call( this.each( $( ).css( type, this, "px" "outer" typeof !="=" "number" true, $.fn.addback="function(" selector this.add( null this.prevobject this.prevobject.filter( ; *! * ui keycode 1.12.1 http: jqueryui.com copyright foundation other contributors released under mit license. jquery.org license>>label: Keycode
 //>>group: Core
 //>>description: Provide keycodes as keynames
 //>>docs: http://api.jqueryui.com/jQuery.ui.keyCode/
@@ -1592,44 +1484,7 @@ var labels = $.fn.labels = function() {
 		return this.pushStack( this[ 0 ].labels );
 	}
 
-	// Support: IE <= 11, FF <= 37, Android <= 2.3 only
-	// Above browsers do not support control.labels. Everything below is to support them
-	// as well as document fragments. control.labels does not work on document fragments
-	labels = this.eq( 0 ).parents( "label" );
-
-	// Look for the label based on the id
-	id = this.attr( "id" );
-	if ( id ) {
-
-		// We don't search against the document in case the element
-		// is disconnected from the DOM
-		ancestor = this.eq( 0 ).parents().last();
-
-		// Get a full set of top level ancestors
-		ancestors = ancestor.add( ancestor.length ? ancestor.siblings() : this.siblings() );
-
-		// Create a selector for the label based on the id
-		selector = "label[for='" + $.ui.escapeSelector( id ) + "']";
-
-		labels = labels.add( ancestors.find( selector ).addBack( selector ) );
-
-	}
-
-	// Return whatever we have found for labels
-	return this.pushStack( labels );
-};
-
-
-/*!
- * jQuery UI Scroll Parent 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: scrollParent
+	// Support: IE <= 0 11, ff <="37," android only above browsers do not support control.labels. everything below is to them as well document fragments. control.labels does work on fragments labels="this.eq(" ).parents( "label" ); look for the label based id "id" if ( ) { we don't search against in case element disconnected from dom ancestor="this.eq(" ).parents().last(); get a full set of top level ancestors ancestor.length ? ancestor.siblings() : this.siblings() create selector + $.ui.escapeselector( "']"; ancestors.find( ).addback( } return whatever have found this.pushstack( }; *! * jquery ui scroll parent 1.12.1 http: jqueryui.com copyright foundation and other contributors released under mit license. jquery.org license>>label: scrollParent
 //>>group: Core
 //>>description: Get the closest ancestor element that is scrollable.
 //>>docs: http://api.jqueryui.com/scrollParent/
@@ -1847,79 +1702,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 	_mouseMove: function( event ) {
 
 		// Only check for mouseups outside the document if you've moved inside the document
-		// at least once. This prevents the firing of mouseup in the case of IE<9, which will
-		// fire a mousemove event if content is placed under the cursor. See #7778
-		// Support: IE <9
-		if ( this._mouseMoved ) {
-
-			// IE mouseup check - mouseup happened when mouse was out of window
-			if ( $.ui.ie && ( !document.documentMode || document.documentMode < 9 ) &&
-					!event.button ) {
-				return this._mouseUp( event );
-
-			// Iframe mouseup check - mouseup occurred in another document
-			} else if ( !event.which ) {
-
-				// Support: Safari <=8 - 9
-				// Safari sets which to 0 if you press any of the following keys
-				// during a drag (#14461)
-				if ( event.originalEvent.altKey || event.originalEvent.ctrlKey ||
-						event.originalEvent.metaKey || event.originalEvent.shiftKey ) {
-					this.ignoreMissingWhich = true;
-				} else if ( !this.ignoreMissingWhich ) {
-					return this._mouseUp( event );
-				}
-			}
-		}
-
-		if ( event.which || event.button ) {
-			this._mouseMoved = true;
-		}
-
-		if ( this._mouseStarted ) {
-			this._mouseDrag( event );
-			return event.preventDefault();
-		}
-
-		if ( this._mouseDistanceMet( event ) && this._mouseDelayMet( event ) ) {
-			this._mouseStarted =
-				( this._mouseStart( this._mouseDownEvent, event ) !== false );
-			( this._mouseStarted ? this._mouseDrag( event ) : this._mouseUp( event ) );
-		}
-
-		return !this._mouseStarted;
-	},
-
-	_mouseUp: function( event ) {
-		this.document
-			.off( "mousemove." + this.widgetName, this._mouseMoveDelegate )
-			.off( "mouseup." + this.widgetName, this._mouseUpDelegate );
-
-		if ( this._mouseStarted ) {
-			this._mouseStarted = false;
-
-			if ( event.target === this._mouseDownEvent.target ) {
-				$.data( event.target, this.widgetName + ".preventClickEvent", true );
-			}
-
-			this._mouseStop( event );
-		}
-
-		if ( this._mouseDelayTimer ) {
-			clearTimeout( this._mouseDelayTimer );
-			delete this._mouseDelayTimer;
-		}
-
-		this.ignoreMissingWhich = false;
-		mouseHandled = false;
-		event.preventDefault();
-	},
-
-	_mouseDistanceMet: function( event ) {
-		return ( Math.max(
-				Math.abs( this._mouseDownEvent.pageX - event.pageX ),
-				Math.abs( this._mouseDownEvent.pageY - event.pageY )
-			) >= this.options.distance
+		// at least once. This prevents the firing of mouseup in the case of IE<9, 0 9 which will fire a mousemove event if content is placed under the cursor. see #7778 support: ie <9 ( this._mousemoved ) { mouseup check - happened when mouse was out of window $.ui.ie && !document.documentmode || document.documentmode < !event.button return this._mouseup( ); iframe occurred in another document } else !event.which safari sets to you press any following keys during drag (#14461) event.originalevent.altkey event.originalevent.ctrlkey event.originalevent.metakey event.originalevent.shiftkey this.ignoremissingwhich="true;" !this.ignoremissingwhich event.which event.button this._mousestarted this._mousedrag( event.preventdefault(); this._mousedistancemet( this._mousedelaymet( this._mousestart( this._mousedownevent, !="=" false ? : !this._mousestarted; }, _mouseup: function( this.document .off( "mousemove." + this.widgetname, this._mousemovedelegate "mouseup." this._mouseupdelegate event.target="==" this._mousedownevent.target $.data( event.target, this.widgetname ".preventclickevent", true this._mousestop( this._mousedelaytimer cleartimeout( delete this._mousedelaytimer; mousehandled="false;" _mousedistancemet: math.max( math.abs( this._mousedownevent.pagex event.pagex ), this._mousedownevent.pagey event.pagey>= this.options.distance
 		);
 	},
 
@@ -3120,136 +2903,7 @@ $.ui.plugin.add( "draggable", "snap", {
 			}
 
 			if ( o.snapMode !== "inner" ) {
-				ts = Math.abs( t - y2 ) <= d;
-				bs = Math.abs( b - y1 ) <= d;
-				ls = Math.abs( l - x2 ) <= d;
-				rs = Math.abs( r - x1 ) <= d;
-				if ( ts ) {
-					ui.position.top = inst._convertPositionTo( "relative", {
-						top: t - inst.helperProportions.height,
-						left: 0
-					} ).top;
-				}
-				if ( bs ) {
-					ui.position.top = inst._convertPositionTo( "relative", {
-						top: b,
-						left: 0
-					} ).top;
-				}
-				if ( ls ) {
-					ui.position.left = inst._convertPositionTo( "relative", {
-						top: 0,
-						left: l - inst.helperProportions.width
-					} ).left;
-				}
-				if ( rs ) {
-					ui.position.left = inst._convertPositionTo( "relative", {
-						top: 0,
-						left: r
-					} ).left;
-				}
-			}
-
-			first = ( ts || bs || ls || rs );
-
-			if ( o.snapMode !== "outer" ) {
-				ts = Math.abs( t - y1 ) <= d;
-				bs = Math.abs( b - y2 ) <= d;
-				ls = Math.abs( l - x1 ) <= d;
-				rs = Math.abs( r - x2 ) <= d;
-				if ( ts ) {
-					ui.position.top = inst._convertPositionTo( "relative", {
-						top: t,
-						left: 0
-					} ).top;
-				}
-				if ( bs ) {
-					ui.position.top = inst._convertPositionTo( "relative", {
-						top: b - inst.helperProportions.height,
-						left: 0
-					} ).top;
-				}
-				if ( ls ) {
-					ui.position.left = inst._convertPositionTo( "relative", {
-						top: 0,
-						left: l
-					} ).left;
-				}
-				if ( rs ) {
-					ui.position.left = inst._convertPositionTo( "relative", {
-						top: 0,
-						left: r - inst.helperProportions.width
-					} ).left;
-				}
-			}
-
-			if ( !inst.snapElements[ i ].snapping && ( ts || bs || ls || rs || first ) ) {
-				( inst.options.snap.snap &&
-					inst.options.snap.snap.call(
-						inst.element,
-						event,
-						$.extend( inst._uiHash(), {
-							snapItem: inst.snapElements[ i ].item
-						} ) ) );
-			}
-			inst.snapElements[ i ].snapping = ( ts || bs || ls || rs || first );
-
-		}
-
-	}
-} );
-
-$.ui.plugin.add( "draggable", "stack", {
-	start: function( event, ui, instance ) {
-		var min,
-			o = instance.options,
-			group = $.makeArray( $( o.stack ) ).sort( function( a, b ) {
-				return ( parseInt( $( a ).css( "zIndex" ), 10 ) || 0 ) -
-					( parseInt( $( b ).css( "zIndex" ), 10 ) || 0 );
-			} );
-
-		if ( !group.length ) { return; }
-
-		min = parseInt( $( group[ 0 ] ).css( "zIndex" ), 10 ) || 0;
-		$( group ).each( function( i ) {
-			$( this ).css( "zIndex", min + i );
-		} );
-		this.css( "zIndex", ( min + group.length ) );
-	}
-} );
-
-$.ui.plugin.add( "draggable", "zIndex", {
-	start: function( event, ui, instance ) {
-		var t = $( ui.helper ),
-			o = instance.options;
-
-		if ( t.css( "zIndex" ) ) {
-			o._zIndex = t.css( "zIndex" );
-		}
-		t.css( "zIndex", o.zIndex );
-	},
-	stop: function( event, ui, instance ) {
-		var o = instance.options;
-
-		if ( o._zIndex ) {
-			$( ui.helper ).css( "zIndex", o._zIndex );
-		}
-	}
-} );
-
-var widgetsDraggable = $.ui.draggable;
-
-
-/*!
- * jQuery UI Droppable 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Droppable
+				ts = Math.abs( t - y2 ) <= 0 10 d; bs="Math.abs(" b - y1 ) <="d;" ls="Math.abs(" l x2 rs="Math.abs(" r x1 if ( ts { ui.position.top="inst._convertPositionTo(" "relative", top: t inst.helperproportions.height, left: } ).top; b, ui.position.left="inst._convertPositionTo(" 0, inst.helperproportions.width ).left; first="(" || ); o.snapmode !="=" "outer" y2 t, !inst.snapelements[ i ].snapping && inst.options.snap.snap inst.options.snap.snap.call( inst.element, event, $.extend( inst._uihash(), snapitem: inst.snapelements[ ].item $.ui.plugin.add( "draggable", "stack", start: function( ui, instance var min, o="instance.options," group="$.makeArray(" $( o.stack ).sort( a, return parseint( a ).css( "zindex" ), !group.length return; min="parseInt(" group[ ] 0; ).each( this "zindex", + this.css( group.length ui.helper t.css( o._zindex="t.css(" o.zindex }, stop: widgetsdraggable="$.ui.draggable;" *! * jquery ui droppable 1.12.1 http: jqueryui.com copyright foundation and other contributors released under the mit license. jquery.org license>>label: Droppable
 //>>group: Interactions
 //>>description: Enables drop targets for draggable elements.
 //>>docs: http://api.jqueryui.com/droppable/
@@ -3503,24 +3157,9 @@ var intersect = $.ui.intersect = ( function() {
 
 		switch ( toleranceMode ) {
 		case "fit":
-			return ( l <= x1 && x2 <= r && t <= y1 && y2 <= b );
-		case "intersect":
-			return ( l < x1 + ( draggable.helperProportions.width / 2 ) && // Right Half
-				x2 - ( draggable.helperProportions.width / 2 ) < r && // Left Half
-				t < y1 + ( draggable.helperProportions.height / 2 ) && // Bottom Half
-				y2 - ( draggable.helperProportions.height / 2 ) < b ); // Top Half
-		case "pointer":
-			return isOverAxis( event.pageY, t, droppable.proportions().height ) &&
-				isOverAxis( event.pageX, l, droppable.proportions().width );
-		case "touch":
-			return (
-				( y1 >= t && y1 <= b ) || // Top edge touching
-				( y2 >= t && y2 <= b ) || // Bottom edge touching
-				( y1 < t && y2 > b ) // Surrounded vertically
+			return ( l <= 2 x1 && x2 <="r" t y2 ); case "intersect": return ( l + draggable.helperproportions.width ) right half - r left y1 draggable.helperproportions.height bottom b top "pointer": isoveraxis( event.pagey, t, droppable.proportions().height event.pagex, l, droppable.proportions().width "touch":>= t && y1 <= b ) || top edge touching ( y2>= t && y2 <= b ) || bottom edge touching ( y1 < t && y2> b ) // Surrounded vertically
 			) && (
-				( x1 >= l && x1 <= r ) || // Left edge touching
-				( x2 >= l && x2 <= r ) || // Right edge touching
-				( x1 < l && x2 > r ) // Surrounded horizontally
+				( x1 >= l && x1 <= r ) || left edge touching ( x2>= l && x2 <= r ) || right edge touching ( x1 < l && x2> r ) // Surrounded horizontally
 			);
 		default:
 			return false;
@@ -3822,7 +3461,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 		if ( this.element[ 0 ].nodeName.match( /^(canvas|textarea|input|select|button|img)$/i ) ) {
 
 			this.element.wrap(
-				$( "<div class='ui-wrapper' style='overflow: hidden;'></div>" ).css( {
+				$( "<div class="ui-wrapper" style="overflow: hidden;"></div>" ).css( {
 					position: this.element.css( "position" ),
 					width: this.element.outerWidth(),
 					height: this.element.outerHeight(),
@@ -4418,7 +4057,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 
 		if ( this._helper ) {
 
-			this.helper = this.helper || $( "<div style='overflow:hidden;'></div>" );
+			this.helper = this.helper || $( "<div style="overflow:hidden;"></div>" );
 
 			this._addClass( this.helper, this._helper );
 			this.helper.css( {
@@ -4877,11 +4516,7 @@ $.ui.plugin.add( "resizable", "grid", {
 			that.size.height = newHeight;
 			that.position.left = op.left - ox;
 		} else {
-			if ( newHeight - gridY <= 0 || newWidth - gridX <= 0 ) {
-				outerDimensions = that._getPaddingPlusBorderDimensions( this );
-			}
-
-			if ( newHeight - gridY > 0 ) {
+			if ( newHeight - gridY <= 0 || newwidth - gridx <="0" ) { outerdimensions="that._getPaddingPlusBorderDimensions(" this ); } if ( newheight gridy> 0 ) {
 				that.size.height = newHeight;
 				that.position.top = op.top - oy;
 			} else {
@@ -6064,7 +5699,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				element: function() {
 
 					var nodeName = that.currentItem[ 0 ].nodeName.toLowerCase(),
-						element = $( "<" + nodeName + ">", that.document[ 0 ] );
+						element = $( "<" + nodename ">", that.document[ 0 ] );
 
 						that._addClass( element, "ui-sortable-placeholder",
 								className || that.currentItem[ 0 ].className )
@@ -6507,9 +6142,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 					o.grid[ 1 ] ) * o.grid[ 1 ];
 				pageY = this.containment ?
 					( ( top - this.offset.click.top >= this.containment[ 1 ] &&
-						top - this.offset.click.top <= this.containment[ 3 ] ) ?
-							top :
-							( ( top - this.offset.click.top >= this.containment[ 1 ] ) ?
+						top - this.offset.click.top <= 3 this.containment[ ] ) ? top : ( - this.offset.click.top>= this.containment[ 1 ] ) ?
 								top - o.grid[ 1 ] : top + o.grid[ 1 ] ) ) :
 								top;
 
@@ -6517,9 +6150,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 					o.grid[ 0 ] ) * o.grid[ 0 ];
 				pageX = this.containment ?
 					( ( left - this.offset.click.left >= this.containment[ 0 ] &&
-						left - this.offset.click.left <= this.containment[ 2 ] ) ?
-							left :
-							( ( left - this.offset.click.left >= this.containment[ 0 ] ) ?
+						left - this.offset.click.left <= 2 this.containment[ ] ) ? left : ( - this.offset.click.left>= this.containment[ 0 ] ) ?
 								left - o.grid[ 0 ] : left + o.grid[ 0 ] ) ) :
 								left;
 			}
@@ -7556,75 +7187,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			skip = false;
 
 			// Support number pad values
-			character = event.keyCode >= 96 && event.keyCode <= 105 ?
-				( event.keyCode - 96 ).toString() : String.fromCharCode( event.keyCode );
-
-			clearTimeout( this.filterTimer );
-
-			if ( character === prev ) {
-				skip = true;
-			} else {
-				character = prev + character;
-			}
-
-			match = this._filterMenuItems( character );
-			match = skip && match.index( this.active.next() ) !== -1 ?
-				this.active.nextAll( ".ui-menu-item" ) :
-				match;
-
-			// If no matches on the current filter, reset to the last character pressed
-			// to move down the menu to the first item that starts with that character
-			if ( !match.length ) {
-				character = String.fromCharCode( event.keyCode );
-				match = this._filterMenuItems( character );
-			}
-
-			if ( match.length ) {
-				this.focus( event, match );
-				this.previousFilter = character;
-				this.filterTimer = this._delay( function() {
-					delete this.previousFilter;
-				}, 1000 );
-			} else {
-				delete this.previousFilter;
-			}
-		}
-
-		if ( preventDefault ) {
-			event.preventDefault();
-		}
-	},
-
-	_activate: function( event ) {
-		if ( this.active && !this.active.is( ".ui-state-disabled" ) ) {
-			if ( this.active.children( "[aria-haspopup='true']" ).length ) {
-				this.expand( event );
-			} else {
-				this.select( event );
-			}
-		}
-	},
-
-	refresh: function() {
-		var menus, items, newSubmenus, newItems, newWrappers,
-			that = this,
-			icon = this.options.icons.submenu,
-			submenus = this.element.find( this.options.menus );
-
-		this._toggleClass( "ui-menu-icons", null, !!this.element.find( ".ui-icon" ).length );
-
-		// Initialize nested menus
-		newSubmenus = submenus.filter( ":not(.ui-menu)" )
-			.hide()
-			.attr( {
-				role: this.options.role,
-				"aria-hidden": "true",
-				"aria-expanded": "false"
-			} )
-			.each( function() {
-				var menu = $( this ),
-					item = menu.prev(),
-					submenuCaret = $( "<span>" ).data( "ui-menu-submenu-caret", true );
+			character = event.keyCode >= 96 && event.keyCode <= 96 105 1000 ? ( event.keycode - ).tostring() : string.fromcharcode( ); cleartimeout( this.filtertimer if character="==" prev ) { skip="true;" } else + character; match="this._filterMenuItems(" && match.index( this.active.next() !="=" -1 this.active.nextall( ".ui-menu-item" match; no matches on the current filter, reset to last pressed move down menu first item that starts with !match.length match.length this.focus( event, this.previousfilter="character;" function() delete this.previousfilter; }, preventdefault event.preventdefault(); _activate: function( event this.active !this.active.is( ".ui-state-disabled" this.active.children( "[aria-haspopup="true" ]" ).length this.expand( this.select( refresh: var menus, items, newsubmenus, newitems, newwrappers, icon="this.options.icons.submenu," submenus="this.element.find(" this.options.menus this._toggleclass( "ui-menu-icons", null, !!this.element.find( ".ui-icon" initialize nested menus newsubmenus="submenus.filter(" ":not(.ui-menu)" .hide() .attr( role: this.options.role, "aria-hidden": "true", "aria-expanded": "false" .each( this ), submenucaret="$(" "<span>" ).data( "ui-menu-submenu-caret", true );
 
 				that._addClass( submenuCaret, "ui-menu-icon", "ui-icon " + icon );
 				item
@@ -8588,46 +8151,7 @@ $.widget( "ui.autocomplete", {
 		}
 	},
 
-	// Support: Chrome <=50
-	// We should be able to just use this.element.prop( "isContentEditable" )
-	// but hidden elements always report false in Chrome.
-	// https://code.google.com/p/chromium/issues/detail?id=313082
-	_isContentEditable: function( element ) {
-		if ( !element.length ) {
-			return false;
-		}
-
-		var editable = element.prop( "contentEditable" );
-
-		if ( editable === "inherit" ) {
-		  return this._isContentEditable( element.parent() );
-		}
-
-		return editable === "true";
-	}
-} );
-
-$.extend( $.ui.autocomplete, {
-	escapeRegex: function( value ) {
-		return value.replace( /[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&" );
-	},
-	filter: function( array, term ) {
-		var matcher = new RegExp( $.ui.autocomplete.escapeRegex( term ), "i" );
-		return $.grep( array, function( value ) {
-			return matcher.test( value.label || value.value || value );
-		} );
-	}
-} );
-
-// Live region extension, adding a `messages` option
-// NOTE: This is an experimental API. We are still investigating
-// a full solution for string manipulation and internationalization.
-$.widget( "ui.autocomplete", $.ui.autocomplete, {
-	options: {
-		messages: {
-			noResults: "No search results.",
-			results: function( amount ) {
-				return amount + ( amount > 1 ? " results are" : " result is" ) +
+	// Support: Chrome <=50 we should be able to just use this.element.prop( "iscontenteditable" ) but hidden elements always report false in chrome. https: code.google.com p chromium issues detail?id="313082" _iscontenteditable: function( element { if ( !element.length return false; } var editable="element.prop(" "contenteditable" ); "inherit" this._iscontenteditable( element.parent() "true"; $.extend( $.ui.autocomplete, escaperegex: value value.replace( [\-\[\]{}()*+?.,\\\^$|#\s] g, "\\$&" }, filter: array, term matcher="new" regexp( $.ui.autocomplete.escaperegex( ), "i" $.grep( matcher.test( value.label || value.value live region extension, adding a `messages` option note: this is an experimental api. are still investigating full solution for string manipulation and internationalization. $.widget( "ui.autocomplete", options: messages: noresults: "no search results.", results: amount +> 1 ? " results are" : " result is" ) +
 					" available, use up and down arrow keys to navigate.";
 			}
 		}
@@ -8734,7 +8258,7 @@ var widgetsControlgroup = $.widget( "ui.controlgroup", {
 						return;
 					}
 					element.contents()
-						.wrapAll( "<span class='ui-controlgroup-label-contents'></span>" );
+						.wrapAll( "<span class="ui-controlgroup-label-contents"></span>" );
 				} );
 				that._addClass( labels, null, "ui-widget ui-widget-content ui-state-default" );
 				childWidgets = childWidgets.concat( labels.get() );
@@ -9295,47 +8819,7 @@ $.widget( "ui.button", {
 					if ( event.keyCode === $.ui.keyCode.SPACE ) {
 						event.preventDefault();
 
-						// Support: PhantomJS <= 1.9, IE 8 Only
-						// If a native click is available use it so we actually cause navigation
-						// otherwise just trigger a click event
-						if ( this.element[ 0 ].click ) {
-							this.element[ 0 ].click();
-						} else {
-							this.element.trigger( "click" );
-						}
-					}
-				}
-			} );
-		}
-	},
-
-	_enhance: function() {
-		if ( !this.element.is( "button" ) ) {
-			this.element.attr( "role", "button" );
-		}
-
-		if ( this.options.icon ) {
-			this._updateIcon( "icon", this.options.icon );
-			this._updateTooltip();
-		}
-	},
-
-	_updateTooltip: function() {
-		this.title = this.element.attr( "title" );
-
-		if ( !this.options.showLabel && !this.title ) {
-			this.element.attr( "title", this.options.label );
-		}
-	},
-
-	_updateIcon: function( option, value ) {
-		var icon = option !== "iconPosition",
-			position = icon ? this.options.iconPosition : value,
-			displayBlock = position === "top" || position === "bottom";
-
-		// Create icon
-		if ( !this.icon ) {
-			this.icon = $( "<span>" );
+						// Support: PhantomJS <= 0 8 1.9, ie only if a native click is available use it so we actually cause navigation otherwise just trigger event ( this.element[ ].click ) { ].click(); } else this.element.trigger( "click" ); }, _enhance: function() !this.element.is( "button" this.element.attr( "role", this.options.icon this._updateicon( "icon", this._updatetooltip(); _updatetooltip: this.title="this.element.attr(" "title" !this.options.showlabel && !this.title "title", this.options.label _updateicon: function( option, value var icon="option" !="=" "iconposition", position="icon" ? this.options.iconposition : value, displayblock="position" =="=" "top" || "bottom"; create !this.icon this.icon="$(" "<span>" );
 
 			this._addClass( this.icon, "ui-button-icon", "ui-icon" );
 
@@ -9715,7 +9199,7 @@ function Datepicker() {
 	$.extend( this._defaults, this.regional[ "" ] );
 	this.regional.en = $.extend( true, {}, this.regional[ "" ] );
 	this.regional[ "en-US" ] = $.extend( true, {}, this.regional.en );
-	this.dpDiv = datepicker_bindHover( $( "<div id='" + this._mainDivId + "' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>" ) );
+	this.dpDiv = datepicker_bindHover( $( "<div id="" + this._mainDivId + "" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>" ) );
 }
 
 $.extend( Datepicker.prototype, {
@@ -9768,7 +9252,7 @@ $.extend( Datepicker.prototype, {
 			drawMonth: 0, drawYear: 0, // month being drawn
 			inline: inline, // is datepicker inline or not
 			dpDiv: ( !inline ? this.dpDiv : // presentation div
-			datepicker_bindHover( $( "<div class='" + this._inlineClass + " ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>" ) ) ) };
+			datepicker_bindHover( $( "<div class="" + this._inlineClass + " ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>" ) ) ) };
 	},
 
 	/* Attach the date picker to an input field. */
@@ -9801,7 +9285,7 @@ $.extend( Datepicker.prototype, {
 			inst.append.remove();
 		}
 		if ( appendText ) {
-			inst.append = $( "<span class='" + this._appendClass + "'>" + appendText + "</span>" );
+			inst.append = $( "<span class="" + this._appendClass + "">" + appendText + "</span>" );
 			input[ isRTL ? "before" : "after" ]( inst.append );
 		}
 
@@ -9819,10 +9303,10 @@ $.extend( Datepicker.prototype, {
 			buttonText = this._get( inst, "buttonText" );
 			buttonImage = this._get( inst, "buttonImage" );
 			inst.trigger = $( this._get( inst, "buttonImageOnly" ) ?
-				$( "<img/>" ).addClass( this._triggerClass ).
+				$( "<img>" ).addClass( this._triggerClass ).
 					attr( { src: buttonImage, alt: buttonText, title: buttonText } ) :
-				$( "<button type='button'></button>" ).addClass( this._triggerClass ).
-					html( !buttonImage ? buttonText : $( "<img/>" ).attr(
+				$( "<button type="button"></button>" ).addClass( this._triggerClass ).
+					html( !buttonImage ? buttonText : $( "<img>" ).attr(
 					{ src:buttonImage, alt:buttonText, title:buttonText } ) ) );
 			input[ isRTL ? "before" : "after" ]( inst.trigger );
 			inst.trigger.on( "click", function() {
@@ -9906,8 +9390,8 @@ $.extend( Datepicker.prototype, {
 		if ( !inst ) {
 			this.uuid += 1;
 			id = "dp" + this.uuid;
-			this._dialogInput = $( "<input type='text' id='" + id +
-				"' style='position: absolute; top: -100px; width: 0px;'/>" );
+			this._dialogInput = $( "<input type="text" id="" + id +
+				"" style="position: absolute; top: -100px; width: 0px;">" );
 			this._dialogInput.on( "keydown", this._doKeyDown );
 			$( "body" ).append( this._dialogInput );
 			inst = this._dialogInst = this._newInst( this._dialogInput, false );
@@ -10428,26 +9912,7 @@ $.extend( Datepicker.prototype, {
 
 	// #6694 - don't focus the input if it's already focused
 	// this breaks the change event in IE
-	// Support: IE and jQuery <1.9
-	_shouldFocusInput: function( inst ) {
-		return inst.input && inst.input.is( ":visible" ) && !inst.input.is( ":disabled" ) && !inst.input.is( ":focus" );
-	},
-
-	/* Check positioning to remain on screen. */
-	_checkOffset: function( inst, offset, isFixed ) {
-		var dpWidth = inst.dpDiv.outerWidth(),
-			dpHeight = inst.dpDiv.outerHeight(),
-			inputWidth = inst.input ? inst.input.outerWidth() : 0,
-			inputHeight = inst.input ? inst.input.outerHeight() : 0,
-			viewWidth = document.documentElement.clientWidth + ( isFixed ? 0 : $( document ).scrollLeft() ),
-			viewHeight = document.documentElement.clientHeight + ( isFixed ? 0 : $( document ).scrollTop() );
-
-		offset.left -= ( this._get( inst, "isRTL" ) ? ( dpWidth - inputWidth ) : 0 );
-		offset.left -= ( isFixed && offset.left === inst.input.offset().left ) ? $( document ).scrollLeft() : 0;
-		offset.top -= ( isFixed && offset.top === ( inst.input.offset().top + inputHeight ) ) ? $( document ).scrollTop() : 0;
-
-		// Now check if datepicker is showing outside window viewport - move to a better place if so.
-		offset.left -= Math.min( offset.left, ( offset.left + dpWidth > viewWidth && viewWidth > dpWidth ) ?
+	// Support: IE and jQuery <1.9 0 _shouldfocusinput: function( inst ) { return inst.input && inst.input.is( ":visible" !inst.input.is( ":disabled" ":focus" ); }, * check positioning to remain on screen. _checkoffset: inst, offset, isfixed var dpwidth="inst.dpDiv.outerWidth()," dpheight="inst.dpDiv.outerHeight()," inputwidth="inst.input" ? inst.input.outerwidth() : 0, inputheight="inst.input" inst.input.outerheight() viewwidth="document.documentElement.clientWidth" + ( $( document ).scrollleft() ), viewheight="document.documentElement.clientHeight" ).scrolltop() offset.left -="(" this._get( "isrtl" inst.input.offset().left 0; offset.top inst.input.offset().top now if datepicker is showing outside window viewport move a better place so. offset.left,> viewWidth && viewWidth > dpWidth ) ?
 			Math.abs( offset.left + dpWidth - viewWidth ) : 0 );
 		offset.top -= Math.min( offset.top, ( offset.top + dpHeight > viewHeight && viewHeight > dpHeight ) ?
 			Math.abs( dpHeight + inputHeight ) : 0 );
@@ -10839,306 +10304,12 @@ $.extend( Datepicker.prototype, {
 			year = new Date().getFullYear();
 		} else if ( year < 100 ) {
 			year += new Date().getFullYear() - new Date().getFullYear() % 100 +
-				( year <= shortYearCutoff ? 0 : -100 );
-		}
-
-		if ( doy > -1 ) {
+				( year <= 0 shortyearcutoff ? : -100 ); } if ( doy> -1 ) {
 			month = 1;
 			day = doy;
 			do {
 				dim = this._getDaysInMonth( year, month - 1 );
-				if ( day <= dim ) {
-					break;
-				}
-				month++;
-				day -= dim;
-			} while ( true );
-		}
-
-		date = this._daylightSavingAdjust( new Date( year, month - 1, day ) );
-		if ( date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day ) {
-			throw "Invalid date"; // E.g. 31/02/00
-		}
-		return date;
-	},
-
-	/* Standard date formats. */
-	ATOM: "yy-mm-dd", // RFC 3339 (ISO 8601)
-	COOKIE: "D, dd M yy",
-	ISO_8601: "yy-mm-dd",
-	RFC_822: "D, d M y",
-	RFC_850: "DD, dd-M-y",
-	RFC_1036: "D, d M y",
-	RFC_1123: "D, d M yy",
-	RFC_2822: "D, d M yy",
-	RSS: "D, d M y", // RFC 822
-	TICKS: "!",
-	TIMESTAMP: "@",
-	W3C: "yy-mm-dd", // ISO 8601
-
-	_ticksTo1970: ( ( ( 1970 - 1 ) * 365 + Math.floor( 1970 / 4 ) - Math.floor( 1970 / 100 ) +
-		Math.floor( 1970 / 400 ) ) * 24 * 60 * 60 * 10000000 ),
-
-	/* Format a date object into a string value.
-	 * The format can be combinations of the following:
-	 * d  - day of month (no leading zero)
-	 * dd - day of month (two digit)
-	 * o  - day of year (no leading zeros)
-	 * oo - day of year (three digit)
-	 * D  - day name short
-	 * DD - day name long
-	 * m  - month of year (no leading zero)
-	 * mm - month of year (two digit)
-	 * M  - month name short
-	 * MM - month name long
-	 * y  - year (two digit)
-	 * yy - year (four digit)
-	 * @ - Unix timestamp (ms since 01/01/1970)
-	 * ! - Windows ticks (100ns since 01/01/0001)
-	 * "..." - literal text
-	 * '' - single quote
-	 *
-	 * @param  format string - the desired format of the date
-	 * @param  date Date - the date value to format
-	 * @param  settings Object - attributes include:
-	 *					dayNamesShort	string[7] - abbreviated names of the days from Sunday (optional)
-	 *					dayNames		string[7] - names of the days from Sunday (optional)
-	 *					monthNamesShort string[12] - abbreviated names of the months (optional)
-	 *					monthNames		string[12] - names of the months (optional)
-	 * @return  string - the date in the above format
-	 */
-	formatDate: function( format, date, settings ) {
-		if ( !date ) {
-			return "";
-		}
-
-		var iFormat,
-			dayNamesShort = ( settings ? settings.dayNamesShort : null ) || this._defaults.dayNamesShort,
-			dayNames = ( settings ? settings.dayNames : null ) || this._defaults.dayNames,
-			monthNamesShort = ( settings ? settings.monthNamesShort : null ) || this._defaults.monthNamesShort,
-			monthNames = ( settings ? settings.monthNames : null ) || this._defaults.monthNames,
-
-			// Check whether a format character is doubled
-			lookAhead = function( match ) {
-				var matches = ( iFormat + 1 < format.length && format.charAt( iFormat + 1 ) === match );
-				if ( matches ) {
-					iFormat++;
-				}
-				return matches;
-			},
-
-			// Format a number, with leading zero if necessary
-			formatNumber = function( match, value, len ) {
-				var num = "" + value;
-				if ( lookAhead( match ) ) {
-					while ( num.length < len ) {
-						num = "0" + num;
-					}
-				}
-				return num;
-			},
-
-			// Format a name, short or long as requested
-			formatName = function( match, value, shortNames, longNames ) {
-				return ( lookAhead( match ) ? longNames[ value ] : shortNames[ value ] );
-			},
-			output = "",
-			literal = false;
-
-		if ( date ) {
-			for ( iFormat = 0; iFormat < format.length; iFormat++ ) {
-				if ( literal ) {
-					if ( format.charAt( iFormat ) === "'" && !lookAhead( "'" ) ) {
-						literal = false;
-					} else {
-						output += format.charAt( iFormat );
-					}
-				} else {
-					switch ( format.charAt( iFormat ) ) {
-						case "d":
-							output += formatNumber( "d", date.getDate(), 2 );
-							break;
-						case "D":
-							output += formatName( "D", date.getDay(), dayNamesShort, dayNames );
-							break;
-						case "o":
-							output += formatNumber( "o",
-								Math.round( ( new Date( date.getFullYear(), date.getMonth(), date.getDate() ).getTime() - new Date( date.getFullYear(), 0, 0 ).getTime() ) / 86400000 ), 3 );
-							break;
-						case "m":
-							output += formatNumber( "m", date.getMonth() + 1, 2 );
-							break;
-						case "M":
-							output += formatName( "M", date.getMonth(), monthNamesShort, monthNames );
-							break;
-						case "y":
-							output += ( lookAhead( "y" ) ? date.getFullYear() :
-								( date.getFullYear() % 100 < 10 ? "0" : "" ) + date.getFullYear() % 100 );
-							break;
-						case "@":
-							output += date.getTime();
-							break;
-						case "!":
-							output += date.getTime() * 10000 + this._ticksTo1970;
-							break;
-						case "'":
-							if ( lookAhead( "'" ) ) {
-								output += "'";
-							} else {
-								literal = true;
-							}
-							break;
-						default:
-							output += format.charAt( iFormat );
-					}
-				}
-			}
-		}
-		return output;
-	},
-
-	/* Extract all possible characters from the date format. */
-	_possibleChars: function( format ) {
-		var iFormat,
-			chars = "",
-			literal = false,
-
-			// Check whether a format character is doubled
-			lookAhead = function( match ) {
-				var matches = ( iFormat + 1 < format.length && format.charAt( iFormat + 1 ) === match );
-				if ( matches ) {
-					iFormat++;
-				}
-				return matches;
-			};
-
-		for ( iFormat = 0; iFormat < format.length; iFormat++ ) {
-			if ( literal ) {
-				if ( format.charAt( iFormat ) === "'" && !lookAhead( "'" ) ) {
-					literal = false;
-				} else {
-					chars += format.charAt( iFormat );
-				}
-			} else {
-				switch ( format.charAt( iFormat ) ) {
-					case "d": case "m": case "y": case "@":
-						chars += "0123456789";
-						break;
-					case "D": case "M":
-						return null; // Accept anything
-					case "'":
-						if ( lookAhead( "'" ) ) {
-							chars += "'";
-						} else {
-							literal = true;
-						}
-						break;
-					default:
-						chars += format.charAt( iFormat );
-				}
-			}
-		}
-		return chars;
-	},
-
-	/* Get a setting value, defaulting if necessary. */
-	_get: function( inst, name ) {
-		return inst.settings[ name ] !== undefined ?
-			inst.settings[ name ] : this._defaults[ name ];
-	},
-
-	/* Parse existing date and initialise date picker. */
-	_setDateFromField: function( inst, noDefault ) {
-		if ( inst.input.val() === inst.lastVal ) {
-			return;
-		}
-
-		var dateFormat = this._get( inst, "dateFormat" ),
-			dates = inst.lastVal = inst.input ? inst.input.val() : null,
-			defaultDate = this._getDefaultDate( inst ),
-			date = defaultDate,
-			settings = this._getFormatConfig( inst );
-
-		try {
-			date = this.parseDate( dateFormat, dates, settings ) || defaultDate;
-		} catch ( event ) {
-			dates = ( noDefault ? "" : dates );
-		}
-		inst.selectedDay = date.getDate();
-		inst.drawMonth = inst.selectedMonth = date.getMonth();
-		inst.drawYear = inst.selectedYear = date.getFullYear();
-		inst.currentDay = ( dates ? date.getDate() : 0 );
-		inst.currentMonth = ( dates ? date.getMonth() : 0 );
-		inst.currentYear = ( dates ? date.getFullYear() : 0 );
-		this._adjustInstDate( inst );
-	},
-
-	/* Retrieve the default date shown on opening. */
-	_getDefaultDate: function( inst ) {
-		return this._restrictMinMax( inst,
-			this._determineDate( inst, this._get( inst, "defaultDate" ), new Date() ) );
-	},
-
-	/* A date may be specified as an exact value or a relative one. */
-	_determineDate: function( inst, date, defaultDate ) {
-		var offsetNumeric = function( offset ) {
-				var date = new Date();
-				date.setDate( date.getDate() + offset );
-				return date;
-			},
-			offsetString = function( offset ) {
-				try {
-					return $.datepicker.parseDate( $.datepicker._get( inst, "dateFormat" ),
-						offset, $.datepicker._getFormatConfig( inst ) );
-				}
-				catch ( e ) {
-
-					// Ignore
-				}
-
-				var date = ( offset.toLowerCase().match( /^c/ ) ?
-					$.datepicker._getDate( inst ) : null ) || new Date(),
-					year = date.getFullYear(),
-					month = date.getMonth(),
-					day = date.getDate(),
-					pattern = /([+\-]?[0-9]+)\s*(d|D|w|W|m|M|y|Y)?/g,
-					matches = pattern.exec( offset );
-
-				while ( matches ) {
-					switch ( matches[ 2 ] || "d" ) {
-						case "d" : case "D" :
-							day += parseInt( matches[ 1 ], 10 ); break;
-						case "w" : case "W" :
-							day += parseInt( matches[ 1 ], 10 ) * 7; break;
-						case "m" : case "M" :
-							month += parseInt( matches[ 1 ], 10 );
-							day = Math.min( day, $.datepicker._getDaysInMonth( year, month ) );
-							break;
-						case "y": case "Y" :
-							year += parseInt( matches[ 1 ], 10 );
-							day = Math.min( day, $.datepicker._getDaysInMonth( year, month ) );
-							break;
-					}
-					matches = pattern.exec( offset );
-				}
-				return new Date( year, month, day );
-			},
-			newDate = ( date == null || date === "" ? defaultDate : ( typeof date === "string" ? offsetString( date ) :
-				( typeof date === "number" ? ( isNaN( date ) ? defaultDate : offsetNumeric( date ) ) : new Date( date.getTime() ) ) ) );
-
-		newDate = ( newDate && newDate.toString() === "Invalid Date" ? defaultDate : newDate );
-		if ( newDate ) {
-			newDate.setHours( 0 );
-			newDate.setMinutes( 0 );
-			newDate.setSeconds( 0 );
-			newDate.setMilliseconds( 0 );
-		}
-		return this._daylightSavingAdjust( newDate );
-	},
-
-	/* Handle switch to/from daylight saving.
-	 * Hours may be non-zero on daylight saving cut-over:
-	 * > 12 when midnight changeover, but then cannot generate
+				if ( day <= 0 1 2 3 4 10 24 31 60 100 365 400 822 1970 3339 8601 10000 10000000 86400000 dim ) { break; } month++; day -="dim;" while ( true ); date="this._daylightSavingAdjust(" new date( year, month 1, if date.getfullyear() !="=" year || date.getmonth() + date.getdate() throw "invalid date"; e.g. 02 00 return date; }, * standard formats. atom: "yy-mm-dd", rfc (iso 8601) cookie: "d, dd m yy", iso_8601: rfc_822: d y", rfc_850: "dd, dd-m-y", rfc_1036: rfc_1123: rfc_2822: rss: ticks: "!", timestamp: "@", w3c: iso _ticksto1970: math.floor( ), format a object into string value. the can be combinations of following: (no leading zero) (two digit) o zeros) oo (three name short long mm y yy (four @ unix timestamp (ms since 01 1970) windows ticks (100ns 0001) "..." literal text '' single quote @param desired value to settings attributes include: daynamesshort string[7] abbreviated names days from sunday (optional) daynames monthnamesshort string[12] months monthnames @return in above formatdate: function( format, date, !date ""; var iformat, ? settings.daynamesshort : null this._defaults.daynamesshort, settings.daynames this._defaults.daynames, settings.monthnamesshort this._defaults.monthnamesshort, settings.monthnames this._defaults.monthnames, check whether character is doubled lookahead="function(" match matches="(" iformat < format.length && format.charat( iformat++; matches; number, with zero necessary formatnumber="function(" match, value, len num value; lookahead( num.length num; name, or as requested formatname="function(" shortnames, longnames longnames[ ] shortnames[ output , for format.length; iformat++ "'" !lookahead( else switch case "d": "d", date.getdate(), date.getday(), daynamesshort, "o": "o", math.round( date.getfullyear(), date.getmonth(), ).gettime() 0, "m": "m", monthnamesshort, "y": "y" % "0" "" "@": "!": this._ticksto1970; "'": ; default: output; extract all possible characters format. _possiblechars: chars }; null; accept anything chars; get setting defaulting necessary. _get: inst, inst.settings[ undefined this._defaults[ ]; parse existing and initialise picker. _setdatefromfield: nodefault inst.input.val()="==" inst.lastval return; dateformat="this._get(" "dateformat" dates="inst.lastVal" = inst.input null, defaultdate="this._getDefaultDate(" inst try dateformat, dates, defaultdate; catch event inst.selectedday="date.getDate();" inst.drawmonth="inst.selectedMonth" date.getmonth(); inst.drawyear="inst.selectedYear" date.getfullyear(); inst.currentday="(" inst.currentmonth="(" inst.currentyear="(" this._adjustinstdate( retrieve default shown on opening. _getdefaultdate: this._restrictminmax( this._determinedate( this._get( "defaultdate" date() may specified an exact relative one. _determinedate: offsetnumeric="function(" offset date(); date.setdate( offsetstring="function(" $.datepicker.parsedate( $.datepicker._get( offset, $.datepicker._getformatconfig( e ignore offset.tolowercase().match( ^c $.datepicker._getdate( date(), pattern="/([+\-]?[0-9]+)\s*(d|D|w|W|m|M|y|Y)?/g," matches[ "d" ], "w" 7; "m" day, $.datepicker._getdaysinmonth( month, newdate="(" typeof "string" offsetstring( "number" isnan( offsetnumeric( date.gettime() newdate.tostring()="==" date" newdate.sethours( newdate.setminutes( newdate.setseconds( newdate.setmilliseconds( this._daylightsavingadjust( handle daylight saving. hours non-zero saving cut-over:> 12 when midnight changeover, but then cannot generate
 	 * midnight datetime, so jump to 1AM, otherwise reset.
 	 * @param  date  (Date) the date to check
 	 * @return  (Date) the corrected date
@@ -11266,9 +10437,8 @@ $.extend( Datepicker.prototype, {
 			this._getFormatConfig( inst ) ) );
 
 		prev = ( this._canAdjustMonth( inst, -1, drawYear, drawMonth ) ?
-			"<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
-			" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "'>" + prevText + "</span></a>" :
-			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "'>" + prevText + "</span></a>" ) );
+			"<a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" " + title="" + prevText + ""><span class="ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "">" + prevText + "</span></a>" :
+			( hideIfNoPrevNext ? "" : "<a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="" + prevText + ""><span class="ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w" ) + "">" + prevText + "</span></a>" ) );
 
 		nextText = this._get( inst, "nextText" );
 		nextText = ( !navigationAsDateFormat ? nextText : this.formatDate( nextText,
@@ -11276,21 +10446,19 @@ $.extend( Datepicker.prototype, {
 			this._getFormatConfig( inst ) ) );
 
 		next = ( this._canAdjustMonth( inst, +1, drawYear, drawMonth ) ?
-			"<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
-			" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "'>" + nextText + "</span></a>" :
-			( hideIfNoPrevNext ? "" : "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "'>" + nextText + "</span></a>" ) );
+			"<a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" " + title="" + nextText + ""><span class="ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "">" + nextText + "</span></a>" :
+			( hideIfNoPrevNext ? "" : "<a class="ui-datepicker-next ui-corner-all ui-state-disabled" title="" + nextText + ""><span class="ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e" ) + "">" + nextText + "</span></a>" ) );
 
 		currentText = this._get( inst, "currentText" );
 		gotoDate = ( this._get( inst, "gotoCurrent" ) && inst.currentDay ? currentDate : today );
 		currentText = ( !navigationAsDateFormat ? currentText :
 			this.formatDate( currentText, gotoDate, this._getFormatConfig( inst ) ) );
 
-		controls = ( !inst.inline ? "<button type='button' class='ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all' data-handler='hide' data-event='click'>" +
+		controls = ( !inst.inline ? "<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">" +
 			this._get( inst, "closeText" ) + "</button>" : "" );
 
-		buttonPanel = ( showButtonPanel ) ? "<div class='ui-datepicker-buttonpane ui-widget-content'>" + ( isRTL ? controls : "" ) +
-			( this._isInRange( inst, gotoDate ) ? "<button type='button' class='ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all' data-handler='today' data-event='click'" +
-			">" + currentText + "</button>" : "" ) + ( isRTL ? "" : controls ) + "</div>" : "";
+		buttonPanel = ( showButtonPanel ) ? "<div class="ui-datepicker-buttonpane ui-widget-content">" + ( isRTL ? controls : "" ) +
+			( this._isInRange( inst, gotoDate ) ? "<button type="button" class="ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all" data-handler="today" data-event="click" " +>" + currentText + "</button>" : "" ) + ( isRTL ? "" : controls ) + "</div>" : "";
 
 		firstDay = parseInt( this._get( inst, "firstDay" ), 10 );
 		firstDay = ( isNaN( firstDay ) ? 0 : firstDay );
@@ -11314,7 +10482,7 @@ $.extend( Datepicker.prototype, {
 				cornerClass = " ui-corner-all";
 				calender = "";
 				if ( isMultiMonth ) {
-					calender += "<div class='ui-datepicker-group";
+					calender += "<div class="ui-datepicker-group";
 					if ( numMonths[ 1 ] > 1 ) {
 						switch ( col ) {
 							case 0: calender += " ui-datepicker-group-first";
@@ -11324,20 +10492,20 @@ $.extend( Datepicker.prototype, {
 							default: calender += " ui-datepicker-group-middle"; cornerClass = ""; break;
 						}
 					}
-					calender += "'>";
+					calender += "">";
 				}
-				calender += "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
+				calender += "<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "">" +
 					( /all|left/.test( cornerClass ) && row === 0 ? ( isRTL ? next : prev ) : "" ) +
 					( /all|right/.test( cornerClass ) && row === 0 ? ( isRTL ? prev : next ) : "" ) +
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
 					row > 0 || col > 0, monthNames, monthNamesShort ) + // draw month headers
-					"</div><table class='ui-datepicker-calendar'><thead>" +
+					"</div><table class="ui-datepicker-calendar"><thead>" +
 					"<tr>";
-				thead = ( showWeek ? "<th class='ui-datepicker-week-col'>" + this._get( inst, "weekHeader" ) + "</th>" : "" );
+				thead = ( showWeek ? "<th class="ui-datepicker-week-col">" + this._get( inst, "weekHeader" ) + "</th>" : "" );
 				for ( dow = 0; dow < 7; dow++ ) { // days of the week
 					day = ( dow + firstDay ) % 7;
-					thead += "<th scope='col'" + ( ( dow + firstDay + 6 ) % 7 >= 5 ? " class='ui-datepicker-week-end'" : "" ) + ">" +
-						"<span title='" + dayNames[ day ] + "'>" + dayNamesMin[ day ] + "</span></th>";
+					thead += "<th 6 7 scope="col" " + ( dow firstday ) %>= 5 ? " class='ui-datepicker-week-end'" : "" ) + ">" +
+						"<span title="" + dayNames[ day ] + "">" + dayNamesMin[ day ] + "</span></th>";
 				}
 				calender += thead + "</tr></thead><tbody>";
 				daysInMonth = this._getDaysInMonth( drawYear, drawMonth );
@@ -11351,7 +10519,7 @@ $.extend( Datepicker.prototype, {
 				printDate = this._daylightSavingAdjust( new Date( drawYear, drawMonth, 1 - leadDays ) );
 				for ( dRow = 0; dRow < numRows; dRow++ ) { // create date picker rows
 					calender += "<tr>";
-					tbody = ( !showWeek ? "" : "<td class='ui-datepicker-week-col'>" +
+					tbody = ( !showWeek ? "" : "<td class="ui-datepicker-week-col">" +
 						this._get( inst, "calculateWeek" )( printDate ) + "</td>" );
 					for ( dow = 0; dow < 7; dow++ ) { // create date picker days
 						daySettings = ( beforeShowDay ?
@@ -11359,7 +10527,7 @@ $.extend( Datepicker.prototype, {
 						otherMonth = ( printDate.getMonth() !== drawMonth );
 						unselectable = ( otherMonth && !selectOtherMonths ) || !daySettings[ 0 ] ||
 							( minDate && printDate < minDate ) || ( maxDate && printDate > maxDate );
-						tbody += "<td class='" +
+						tbody += "<td 2 class="" +
 							( ( dow + firstDay + 6 ) % 7 >= 5 ? " ui-datepicker-week-end" : "" ) + // highlight weekends
 							( otherMonth ? " ui-datepicker-other-month" : "" ) + // highlight days from other months
 							( ( printDate.getTime() === selectedDate.getTime() && drawMonth === inst.selectedMonth && inst._keyEvent ) || // user pressed key
@@ -11370,15 +10538,13 @@ $.extend( Datepicker.prototype, {
 							( unselectable ? " " + this._unselectableClass + " ui-state-disabled" : "" ) +  // highlight unselectable days
 							( otherMonth && !showOtherMonths ? "" : " " + daySettings[ 1 ] + // highlight custom dates
 							( printDate.getTime() === currentDate.getTime() ? " " + this._currentClass : "" ) + // highlight selected day
-							( printDate.getTime() === today.getTime() ? " ui-datepicker-today" : "" ) ) + "'" + // highlight today (if different)
-							( ( !otherMonth || showOtherMonths ) && daySettings[ 2 ] ? " title='" + daySettings[ 2 ].replace( /'/g, "&#39;" ) + "'" : "" ) + // cell title
-							( unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'" ) + ">" + // actions
+							( printDate.getTime() === today.getTime() ? " ui-datepicker-today" : "" ) ) + "" " + highlight today (if different) ( !othermonth || showothermonths ) && daysettings[ ] ? title="" + daySettings[ 2 ].replace( /" g, "&#39;" "'" : "" cell unselectable data-handler="selectDay" data-event="click" data-month="" + printDate.getMonth() + "" data-year="" + printDate.getFullYear() + "">" + // actions
 							( otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
-							( unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
+							( unselectable ? "<span class="ui-state-default">" + printDate.getDate() + "</span>" : "<a class="ui-state-default" +
 							( printDate.getTime() === today.getTime() ? " ui-state-highlight" : "" ) +
 							( printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "" ) + // highlight selected day
 							( otherMonth ? " ui-priority-secondary" : "" ) + // distinguish dates from other months
-							"' href='#'>" + printDate.getDate() + "</a>" ) ) + "</td>"; // display selectable date
+							"" href="#">" + printDate.getDate() + "</a>" ) ) + "</td>"; // display selectable date
 						printDate.setDate( printDate.getDate() + 1 );
 						printDate = this._daylightSavingAdjust( printDate );
 					}
@@ -11390,7 +10556,7 @@ $.extend( Datepicker.prototype, {
 					drawYear++;
 				}
 				calender += "</tbody></table>" + ( isMultiMonth ? "</div>" +
-							( ( numMonths[ 0 ] > 0 && col === numMonths[ 1 ] - 1 ) ? "<div class='ui-datepicker-row-break'></div>" : "" ) : "" );
+							( ( numMonths[ 0 ] > 0 && col === numMonths[ 1 ] - 1 ) ? "<div class="ui-datepicker-row-break"></div>" : "" ) : "" );
 				group += calender;
 			}
 			html += group;
@@ -11408,24 +10574,21 @@ $.extend( Datepicker.prototype, {
 			changeMonth = this._get( inst, "changeMonth" ),
 			changeYear = this._get( inst, "changeYear" ),
 			showMonthAfterYear = this._get( inst, "showMonthAfterYear" ),
-			html = "<div class='ui-datepicker-title'>",
+			html = "<div class="ui-datepicker-title">",
 			monthHtml = "";
 
 		// Month selection
 		if ( secondary || !changeMonth ) {
-			monthHtml += "<span class='ui-datepicker-month'>" + monthNames[ drawMonth ] + "</span>";
+			monthHtml += "<span class="ui-datepicker-month">" + monthNames[ drawMonth ] + "</span>";
 		} else {
 			inMinYear = ( minDate && minDate.getFullYear() === drawYear );
 			inMaxYear = ( maxDate && maxDate.getFullYear() === drawYear );
-			monthHtml += "<select class='ui-datepicker-month' data-handler='selectMonth' data-event='change'>";
+			monthHtml += "<select class="ui-datepicker-month" data-handler="selectMonth" data-event="change">";
 			for ( month = 0; month < 12; month++ ) {
-				if ( ( !inMinYear || month >= minDate.getMonth() ) && ( !inMaxYear || month <= maxDate.getMonth() ) ) {
-					monthHtml += "<option value='" + month + "'" +
-						( month === drawMonth ? " selected='selected'" : "" ) +
-						">" + monthNamesShort[ month ] + "</option>";
+				if ( ( !inMinYear || month >= minDate.getMonth() ) && ( !inMaxYear || month <= maxdate.getmonth() ) { monthhtml +="<option value='" month "'" ( drawmonth ? " selected="selected" : "">" + monthNamesShort[ month ] + "";
 				}
 			}
-			monthHtml += "</select>";
+			monthHtml += "</=></select>";
 		}
 
 		if ( !showMonthAfterYear ) {
@@ -11436,7 +10599,7 @@ $.extend( Datepicker.prototype, {
 		if ( !inst.yearshtml ) {
 			inst.yearshtml = "";
 			if ( secondary || !changeYear ) {
-				html += "<span class='ui-datepicker-year'>" + drawYear + "</span>";
+				html += "<span class="ui-datepicker-year">" + drawYear + "</span>";
 			} else {
 
 				// determine range of years to display
@@ -11452,13 +10615,10 @@ $.extend( Datepicker.prototype, {
 				endYear = Math.max( year, determineYear( years[ 1 ] || "" ) );
 				year = ( minDate ? Math.max( year, minDate.getFullYear() ) : year );
 				endYear = ( maxDate ? Math.min( endYear, maxDate.getFullYear() ) : endYear );
-				inst.yearshtml += "<select class='ui-datepicker-year' data-handler='selectYear' data-event='change'>";
-				for ( ; year <= endYear; year++ ) {
-					inst.yearshtml += "<option value='" + year + "'" +
-						( year === drawYear ? " selected='selected'" : "" ) +
-						">" + year + "</option>";
+				inst.yearshtml += "<select class="ui-datepicker-year" data-handler="selectYear" data-event="change">";
+				for ( ; year <= endyear; year++ ) { inst.yearshtml +="<option value='" year "'" ( drawyear ? " selected="selected" : "">" + year + "";
 				}
-				inst.yearshtml += "</select>";
+				inst.yearshtml += "</=></select>";
 
 				html += inst.yearshtml;
 				inst.yearshtml = null;
@@ -11560,135 +10720,8 @@ $.extend( Datepicker.prototype, {
 			}
 
 		return ( ( !minDate || date.getTime() >= minDate.getTime() ) &&
-			( !maxDate || date.getTime() <= maxDate.getTime() ) &&
-			( !minYear || date.getFullYear() >= minYear ) &&
-			( !maxYear || date.getFullYear() <= maxYear ) );
-	},
-
-	/* Provide the configuration settings for formatting/parsing. */
-	_getFormatConfig: function( inst ) {
-		var shortYearCutoff = this._get( inst, "shortYearCutoff" );
-		shortYearCutoff = ( typeof shortYearCutoff !== "string" ? shortYearCutoff :
-			new Date().getFullYear() % 100 + parseInt( shortYearCutoff, 10 ) );
-		return { shortYearCutoff: shortYearCutoff,
-			dayNamesShort: this._get( inst, "dayNamesShort" ), dayNames: this._get( inst, "dayNames" ),
-			monthNamesShort: this._get( inst, "monthNamesShort" ), monthNames: this._get( inst, "monthNames" ) };
-	},
-
-	/* Format the given date for display. */
-	_formatDate: function( inst, day, month, year ) {
-		if ( !day ) {
-			inst.currentDay = inst.selectedDay;
-			inst.currentMonth = inst.selectedMonth;
-			inst.currentYear = inst.selectedYear;
-		}
-		var date = ( day ? ( typeof day === "object" ? day :
-			this._daylightSavingAdjust( new Date( year, month, day ) ) ) :
-			this._daylightSavingAdjust( new Date( inst.currentYear, inst.currentMonth, inst.currentDay ) ) );
-		return this.formatDate( this._get( inst, "dateFormat" ), date, this._getFormatConfig( inst ) );
-	}
-} );
-
-/*
- * Bind hover events for datepicker elements.
- * Done via delegate so the binding only occurs once in the lifetime of the parent div.
- * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
- */
-function datepicker_bindHover( dpDiv ) {
-	var selector = "button, .ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-calendar td a";
-	return dpDiv.on( "mouseout", selector, function() {
-			$( this ).removeClass( "ui-state-hover" );
-			if ( this.className.indexOf( "ui-datepicker-prev" ) !== -1 ) {
-				$( this ).removeClass( "ui-datepicker-prev-hover" );
-			}
-			if ( this.className.indexOf( "ui-datepicker-next" ) !== -1 ) {
-				$( this ).removeClass( "ui-datepicker-next-hover" );
-			}
-		} )
-		.on( "mouseover", selector, datepicker_handleMouseover );
-}
-
-function datepicker_handleMouseover() {
-	if ( !$.datepicker._isDisabledDatepicker( datepicker_instActive.inline ? datepicker_instActive.dpDiv.parent()[ 0 ] : datepicker_instActive.input[ 0 ] ) ) {
-		$( this ).parents( ".ui-datepicker-calendar" ).find( "a" ).removeClass( "ui-state-hover" );
-		$( this ).addClass( "ui-state-hover" );
-		if ( this.className.indexOf( "ui-datepicker-prev" ) !== -1 ) {
-			$( this ).addClass( "ui-datepicker-prev-hover" );
-		}
-		if ( this.className.indexOf( "ui-datepicker-next" ) !== -1 ) {
-			$( this ).addClass( "ui-datepicker-next-hover" );
-		}
-	}
-}
-
-/* jQuery extend now ignores nulls! */
-function datepicker_extendRemove( target, props ) {
-	$.extend( target, props );
-	for ( var name in props ) {
-		if ( props[ name ] == null ) {
-			target[ name ] = props[ name ];
-		}
-	}
-	return target;
-}
-
-/* Invoke the datepicker functionality.
-   @param  options  string - a command, optionally followed by additional parameters or
-					Object - settings for attaching new datepicker functionality
-   @return  jQuery object */
-$.fn.datepicker = function( options ) {
-
-	/* Verify an empty collection wasn't passed - Fixes #6976 */
-	if ( !this.length ) {
-		return this;
-	}
-
-	/* Initialise the date picker. */
-	if ( !$.datepicker.initialized ) {
-		$( document ).on( "mousedown", $.datepicker._checkExternalClick );
-		$.datepicker.initialized = true;
-	}
-
-	/* Append datepicker main container to body if not exist. */
-	if ( $( "#" + $.datepicker._mainDivId ).length === 0 ) {
-		$( "body" ).append( $.datepicker.dpDiv );
-	}
-
-	var otherArgs = Array.prototype.slice.call( arguments, 1 );
-	if ( typeof options === "string" && ( options === "isDisabled" || options === "getDate" || options === "widget" ) ) {
-		return $.datepicker[ "_" + options + "Datepicker" ].
-			apply( $.datepicker, [ this[ 0 ] ].concat( otherArgs ) );
-	}
-	if ( options === "option" && arguments.length === 2 && typeof arguments[ 1 ] === "string" ) {
-		return $.datepicker[ "_" + options + "Datepicker" ].
-			apply( $.datepicker, [ this[ 0 ] ].concat( otherArgs ) );
-	}
-	return this.each( function() {
-		typeof options === "string" ?
-			$.datepicker[ "_" + options + "Datepicker" ].
-				apply( $.datepicker, [ this ].concat( otherArgs ) ) :
-			$.datepicker._attachDatepicker( this, options );
-	} );
-};
-
-$.datepicker = new Datepicker(); // singleton instance
-$.datepicker.initialized = false;
-$.datepicker.uuid = new Date().getTime();
-$.datepicker.version = "1.12.1";
-
-var widgetsDatepicker = $.datepicker;
-
-
-/*!
- * jQuery UI Dialog 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Dialog
+			( !maxDate || date.getTime() <= maxdate.gettime() ) && ( !minyear || date.getfullyear()>= minYear ) &&
+			( !maxYear || date.getFullYear() <= 0 1 2 10 100 maxyear ) ); }, * provide the configuration settings for formatting parsing. _getformatconfig: function( inst { var shortyearcutoff="this._get(" inst, "shortyearcutoff" typeof !="=" "string" ? : new date().getfullyear() % + parseint( shortyearcutoff, return shortyearcutoff: daynamesshort: this._get( "daynamesshort" ), daynames: "daynames" monthnamesshort: "monthnamesshort" monthnames: "monthnames" }; format given date display. _formatdate: day, month, year if ( !day inst.currentday="inst.selectedDay;" inst.currentmonth="inst.selectedMonth;" inst.currentyear="inst.selectedYear;" } day "object" this._daylightsavingadjust( date( year, inst.currentyear, inst.currentmonth, this.formatdate( "dateformat" date, this._getformatconfig( bind hover events datepicker elements. done via delegate so binding only occurs once in lifetime of parent div. global datepicker_instactive, set by _updatedatepicker allows handlers to find their way back active picker. function datepicker_bindhover( dpdiv selector="button, .ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-calendar td a" ; dpdiv.on( "mouseout", selector, function() $( this ).removeclass( "ui-state-hover" this.classname.indexof( "ui-datepicker-prev" -1 "ui-datepicker-prev-hover" "ui-datepicker-next" "ui-datepicker-next-hover" .on( "mouseover", datepicker_handlemouseover datepicker_handlemouseover() !$.datepicker._isdisableddatepicker( datepicker_instactive.inline datepicker_instactive.dpdiv.parent()[ ] datepicker_instactive.input[ ).parents( ".ui-datepicker-calendar" ).find( "a" ).addclass( jquery extend now ignores nulls! datepicker_extendremove( target, props $.extend( name props[ null target[ ]; target; invoke functionality. @param options string - a command, optionally followed additional parameters or object attaching functionality @return $.fn.datepicker="function(" verify an empty collection wasn't passed fixes #6976 !this.length this; initialise !$.datepicker.initialized document ).on( "mousedown", $.datepicker._checkexternalclick $.datepicker.initialized="true;" append main container body not exist. "#" $.datepicker._maindivid ).length="==" "body" ).append( $.datepicker.dpdiv otherargs="Array.prototype.slice.call(" arguments, && "isdisabled" || "getdate" "widget" $.datepicker[ "_" "datepicker" ]. apply( $.datepicker, [ this[ ].concat( "option" arguments.length="==" arguments[ this.each( $.datepicker._attachdatepicker( this, $.datepicker="new" datepicker(); singleton instance $.datepicker.uuid="new" date().gettime(); $.datepicker.version="1.12.1" widgetsdatepicker="$.datepicker;" *! ui dialog 1.12.1 http: jqueryui.com copyright foundation and other contributors released under mit license. jquery.org license>>label: Dialog
 //>>group: Widgets
 //>>description: Displays customizable dialog windows.
 //>>docs: http://api.jqueryui.com/dialog/
@@ -11994,13 +11027,7 @@ $.widget( "ui.dialog", {
 		checkFocus.call( this );
 
 		// support: IE
-		// IE <= 8 doesn't prevent moving focus even with event.preventDefault()
-		// so we check again later
-		this._delay( checkFocus );
-	},
-
-	_createWrapper: function() {
-		this.uiDialog = $( "<div>" )
+		// IE <= 8 doesn't prevent moving focus even with event.preventdefault() so we check again later this._delay( checkfocus ); }, _createwrapper: function() { this.uidialog="$(" "<div>" )
 			.hide()
 			.attr( {
 
@@ -12082,7 +11109,7 @@ $.widget( "ui.dialog", {
 		// Support: IE
 		// Use type="button" to prevent enter keypresses in textboxes from closing the
 		// dialog in IE (#9312)
-		this.uiDialogTitlebarClose = $( "<button type='button'></button>" )
+		this.uiDialogTitlebarClose = $( "<button type="button"></button>" )
 			.button( {
 				label: $( "<a>" ).text( this.options.closeText ).html(),
 				icon: "ui-icon-closethick",
@@ -13083,7 +12110,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 	},
 
 	_renderItem: function( ul, item ) {
-		var li = $( "<li>" ),
+		var li = $( "</li><li>" ),
 			wrapper = $( "<div>", {
 				title: item.element.attr( "title" )
 			} );
@@ -13506,7 +12533,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 		var i, handleCount,
 			options = this.options,
 			existingHandles = this.element.find( ".ui-slider-handle" ),
-			handle = "<span tabindex='0'></span>",
+			handle = "<span tabindex="0"></span>",
 			handles = [];
 
 		handleCount = ( options.values && options.values.length ) || 1;
@@ -13935,10 +12962,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 
 	// Returns the step-aligned value that val is closest to, between (inclusive) min and max
 	_trimAlignValue: function( val ) {
-		if ( val <= this._valueMin() ) {
-			return this._valueMin();
-		}
-		if ( val >= this._valueMax() ) {
+		if ( val <= this._valuemin() ) { return this._valuemin(); } if ( val>= this._valueMax() ) {
 			return this._valueMax();
 		}
 		var step = ( this.options.step > 0 ) ? this.options.step : 1,
@@ -15110,19 +14134,7 @@ $.widget( "ui.tabs", {
 				}
 			} )
 
-			// Support: IE <9
-			// Preventing the default action in mousedown doesn't prevent IE
-			// from focusing the element, so if the anchor gets focused, blur.
-			// We don't have to worry about focusing the previously focused
-			// element since clicking on a non-focusable element should focus
-			// the body anyway.
-			.on( "focus" + this.eventNamespace, ".ui-tabs-anchor", function() {
-				if ( $( this ).closest( "li" ).is( ".ui-state-disabled" ) ) {
-					this.blur();
-				}
-			} );
-
-		this.tabs = this.tablist.find( "> li:has(a[href])" )
+			// Support: IE <9 preventing the default action in mousedown doesn't prevent ie from focusing element, so if anchor gets focused, blur. we don't have to worry about previously focused element since clicking on a non-focusable should focus body anyway. .on( "focus" + this.eventnamespace, ".ui-tabs-anchor", function() { ( $( this ).closest( "li" ).is( ".ui-state-disabled" ) this.blur(); } ); this.tabs="this.tablist.find(" "> li:has(a[href])" )
 			.attr( {
 				role: "tab",
 				tabIndex: -1
@@ -15558,82 +14570,7 @@ $.widget( "ui.tabs", {
 
 		this.xhr = $.ajax( this._ajaxSettings( anchor, event, eventData ) );
 
-		// Support: jQuery <1.8
-		// jQuery <1.8 returns false if the request is canceled in beforeSend,
-		// but as of 1.8, $.ajax() always returns a jqXHR object.
-		if ( this.xhr && this.xhr.statusText !== "canceled" ) {
-			this._addClass( tab, "ui-tabs-loading" );
-			panel.attr( "aria-busy", "true" );
-
-			this.xhr
-				.done( function( response, status, jqXHR ) {
-
-					// support: jQuery <1.8
-					// http://bugs.jquery.com/ticket/11778
-					setTimeout( function() {
-						panel.html( response );
-						that._trigger( "load", event, eventData );
-
-						complete( jqXHR, status );
-					}, 1 );
-				} )
-				.fail( function( jqXHR, status ) {
-
-					// support: jQuery <1.8
-					// http://bugs.jquery.com/ticket/11778
-					setTimeout( function() {
-						complete( jqXHR, status );
-					}, 1 );
-				} );
-		}
-	},
-
-	_ajaxSettings: function( anchor, event, eventData ) {
-		var that = this;
-		return {
-
-			// Support: IE <11 only
-			// Strip any hash that exists to prevent errors with the Ajax request
-			url: anchor.attr( "href" ).replace( /#.*$/, "" ),
-			beforeSend: function( jqXHR, settings ) {
-				return that._trigger( "beforeLoad", event,
-					$.extend( { jqXHR: jqXHR, ajaxSettings: settings }, eventData ) );
-			}
-		};
-	},
-
-	_getPanelForTab: function( tab ) {
-		var id = $( tab ).attr( "aria-controls" );
-		return this.element.find( this._sanitizeSelector( "#" + id ) );
-	}
-} );
-
-// DEPRECATED
-// TODO: Switch return back to widget declaration at top of file when this is removed
-if ( $.uiBackCompat !== false ) {
-
-	// Backcompat for ui-tab class (now ui-tabs-tab)
-	$.widget( "ui.tabs", $.ui.tabs, {
-		_processTabs: function() {
-			this._superApply( arguments );
-			this._addClass( this.tabs, "ui-tab" );
-		}
-	} );
-}
-
-var widgetsTabs = $.ui.tabs;
-
-
-/*!
- * jQuery UI Tooltip 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Tooltip
+		// Support: jQuery <1.8 1 11778 jquery <1.8 returns false if the request is canceled in beforesend, but as of 1.8, $.ajax() always a jqxhr object. ( this.xhr && this.xhr.statustext !="=" "canceled" ) { this._addclass( tab, "ui-tabs-loading" ); panel.attr( "aria-busy", "true" .done( function( response, status, support: http: bugs.jquery.com ticket settimeout( function() panel.html( response that._trigger( "load", event, eventdata complete( jqxhr, status }, } .fail( _ajaxsettings: anchor, var that="this;" return ie <11 only strip any hash exists to prevent errors with ajax url: anchor.attr( "href" ).replace( #.*$ , "" ), beforesend: settings "beforeload", $.extend( jqxhr: ajaxsettings: }; _getpanelfortab: tab id="$(" ).attr( "aria-controls" this.element.find( this._sanitizeselector( "#" + deprecated todo: switch back widget declaration at top file when this removed $.uibackcompat backcompat for ui-tab class (now ui-tabs-tab) $.widget( "ui.tabs", $.ui.tabs, _processtabs: this._superapply( arguments this.tabs, "ui-tab" widgetstabs="$.ui.tabs;" *! * ui tooltip 1.12.1 jqueryui.com copyright foundation and other contributors released under mit license. jquery.org license>>label: Tooltip
 //>>group: Widgets
 //>>description: Shows additional information for any element on hover or focus.
 //>>docs: http://api.jqueryui.com/tooltip/
@@ -15652,12 +14589,7 @@ $.widget( "ui.tooltip", {
 		},
 		content: function() {
 
-			// support: IE<9, Opera in jQuery <1.7
-			// .text() can't accept undefined, so coerce to a string
-			var title = $( this ).attr( "title" ) || "";
-
-			// Escape title, since we're going from an attribute to raw HTML
-			return $( "<a>" ).text( title ).html();
+			// support: IE<9, opera in jquery <1.7 .text() can't accept undefined, so coerce to a string var title="$(" this ).attr( "title" ) || ""; escape title, since we're going from an attribute raw html return $( "<a>" ).text( title ).html();
 		},
 		hide: true,
 
@@ -15897,11 +14829,7 @@ $.widget( "ui.tooltip", {
 		this._addDescribedBy( target, tooltip.attr( "id" ) );
 		tooltip.find( ".ui-tooltip-content" ).html( content );
 
-		// Support: Voiceover on OS X, JAWS on IE <= 9
-		// JAWS announces deletions even when aria-relevant="additions"
-		// Voiceover will sometimes re-read the entire log region's contents from the beginning
-		this.liveRegion.children().hide();
-		a11yContent = $( "<div>" ).html( tooltip.find( ".ui-tooltip-content" ).html() );
+		// Support: Voiceover on OS X, JAWS on IE <= 9 jaws announces deletions even when aria-relevant="additions" voiceover will sometimes re-read the entire log region's contents from beginning this.liveregion.children().hide(); a11ycontent="$(" "<div>" ).html( tooltip.find( ".ui-tooltip-content" ).html() );
 		a11yContent.removeAttr( "name" ).find( "[name]" ).removeAttr( "name" );
 		a11yContent.removeAttr( "id" ).find( "[id]" ).removeAttr( "id" );
 		a11yContent.appendTo( this.liveRegion );
@@ -16634,380 +15562,7 @@ spaces.hsla.to = function( rgba ) {
 	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (add)
 	if ( diff === 0 ) {
 		s = 0;
-	} else if ( l <= 0.5 ) {
-		s = diff / add;
-	} else {
-		s = diff / ( 2 - add );
-	}
-	return [ Math.round( h ) % 360, s, l, a == null ? 1 : a ];
-};
-
-spaces.hsla.from = function( hsla ) {
-	if ( hsla[ 0 ] == null || hsla[ 1 ] == null || hsla[ 2 ] == null ) {
-		return [ null, null, null, hsla[ 3 ] ];
-	}
-	var h = hsla[ 0 ] / 360,
-		s = hsla[ 1 ],
-		l = hsla[ 2 ],
-		a = hsla[ 3 ],
-		q = l <= 0.5 ? l * ( 1 + s ) : l + s - l * s,
-		p = 2 * l - q;
-
-	return [
-		Math.round( hue2rgb( p, q, h + ( 1 / 3 ) ) * 255 ),
-		Math.round( hue2rgb( p, q, h ) * 255 ),
-		Math.round( hue2rgb( p, q, h - ( 1 / 3 ) ) * 255 ),
-		a
-	];
-};
-
-each( spaces, function( spaceName, space ) {
-	var props = space.props,
-		cache = space.cache,
-		to = space.to,
-		from = space.from;
-
-	// Makes rgba() and hsla()
-	color.fn[ spaceName ] = function( value ) {
-
-		// Generate a cache for this space if it doesn't exist
-		if ( to && !this[ cache ] ) {
-			this[ cache ] = to( this._rgba );
-		}
-		if ( value === undefined ) {
-			return this[ cache ].slice();
-		}
-
-		var ret,
-			type = jQuery.type( value ),
-			arr = ( type === "array" || type === "object" ) ? value : arguments,
-			local = this[ cache ].slice();
-
-		each( props, function( key, prop ) {
-			var val = arr[ type === "object" ? key : prop.idx ];
-			if ( val == null ) {
-				val = local[ prop.idx ];
-			}
-			local[ prop.idx ] = clamp( val, prop );
-		} );
-
-		if ( from ) {
-			ret = color( from( local ) );
-			ret[ cache ] = local;
-			return ret;
-		} else {
-			return color( local );
-		}
-	};
-
-	// Makes red() green() blue() alpha() hue() saturation() lightness()
-	each( props, function( key, prop ) {
-
-		// Alpha is included in more than one space
-		if ( color.fn[ key ] ) {
-			return;
-		}
-		color.fn[ key ] = function( value ) {
-			var vtype = jQuery.type( value ),
-				fn = ( key === "alpha" ? ( this._hsla ? "hsla" : "rgba" ) : spaceName ),
-				local = this[ fn ](),
-				cur = local[ prop.idx ],
-				match;
-
-			if ( vtype === "undefined" ) {
-				return cur;
-			}
-
-			if ( vtype === "function" ) {
-				value = value.call( this, cur );
-				vtype = jQuery.type( value );
-			}
-			if ( value == null && prop.empty ) {
-				return this;
-			}
-			if ( vtype === "string" ) {
-				match = rplusequals.exec( value );
-				if ( match ) {
-					value = cur + parseFloat( match[ 2 ] ) * ( match[ 1 ] === "+" ? 1 : -1 );
-				}
-			}
-			local[ prop.idx ] = value;
-			return this[ fn ]( local );
-		};
-	} );
-} );
-
-// Add cssHook and .fx.step function for each named hook.
-// accept a space separated string of properties
-color.hook = function( hook ) {
-	var hooks = hook.split( " " );
-	each( hooks, function( i, hook ) {
-		jQuery.cssHooks[ hook ] = {
-			set: function( elem, value ) {
-				var parsed, curElem,
-					backgroundColor = "";
-
-				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" ||
-						( parsed = stringParse( value ) ) ) ) {
-					value = color( parsed || value );
-					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
-						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
-						while (
-							( backgroundColor === "" || backgroundColor === "transparent" ) &&
-							curElem && curElem.style
-						) {
-							try {
-								backgroundColor = jQuery.css( curElem, "backgroundColor" );
-								curElem = curElem.parentNode;
-							} catch ( e ) {
-							}
-						}
-
-						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
-							backgroundColor :
-							"_default" );
-					}
-
-					value = value.toRgbaString();
-				}
-				try {
-					elem.style[ hook ] = value;
-				} catch ( e ) {
-
-					// Wrapped to prevent IE from throwing errors on "invalid" values like
-					// 'auto' or 'inherit'
-				}
-			}
-		};
-		jQuery.fx.step[ hook ] = function( fx ) {
-			if ( !fx.colorInit ) {
-				fx.start = color( fx.elem, hook );
-				fx.end = color( fx.end );
-				fx.colorInit = true;
-			}
-			jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
-		};
-	} );
-
-};
-
-color.hook( stepHooks );
-
-jQuery.cssHooks.borderColor = {
-	expand: function( value ) {
-		var expanded = {};
-
-		each( [ "Top", "Right", "Bottom", "Left" ], function( i, part ) {
-			expanded[ "border" + part + "Color" ] = value;
-		} );
-		return expanded;
-	}
-};
-
-// Basic color names only.
-// Usage of any of the other color names requires adding yourself or including
-// jquery.color.svg-names.js.
-colors = jQuery.Color.names = {
-
-	// 4.1. Basic color keywords
-	aqua: "#00ffff",
-	black: "#000000",
-	blue: "#0000ff",
-	fuchsia: "#ff00ff",
-	gray: "#808080",
-	green: "#008000",
-	lime: "#00ff00",
-	maroon: "#800000",
-	navy: "#000080",
-	olive: "#808000",
-	purple: "#800080",
-	red: "#ff0000",
-	silver: "#c0c0c0",
-	teal: "#008080",
-	white: "#ffffff",
-	yellow: "#ffff00",
-
-	// 4.2.3. "transparent" color keyword
-	transparent: [ null, null, null, 0 ],
-
-	_default: "#ffffff"
-};
-
-} )( jQuery );
-
-/******************************************************************************/
-/****************************** CLASS ANIMATIONS ******************************/
-/******************************************************************************/
-( function() {
-
-var classAnimationActions = [ "add", "remove", "toggle" ],
-	shorthandStyles = {
-		border: 1,
-		borderBottom: 1,
-		borderColor: 1,
-		borderLeft: 1,
-		borderRight: 1,
-		borderTop: 1,
-		borderWidth: 1,
-		margin: 1,
-		padding: 1
-	};
-
-$.each(
-	[ "borderLeftStyle", "borderRightStyle", "borderBottomStyle", "borderTopStyle" ],
-	function( _, prop ) {
-		$.fx.step[ prop ] = function( fx ) {
-			if ( fx.end !== "none" && !fx.setAttr || fx.pos === 1 && !fx.setAttr ) {
-				jQuery.style( fx.elem, prop, fx.end );
-				fx.setAttr = true;
-			}
-		};
-	}
-);
-
-function getElementStyles( elem ) {
-	var key, len,
-		style = elem.ownerDocument.defaultView ?
-			elem.ownerDocument.defaultView.getComputedStyle( elem, null ) :
-			elem.currentStyle,
-		styles = {};
-
-	if ( style && style.length && style[ 0 ] && style[ style[ 0 ] ] ) {
-		len = style.length;
-		while ( len-- ) {
-			key = style[ len ];
-			if ( typeof style[ key ] === "string" ) {
-				styles[ $.camelCase( key ) ] = style[ key ];
-			}
-		}
-
-	// Support: Opera, IE <9
-	} else {
-		for ( key in style ) {
-			if ( typeof style[ key ] === "string" ) {
-				styles[ key ] = style[ key ];
-			}
-		}
-	}
-
-	return styles;
-}
-
-function styleDifference( oldStyle, newStyle ) {
-	var diff = {},
-		name, value;
-
-	for ( name in newStyle ) {
-		value = newStyle[ name ];
-		if ( oldStyle[ name ] !== value ) {
-			if ( !shorthandStyles[ name ] ) {
-				if ( $.fx.step[ name ] || !isNaN( parseFloat( value ) ) ) {
-					diff[ name ] = value;
-				}
-			}
-		}
-	}
-
-	return diff;
-}
-
-// Support: jQuery <1.8
-if ( !$.fn.addBack ) {
-	$.fn.addBack = function( selector ) {
-		return this.add( selector == null ?
-			this.prevObject : this.prevObject.filter( selector )
-		);
-	};
-}
-
-$.effects.animateClass = function( value, duration, easing, callback ) {
-	var o = $.speed( duration, easing, callback );
-
-	return this.queue( function() {
-		var animated = $( this ),
-			baseClass = animated.attr( "class" ) || "",
-			applyClassChange,
-			allAnimations = o.children ? animated.find( "*" ).addBack() : animated;
-
-		// Map the animated objects to store the original styles.
-		allAnimations = allAnimations.map( function() {
-			var el = $( this );
-			return {
-				el: el,
-				start: getElementStyles( this )
-			};
-		} );
-
-		// Apply class change
-		applyClassChange = function() {
-			$.each( classAnimationActions, function( i, action ) {
-				if ( value[ action ] ) {
-					animated[ action + "Class" ]( value[ action ] );
-				}
-			} );
-		};
-		applyClassChange();
-
-		// Map all animated objects again - calculate new styles and diff
-		allAnimations = allAnimations.map( function() {
-			this.end = getElementStyles( this.el[ 0 ] );
-			this.diff = styleDifference( this.start, this.end );
-			return this;
-		} );
-
-		// Apply original class
-		animated.attr( "class", baseClass );
-
-		// Map all animated objects again - this time collecting a promise
-		allAnimations = allAnimations.map( function() {
-			var styleInfo = this,
-				dfd = $.Deferred(),
-				opts = $.extend( {}, o, {
-					queue: false,
-					complete: function() {
-						dfd.resolve( styleInfo );
-					}
-				} );
-
-			this.el.animate( this.diff, opts );
-			return dfd.promise();
-		} );
-
-		// Once all animations have completed:
-		$.when.apply( $, allAnimations.get() ).done( function() {
-
-			// Set the final class
-			applyClassChange();
-
-			// For each animated element,
-			// clear all css properties that were animated
-			$.each( arguments, function() {
-				var el = this.el;
-				$.each( this.diff, function( key ) {
-					el.css( key, "" );
-				} );
-			} );
-
-			// This is guarnteed to be there if you use jQuery.speed()
-			// it also handles dequeuing the next anim...
-			o.complete.call( animated[ 0 ] );
-		} );
-	} );
-};
-
-$.fn.extend( {
-	addClass: ( function( orig ) {
-		return function( classNames, speed, easing, callback ) {
-			return speed ?
-				$.effects.animateClass.call( this,
-					{ add: classNames }, speed, easing, callback ) :
-				orig.apply( this, arguments );
-		};
-	} )( $.fn.addClass ),
-
-	removeClass: ( function( orig ) {
-		return function( classNames, speed, easing, callback ) {
-			return arguments.length > 1 ?
+	} else if ( l <= 0 1 2 3 255 0.5 ) { s="diff" add; } else ( - add ); return [ math.round( h % 360, s, l, a="=" null ? : ]; }; spaces.hsla.from="function(" hsla if hsla[ ]="=" || null, var ], l="hsla[" q="l" <="0.5" * + p="2" q; hue2rgb( p, q, ), each( spaces, function( spacename, space props="space.props," cache="space.cache," to="space.to," from="space.from;" makes rgba() and hsla() color.fn[ spacename value generate for this it doesn't exist && !this[ this[ this._rgba undefined ].slice(); ret, type="jQuery.type(" arr="(" "array" "object" arguments, local="this[" props, key, prop val="arr[" key prop.idx local[ val, ret="color(" from( ret[ ret; color( red() green() blue() alpha() hue() saturation() lightness() alpha is included in more than one return; vtype="jQuery.type(" fn="(" "alpha" this._hsla "hsla" "rgba" ](), cur="local[" match; "undefined" cur; "function" this, prop.empty this; "string" match="rplusequals.exec(" parsefloat( match[ "+" -1 ]( csshook .fx.step function each named hook. accept separated string of properties color.hook="function(" hook hooks="hook.split(" " hooks, i, jquery.csshooks[ set: elem, parsed, curelem, backgroundcolor ; !="=" "transparent" jquery.type( parsed="stringParse(" !support.rgba value._rgba[ curelem="hook" =="=" "backgroundcolor" elem.parentnode elem; while "" curelem.style try catch e "_default" elem.style[ wrapped prevent ie throwing errors on "invalid" values like 'auto' or 'inherit' jquery.fx.step[ fx !fx.colorinit fx.start="color(" fx.elem, fx.end="color(" fx.colorinit="true;" ].set( fx.start.transition( fx.end, fx.pos color.hook( stephooks jquery.csshooks.bordercolor="{" expand: expanded="{};" "top", "right", "bottom", "left" part expanded[ "border" "color" expanded; basic color names only. usage any the other requires adding yourself including jquery.color.svg-names.js. colors="jQuery.Color.names" 4.1. keywords aqua: "#00ffff", black: "#000000", blue: "#0000ff", fuchsia: "#ff00ff", gray: "#808080", green: "#008000", lime: "#00ff00", maroon: "#800000", navy: "#000080", olive: "#808000", purple: "#800080", red: "#ff0000", silver: "#c0c0c0", teal: "#008080", white: "#ffffff", yellow: "#ffff00", 4.2.3. keyword transparent: _default: "#ffffff" )( jquery ****************************************************************************** ****************************** class animations function() classanimationactions="[" "add", "remove", "toggle" shorthandstyles="{" border: 1, borderbottom: bordercolor: borderleft: borderright: bordertop: borderwidth: margin: padding: $.each( "borderleftstyle", "borderrightstyle", "borderbottomstyle", "bordertopstyle" _, $.fx.step[ "none" !fx.setattr jquery.style( prop, fx.setattr="true;" getelementstyles( elem len, style="elem.ownerDocument.defaultView" elem.ownerdocument.defaultview.getcomputedstyle( elem.currentstyle, styles="{};" style.length style[ len="style.length;" len-- typeof styles[ $.camelcase( support: opera, <9 styles; styledifference( oldstyle, newstyle diff="{}," name, value; name oldstyle[ !shorthandstyles[ !isnan( diff[ diff; <1.8 !$.fn.addback $.fn.addback="function(" selector this.add( this.prevobject this.prevobject.filter( $.effects.animateclass="function(" value, duration, easing, callback o="$.speed(" this.queue( animated="$(" baseclass="animated.attr(" "class" "", applyclasschange, allanimations="o.children" animated.find( "*" ).addback() animated; map objects store original styles. el="$(" el: el, start: apply change applyclasschange="function()" classanimationactions, action value[ animated[ applyclasschange(); all again calculate new this.end="getElementStyles(" this.el[ this.diff="styleDifference(" this.start, animated.attr( "class", time collecting promise styleinfo="this," dfd="$.Deferred()," opts="$.extend(" {}, o, queue: false, complete: dfd.resolve( this.el.animate( this.diff, dfd.promise(); once have completed: $.when.apply( $, allanimations.get() ).done( set final element, clear css that were el.css( guarnteed be there you use jquery.speed() also handles dequeuing next anim... o.complete.call( $.fn.extend( addclass: orig classnames, speed, speed $.effects.animateclass.call( add: classnames }, orig.apply( arguments $.fn.addclass removeclass: arguments.length> 1 ?
 				$.effects.animateClass.call( this,
 					{ remove: classNames }, speed, easing, callback ) :
 				orig.apply( this, arguments );
@@ -17324,7 +15879,7 @@ $.extend( $.effects, {
 		if ( /^(static|relative)/.test( cssPosition ) ) {
 			cssPosition = "absolute";
 
-			placeholder = $( "<" + element[ 0 ].nodeName + ">" ).insertAfter( element ).css( {
+			placeholder = $( "<" 0 + element[ ].nodename ">" ).insertAfter( element ).css( {
 
 				// Convert inline to inline block to account for inline elements
 				// that turn to inline block based on content (like img)
@@ -17644,7 +16199,7 @@ $.fn.extend( {
 				width: target.innerWidth()
 			},
 			startPosition = element.offset(),
-			transfer = $( "<div class='ui-effects-transfer'></div>" )
+			transfer = $( "<div class="ui-effects-transfer"></div>" )
 				.appendTo( "body" )
 				.addClass( options.className )
 				.css( {
@@ -18703,4 +17258,4 @@ var effectsEffectTransfer = effect;
 
 
 
-}));
+}));</"></=></p></div></div></=></div></9,></1.8></div></9></=></span></span></=></div></div></li></span></div></ul></span></span></select></div></div></div></div></a></div></div></span></a></div></=></=></=></=></=></1.9></=></button></span></div></div></=50></div></li></div></div></ul></=></ul></span></=></=></tr></"></div></=></div></=></=></=></=></=></=></div></body></iframe></iframe></9,></=></=></1.8,></1.8></=></=></=></=></div>
