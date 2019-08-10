@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 资源 | 小舞的个人主页</title>
+  <title itemprop="name">ObjectHashCode | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -268,105 +268,130 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img w data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/banner/reading1.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer6.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer6.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      ObjectHashCode</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-10<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">余裕,余裕</h1>
-    <span class="cat-des">
-      <p>なるほどね,分かった分かった</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p>Indicates whether some other object is “equal to” this one.</p>
+<p></p><p><br>The {@code equals} method implements an equivalence relation<br>on non-null object references:<br>  <ul><br>    <li>It is <i>reflexive</i>: for any non-null reference value<br>    {@code x}, {@code x.equals(x)} should return<br>    {@code true}.<br>    //反射性,当对于非空值来说,x.equals(x)应当return true<br>    </li><li>It is <i>symmetric</i>: for any non-null reference values<br>    {@code x} and {@code y}, {@code x.equals(y)}<br>    should return {@code true} if and only if<br>    {@code y.equals(x)} returns {@code true}.<br>    //对称性,当对于非空值来说,如果y.equals(x)return true那么x.equals(y)也应当返回true<br>    </li><li>It is <i>transitive</i>: for any non-null reference values<br>    {@code x}, {@code y}, and {@code z}, if<br>    {@code x.equals(y)} returns {@code true} and<br>    {@code y.equals(z)} returns {@code true}, then<br>    {@code x.equals(z)} should return {@code true}.<br>    //传递性,当对于非空值来说,如果x.equals(y)return true,y.equals(z)return true那么x.equals(z)应当return true<br>    </li><li>It is <i>consistent</i>: for any non-null reference values<br>    {@code x} and {@code y}, multiple invocations of<br>    {@code x.equals(y)} consistently return {@code true}<br>    or consistently return {@code false}, provided no<br>    information used in {@code equals} comparisons on the<br>    objects is modified.<br>    //一致性,当对于非空值来说,在对象没有被修改的时候,多次调用x.equals(y)应当一致return true或者一致return false<br>    </li><li>For any non-null reference value {@code x},<br>    {@code x.equals(null)} should return {@code false}.<br>    //对于任何非空的参考值,x.equals(null)应当return false<br>  </li></ul></p>
+<p></p><p><br>  The {@code equals} method for class {@code Object} implements<br>  the most discriminating possible equivalence relation on objects;<br>  //这个方法实现了大多数可能识别的等价关系</p>
+<p>  that is, for any non-null reference values {@code x} and<br>  {@code y}, this method returns {@code true} if and only<br>  if {@code x} and {@code y} refer to the same object<br>  ({@code x == y} has the value {@code true}).<br>  //也就是说,对于任何非空引用值x和y,当且仅当x和y引用了同一个对象,这个方法返回了true,具有相同的code值</p>
+<p></p><p><br>  Note that it is generally necessary to override the {@code hashCode}<br>  method whenever this method is overridden, so as to maintain the<br>  general contract for the {@code hashCode} method, which states<br>  that equal objects must have equal hash codes.<br>  //注意,通常需要覆盖hashCode方法当这个方法被覆盖的时候,这是维护一般的约定,即相同对象必须有相同的hashCode</p>
+<p>@param   obj   the reference object with which to compare.<br>//如果这两个对象是一样的,return true,否则false<br>@return  {@code true} if this object is the same as the obj<br>        argument; {@code false} otherwise.<br>@see     #hashCode()<br>@see     java.util.HashMap</p>
+<p>Indicates whether some other object is “equal to” this one.</p>
+<p></p><p><br>  The {@code equals} method implements an equivalence relation<br>  on non-null object references:<br>  <ul><br>    <li>It is <i>reflexive</i>: for any non-null reference value<br>    {@code x}, {@code x.equals(x)} should return<br>    {@code true}.<br>    //反射性,当对于非空值来说,x.equals(x)应当return true<br>    </li><li>It is <i>symmetric</i>: for any non-null reference values<br>    {@code x} and {@code y}, {@code x.equals(y)}<br>    should return {@code true} if and only if<br>    {@code y.equals(x)} returns {@code true}.<br>    //对称性,当对于非空值来说,x.equals(y)应当return true当且仅当y.equals(x)return true<br>    </li><li>It is <i>transitive</i>: for any non-null reference values<br>    {@code x}, {@code y}, and {@code z}, if<br>    {@code x.equals(y)} returns {@code true} and<br>    {@code y.equals(z)} returns {@code true}, then<br>    {@code x.equals(z)} should return {@code true}.<br>    //传递性,当对于非空值来说,如果x.equals(y)return true,y.equals(z)return true那么x.equals(z)应当return true<br>    </li><li>It is <i>consistent</i>: for any non-null reference values<br>    {@code x} and {@code y}, multiple invocations of<br>    {@code x.equals(y)} consistently return {@code true}<br>    or consistently return {@code false}, provided no<br>    information used in {@code equals} comparisons on the<br>    objects is modified.<br>    //一致性<br>    </li><li>For any non-null reference value {@code x},<br>    {@code x.equals(null)} should return {@code false}.<br>  </li></ul></p>
+<p></p><p><br>  The {@code equals} method for class {@code Object} implements<br>  the most discriminating possible equivalence relation on objects;<br>  that is, for any non-null reference values {@code x} and<br>  {@code y}, this method returns {@code true} if and only<br>  if {@code x} and {@code y} refer to the same object<br>  ({@code x == y} has the value {@code true}).</p>
+<p></p><p><br>  Note that it is generally necessary to override the {@code hashCode}<br>  method whenever this method is overridden, so as to maintain the<br>  general contract for the {@code hashCode} method, which states<br>  that equal objects must have equal hash codes.</p>
+<p>  @param   obj   the reference object with which to compare.<br>  @return  {@code true} if this object is the same as the obj<br>     argument; {@code false} otherwise.<br>  @see     #hashCode()<br>  @see     java.util.HashMap</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/10/MapReduce名词解释/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer8.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                MapReduce名词解释</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/10/数据结构/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer7.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
-</div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

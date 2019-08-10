@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 资源 | 小舞的个人主页</title>
+  <title itemprop="name">MapReduce名词解释 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -268,105 +268,172 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img w data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/banner/reading1.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer8.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer8.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      MapReduce名词解释</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-10<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">余裕,余裕</h1>
-    <span class="cat-des">
-      <p>なるほどね,分かった分かった</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h1><h2 id="Mapper"><a href="#Mapper" class="headerlink" title="Mapper:"></a>Mapper:</h2><p>将输入键/值对map到一组中间键/值对。map是将输入记录转换为中间记录的各个任务。转换后的中间记录不必与输入记录的类型相同。给定的输入对可以map到零个或多个输出对。<br>Hadoop Map-Reduce框架为作业的InputFormat生成的每个InputSplit生成一个map任务。<br>Mapper实现可以通过JobContext.getConfiguration（）访​​问作业的Configuration。<br>框架首先调用setup（org.apache.hadoop.mapreduce.Mapper.Context），然后调用InputSplit中每个键/值对的map（Object，Object，org.apache.hadoop.mapreduce.Mapper.Context）。最后调用cleanup（org.apache.hadoop.mapreduce.Mapper.Context）。<br>随后将与给定输出键关联的所有中间值按框架分组，并传递给Reducer以确定最终输出。用户可以通过指定两个关键的RawComparator类来控制排序和分组。<br>Mapper输出按照Reducer进行分区。用户可以通过实现自定义分区程序来控制哪些键（以及记录）转到哪个Reducer。用户可以选择通过Job.setCombinerClass（Class）指定组合器，以执行中间输出的本地聚合，这有助于减少从Mapper传输到Reducer的数据量。<br>应用程序可以指定是否以及如何压缩中间输出以及通过配置使用哪些CompressionCodecs。<br>如果作业减少为零，则Mapper的输出将直接写入OutputFormat而不按键排序。<br>Example：</p>
+<pre><code>public class TokenCounterMapper extends Mapper&lt;Object, Text, Text, IntWritable&gt;{
+
+  private final static IntWritable one = new IntWritable(1);
+  private Text word = new Text();
+
+  public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+        StringTokenizer itr = new StringTokenizer(value.toString());
+        while (itr.hasMoreTokens()) {
+          word.set(itr.nextToken());
+          context.write(word, one);
+        }
+  }
+}
+</code></pre><p>应用程序可以覆盖run（org.apache.hadoop.mapreduce.Mapper.Context）方法，以对map处理施加更大的控制，例如多线程映射器等</p>
+<h2 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h2><p>将一组共享键的中间值减少为一组较小的值。 Reducer实现可以通过JobContext.getConfiguration（）方法访问作业的Configuration。Reducer有3个主要阶段：</p>
+<h3 id="1-Shuffle"><a href="#1-Shuffle" class="headerlink" title="1.Shuffle"></a>1.Shuffle</h3><p>Reducer通过网络使用HTTP复制每个Mapper的排序输出。</p>
+<h3 id="2-Sort"><a href="#2-Sort" class="headerlink" title="2.Sort"></a>2.Sort</h3><p>框架根据key合并排序Reducer输入（因为不同的Mapper可能输出相同的键）。Shuffer和Sort阶段同时发生，即在获取输出时，它们被合并。<br>SecondarySort<br>要对值迭代器返回的值实现二级排序，应用程序应使用辅助键扩展密钥并定义分组比较器。密钥将使用整个密钥进行排序，但将使用分组比较器进行分组，以确定在同一调用中发送哪些密钥和值以进行减少。分组比较器通过Job.setGroupingComparatorClass（Class）指定。排序顺序由Job.setSortComparatorClass（Class）控制。例如，假设您要查找重复的网页，并使用“最佳”已知示例的网址标记它们。你可以像下面这样设置工作：<br>· 输入键：url<br>· Map输入值：document<br>· Map输出键：document checksum，url pagerank<br>· Map输出值：url<br>· 分区：通过校验和<br>· OutputKeyComparator：通过校验和然后减少pagerank<br>· OutputValueGroupingComparator：by checksum</p>
+<h3 id="3-Reduce"><a href="#3-Reduce" class="headerlink" title="3.Reduce"></a>3.Reduce</h3><p>在此阶段为排序的输入中的每个&lt;key，（值集合）&gt;调用reduce（Object，Iterable，org.apache.hadoop.mapreduce.Reducer.Context）方法。<br>reduce任务的输出通常通过TaskInputOutputContext.write（Object，Object）写入RecordWriter。<br>Reducer的输出不会重新排序。</p>
+<p>Example:</p>
+<pre><code>public class IntSumReducer&lt;Key&gt; extends Reducer&lt;Key,IntWritable,Key,IntWritable&gt; {
+  private IntWritable result = new IntWritable();
+
+  public void reduce(Key key, Iterable&lt;IntWritable&gt; values,Context context) throws IOException, InterruptedException {
+    int sum = 0;
+    for (IntWritable val : values) {
+      sum += val.get();
+    }
+    result.set(sum);
+    context.write(key, result);
+  }
+}
+</code></pre><h2 id="Partitioner"><a href="#Partitioner" class="headerlink" title="Partitioner"></a>Partitioner</h2><p>分区关键空间。<br>分区程序控制中间映射输出的键的分区。密钥（或密钥的子集）用于通常通过散列函数来导出分区。分区总数与作业的reduce任务数相同。因此，这将控制m减少任务中的哪一个中间密钥（以及因此记录）被发送以进行减少。<br>注意：如果您需要Partitioner类来获取Job的配置对象，请实现Configurable接口。</p>
+<h2 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h2><p>Job提交者对Job的看法。它允许用户配置作业，提交作业，控制其执行以及查询状态。 set方法仅在提交作业之前有效，之后它们将抛出IllegalStateException。通常，用户创建应用程序，通过作业描述作业的各个方面，然后提交作业并监视其进度。以下是有关如何提交作业的示例：</p>
+<pre><code>// Create a new Job
+Job job = Job.getInstance();
+job.setJarByClass(MyJob.class);
+
+// Specify various job-specific parameters     
+job.setJobName(&quot;myjob&quot;);
+
+job.setInputPath(new Path(&quot;in&quot;));
+job.setOutputPath(new Path(&quot;out&quot;));
+
+job.setMapperClass(MyJob.MyMapper.class);
+job.setReducerClass(MyJob.MyReducer.class);
+
+// Submit the job, then poll for progress until the job is complete
+job.waitForCompletion(true);
+//定义比较器，在比较键传递给Reducer之前控制键的排序方式。
+job.setSortComparatorClass(MySortComparatorClass.class);
+//定义控制哪些键组合在一起的比较器，用于对Reducer.reduce的单次调用（Object，Iterable，org.apache.hadoop.mapreduce.Reducer.Context）
+job.setGroupingComparatorClass(MyGroupingComparatorClass.class);
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/10/HDFS名词解释/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer9.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                HDFS名词解释</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/10/ObjectHashCode/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer6.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                ObjectHashCode</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
-</div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

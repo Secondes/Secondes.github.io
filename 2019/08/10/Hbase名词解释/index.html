@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 资源 | 小舞的个人主页</title>
+  <title itemprop="name">Hbase名词解释 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -268,105 +268,188 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img w data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/banner/reading1.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer11.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer11.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Hbase名词解释</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-10<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">余裕,余裕</h1>
-    <span class="cat-des">
-      <p>なるほどね,分かった分かった</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Hbase"><a href="#Hbase" class="headerlink" title="Hbase"></a>Hbase</h1><h2 id="Put"><a href="#Put" class="headerlink" title="Put"></a>Put</h2><p>用于执行单行的Put操作。要执行Put，请实例化包含要插入的行的Put对象，并为要插入的每个列执行添加或添加（如果设置时间戳）。</p>
+<h2 id="TableReducer"><a href="#TableReducer" class="headerlink" title="TableReducer"></a>TableReducer</h2><p>扩展基本的Reducer类以添加所需的键和值输入/输出类。虽然输入键和值以及输出键可以是从前一个映射阶段输入的任何内容，但在使用TableOutputFormat类时，输出值必须是Put或Delete实例。此类由IdentityTableReducer扩展，但也可以进行子类化以实现类似的功能或所需的任何自定义代码。它具有将输出值强制为特定基本类型的优点。</p>
+<h2 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>Admin</h2><p>HBase的管理API。从Connection.getAdmin（）获取实例并在完成时调用close（）。 Admin可用于创建，删除，列出，启用和禁用以及以其他方式修改表，以及执行其他管理操作。</p>
+<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><p>用于与单个HBase表通信。从Connection获取实例并在之后调用close（）。表可用于从表中获取，放置，删除或扫描数据。</p>
+<h2 id="TableName"><a href="#TableName" class="headerlink" title="TableName"></a>TableName</h2><p>用于表示表名的不可变POJO类。其形式如下：<table namespace>：<table qualifier>两个特殊名称空间：</table></table></p>
+<p>​    1.hbase  - 系统名称空间，用于包含hbase内部表</p>
+<p>​    2.default  - 没有明确指定名称空间的表将自动落入此名称空间。即a）foo：bar，表示namespace = foo和qualifier = bar b）bar，表示namespace = default和qualifier = bar c）default：bar，表示namespace = default和qualifier = bar</p>
+<p>在内部，在这个类中，我们缓存实例来限制对象的数量并使“等于”更快。我们尝试最小化创建的数组副本数量，以检查我们是否已经拥有此TableName的实例。代码未针对新实例创建进行优化，但已经过优化以检查是否存在。</p>
+<h2 id="TableDescriptor"><a href="#TableDescriptor" class="headerlink" title="TableDescriptor"></a>TableDescriptor</h2><p>TableDescriptor包含有关HBase表的详细信息，例如所有列族的描述符，表是目录表，hbase：meta，如果表是只读的，则memstore的最大大小，当应该发生区域分割时，与之相关的协处理器等……</p>
+<h2 id="Bytes"><a href="#Bytes" class="headerlink" title="Bytes"></a>Bytes</h2><p>实用程序类，用于处理字节数组，与其他类型的转换，比较，哈希代码生成，HashMaps或HashSet的制造密钥，以及可用作映射或树中的键。</p>
+<p>建表样例</p>
+<pre><code>public void createTable() throws IOException {
+    if (admin.tableExists(tableName)) {
+        admin.disableTable(tableName);
+        admin.deleteTable(tableName);
+        logger.info(&quot;delete table success&quot;);
+    }
+    TableDescriptorBuilder tableDescriptorBuilder = TableDescriptorBuilder.newBuilder(tableName);
+    ColumnFamilyDescriptorBuilder columnFamilyDescriptorBuilder = ColumnFamilyDescriptorBuilder.newBuilder(&quot;cf&quot;.getBytes());
+    tableDescriptorBuilder.setColumnFamily(columnFamilyDescriptorBuilder.build());
+    TableDescriptor build = tableDescriptorBuilder.build();
+    admin.createTable(build);
+    logger.info(&quot;build table success&quot;);
+}
+</code></pre><p>插入数据样例</p>
+<pre><code>public void put() throws IOException {
+    Put put = new Put(Bytes.toBytes(&quot;1111&quot;));
+    put.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;name&quot;), Bytes.toBytes(&quot;aqua&quot;));
+    put.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;age&quot;), Bytes.toBytes(&quot;12&quot;));
+    put.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;sex&quot;), Bytes.toBytes(&quot;girl&quot;));
+    table.put(put);
+    logger.info(&quot;put data success&quot;);
+}
+</code></pre><h2 id="Scan"><a href="#Scan" class="headerlink" title="Scan"></a>Scan</h2><p>用于执行扫描操作。<br>除实例化外，所有操作都与Get相同。可以定义可选的startRow和stopRow，而不是指定单个行。如果未指定行，则扫描程序将遍历所有行。<br>要从Table的所有行获取所有列，请创建一个没有约束的实例;使用Scan（）构造函数。要将扫描约束到特定列族，请为扫描实例上的每个族调用addFamily。<br>要获取特定列，请为要检索的每列调用addColumn。<br>要仅检索特定版本时间戳范围内的列，请调用setTimeRange。<br>要仅检索具有特定时间戳的列，请调用setTimestamp。<br>要限制要返回的每列的版本数，请调用setMaxVersions。<br>要限制每次调用next（）返回的最大值数，请调用setBatch。<br>要添加过滤器，请调用setFilter。<br>对于小型扫描，它在2.0.0中已弃用。现在我们在Scan对象中有一个setLimit（int）方法，用于告诉RS我们想要多少行。如果行返回达到限制，RS将自动关闭RegionScanner。我们还将在新实现中的openScanner中获取数据，这意味着我们也可以在一次rpc调用中完成扫描操作。我们还引入了setReadType（Scan.ReadType）方法。您可以使用此方法告诉RS显式使用pread。<br>专家：要为此扫描显式禁用服务器端块缓存，请执行setCacheBlocks（boolean）。<br>注意：用法会更改扫描实例。在内部，属性会在扫描运行时更新，如果启用，则会在Scan实例中累积指标。当你去克隆一个Scan实例或者你去重用一个创建的Scan实例时，请注意这种情况;更安全的是每次使用创建一个Scan实例。</p>
+<p>Scan样例</p>
+<pre><code>public void scan() throws IOException {
+    Scan scan = new Scan();
+    ResultScanner scanner = table.getScanner(scan);
+    for (Result result : scanner) {
+        //使用scan进行查询
+        Cell cellName = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;name&quot;));
+        String name = Bytes.toString(CellUtil.cloneValue(cellName));
+        Cell cellAge = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;age&quot;));
+        String age = Bytes.toString(CellUtil.cloneValue(cellAge));
+        Cell cellSex = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;sex&quot;));
+        String sex = Bytes.toString(CellUtil.cloneValue(cellSex));
+        logger.info(name);
+        logger.info(age);
+        logger.info(sex);
+    }
+}
+</code></pre><h2 id="Cell"><a href="#Cell" class="headerlink" title="Cell"></a>Cell</h2><p>HBase中的存储单元由以下字段组成：<br>1）行<br>2）列族<br>3）列限定符<br>4）时间戳<br>5）类型<br>6）MVCC版本<br>7）值<br>唯一性由行，列族，列限定符的组合确定，时间戳和类型。<br>自然比较器将对行，列族和列限定符执行按位比较。不那么直观，它会将更大的时间戳视为较小的值，目的是首先对较新的单元格进行排序。<br>Cell实现Comparable <cell>，只有在与同一个表中的其他键进行比较时才有意义。它使用CellComparator，它不适用于-ROOT-和hbase：meta表。<br>将来，我们可以考虑添加一个布尔值isOnHeap（）方法和一个getValueBuffer（）方法，该方法可用于将值直接从堆外ByteBuffer传递到网络，而无需复制到堆上字节[]。<br>历史记录：原始Cell实现（KeyValue）要求所有字段在同一个byte []中编码为连续字节，而此接口允许字段驻留在单独的byte []中。</cell></p>
+<p>Cell样例</p>
+<pre><code>public void get() throws IOException {
+    Get get = new Get(Bytes.toBytes(&quot;1111&quot;));
+    //也可以直接添加列族,使用get.addFamily方法
+    get.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;name&quot;));
+    get.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;age&quot;));
+    get.addColumn(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;sex&quot;));
+    Result result = table.get(get);
+    logger.info(&quot;request:&quot; + result.toString());
+    Cell cellName = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;name&quot;));
+    Cell cellAge = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;age&quot;));
+    Cell cellSex = result.getColumnLatestCell(Bytes.toBytes(&quot;cf&quot;), Bytes.toBytes(&quot;sex&quot;));
+    String age = Bytes.toString(CellUtil.cloneValue(cellAge));
+    String name = Bytes.toString(CellUtil.cloneValue(cellName));
+    String sex = Bytes.toString(CellUtil.cloneValue(cellSex));
+    logger.info(name + &quot;,&quot; + age + &quot;,&quot; + sex);
+}
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/10/Spring名词解释/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer12.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Spring名词解释</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/10/Java基础/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer10.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Java基础</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
-</div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/06/04/资源/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer5.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/06/04/资源/">
-    资源</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-6-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/06/04/资源/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
