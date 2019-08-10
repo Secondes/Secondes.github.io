@@ -440,7 +440,7 @@ function checkBgImgCookie () {
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
       $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
-    } else if (bgurl == 'https://api.shino.cc/bing/') {
+    } else if (bgurl == 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/background_aqua_white.jpg') {
       mashiro_global.variables.skinSecter = true
       mashiro_global.variables.isNight = true
       $('#night-mode-cover').css('visibility', 'hidden')
@@ -504,13 +504,14 @@ $(document).ready(function () {
   changeBG('#pixiv-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/star.png')
   changeBG('#KAdots-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/point.png')
   changeBG('#totem-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/little-monster.png')
-  changeBGnoTrans('#bing-bg', 'https://api.shino.cc/bing/')
+  changeBGnoTrans('#bing-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/background_aqua_white.jpg')
   $('.skin-menu #white-bg').click(function () {
     mashiro_global.variables.skinSecter = false
     mashiro_global.variables.isNight = false
     $('#night-mode-cover').css('visibility', 'hidden')
     $('body').css('background-image', 'none')
-    $('.blank').css('background-color', 'rgba(255,255,255,.0)')
+    // $('.blank').css('background-color', 'rgba(255,255,255,.0)')
+	$('.blank').css('background-color', 'none')
     $('.pattern-center-sakura').removeClass('pattern-center-sakura').addClass('pattern-center')
     $('.headertop-bar-sakura').removeClass('headertop-bar-sakura').addClass('headertop-bar')
     $('#banner_wave_1').removeClass('banner_wave_hide_fit_skin')
@@ -521,8 +522,9 @@ $(document).ready(function () {
   $('.skin-menu #dark-bg').click(function () {
     mashiro_global.variables.skinSecter = true
     mashiro_global.variables.isNight = true
-    $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/starry_sky.png)')
-    $('.blank').css('background-color', 'rgba(255,255,255,.8)')
+    $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/background_aqua_dark2.jpg)')
+    // $('.blank').css('background-color', 'rgba(255,255,255,.8)')
+	$('.blank').css('background-color', 'none')
     $('#night-mode-cover').css('visibility', 'visible')
     $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
     $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
@@ -537,7 +539,8 @@ $(document).ready(function () {
       $('.changeSkin-gear').css('visibility', 'visible')
     }, 300)
     if (mashiro_global.variables.isNight) {
-      $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
+      // $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
+	  $('.changeSkin-gear, .toc').css('background', 'none')
     } else {
       $('.changeSkin-gear, .toc').css('background', 'none')
     }
@@ -545,7 +548,8 @@ $(document).ready(function () {
   $('.changeSkin-gear').click(function () {
     $('.skin-menu').toggleClass('show')
     if (mashiro_global.variables.isNight) {
-      $('.changeSkin').css('background', 'rgba(255,255,255,0.8)')
+      // $('.changeSkin').css('background', 'rgba(255,255,255,0.8)')
+      $('.changeSkin').css('background', 'none')
     } else {
       $('.changeSkin').css('background', 'none')
     }

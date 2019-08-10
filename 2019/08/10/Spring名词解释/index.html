@@ -70,9 +70,7 @@
   <figure id="centerbg" class="centerbg">
     <div class="focusinfo no-select">
       <div class="header-tou">
-        <a href="https://secondes.github.io/">
-          <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
-        </a>
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
       </div>
       <div class="header-info">
         <p>The degree of loving is measured by the degree of giving</p>
@@ -304,29 +302,29 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h1 id="ServletRequest"><a href="#ServletRequest" class="headerlink" title="ServletRequest"></a>ServletRequest</h1><p>定义一个对象，以便向servlet提供客户机请求信息。servlet容器创建一个ServletRequest对象，并将其作为参数传递给servlet的服务方法。<br>ServletRequest对象提供包括参数名称和值、属性和输入流在内的数据。扩展ServletRequest的接口可以提供额外的特定于协议的数据(例如，HTTP数据由javax.servlet.http.HttpServletRequest提供)。</p>
-<h1 id="ServletResponse"><a href="#ServletResponse" class="headerlink" title="ServletResponse"></a>ServletResponse</h1><p>定义一个对象来帮助servlet向客户机发送响应。servlet容器创建一个ServletResponse对象，并将其作为参数传递给servlet的服务方法。<br>要在MIME主体响应中发送二进制数据，请使用getOutputStream返回的ServletOutputStream。要发送字符数据，请使用getWriter返回的PrintWriter对象。例如，要混合二进制和文本数据以创建多部分响应，可以使用ServletOutputStream并手动管理字符部分。<br>MIME主体响应的字符集可以显式或隐式指定。指定响应主体的优先顺序为:<br>使用setCharacterEncoding和setContentType显式地处理每个请求<br>使用setLocale隐式地处理每个请求<br>每个web应用程序通过部署描述符或ServletContext.setRequestCharacterEncoding(字符串)<br>容器默认通过特定于供应商的配置<br>iso - 8859 - 1<br>必须在getWriter和提交要使用的字符编码的响应之前调用setCharacterEncoding、setContentType或setLocale方法。<br>有关MIME的更多信息，请参阅Internet RFC 2045等RFC。SMTP和HTTP等协议定义了MIME的概要文件，这些标准还在不断发展。</p>
-<h1 id="HttpServletRequest"><a href="#HttpServletRequest" class="headerlink" title="HttpServletRequest"></a>HttpServletRequest</h1><p>扩展ServletRequest接口，为HTTP servlet提供请求信息。<br>servlet容器创建一个HttpServletRequest对象，并将其作为参数传递给servlet的服务方法(doGet、doPost等)。</p>
-<h1 id="HttpServletResponse"><a href="#HttpServletResponse" class="headerlink" title="HttpServletResponse"></a>HttpServletResponse</h1><p>扩展ServletResponse接口，在发送响应时提供http特定的功能。例如，它有访问HTTP头文件和cookie的方法。<br>servlet容器创建一个HttpServletResponse对象，并将其作为参数传递给servlet的服务方法(doGet、doPost等)。</p>
-<h1 id="HttpSession"><a href="#HttpSession" class="headerlink" title="HttpSession"></a>HttpSession</h1><p>提供一种方法，可以跨多个页面请求或访问Web站点来标识用户，并存储有关该用户的信息。<br>servlet容器使用这个接口在HTTP客户机和HTTP服务器之间创建会话。会话在来自用户的多个连接或页面请求之间持续存在指定的时间段。一个会话通常对应一个用户，该用户可能多次访问一个站点。服务器可以通过许多方式维护会话，比如使用cookie或重写url。<br>这个接口允许servlet这样做<br>    · 查看和操作有关会话的信息，如会话标识符、创建时间和最后访问时间<br>    · 将对象绑定到会话，允许用户信息跨多个用户连接持久存储<br>当应用程序在会话中存储对象或从会话中删除对象时，会话将检查该对象是否实现HttpSessionBindingListener。如果它这样做了，servlet将通知对象它已被绑定到会话或从会话解除绑定。绑定方法完成后发送通知。对于无效或过期的会话，将在会话无效或过期后发送通知。</p>
+          <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="ServletRequest"><a href="#ServletRequest" class="headerlink" title="ServletRequest"></a>ServletRequest</h2><p>定义一个对象，以便向servlet提供客户机请求信息。servlet容器创建一个ServletRequest对象，并将其作为参数传递给servlet的服务方法。<br>ServletRequest对象提供包括参数名称和值、属性和输入流在内的数据。扩展ServletRequest的接口可以提供额外的特定于协议的数据(例如，HTTP数据由javax.servlet.http.HttpServletRequest提供)。</p>
+<h2 id="ServletResponse"><a href="#ServletResponse" class="headerlink" title="ServletResponse"></a>ServletResponse</h2><p>定义一个对象来帮助servlet向客户机发送响应。servlet容器创建一个ServletResponse对象，并将其作为参数传递给servlet的服务方法。<br>要在MIME主体响应中发送二进制数据，请使用getOutputStream返回的ServletOutputStream。要发送字符数据，请使用getWriter返回的PrintWriter对象。例如，要混合二进制和文本数据以创建多部分响应，可以使用ServletOutputStream并手动管理字符部分。<br>MIME主体响应的字符集可以显式或隐式指定。指定响应主体的优先顺序为:<br>使用setCharacterEncoding和setContentType显式地处理每个请求<br>使用setLocale隐式地处理每个请求<br>每个web应用程序通过部署描述符或ServletContext.setRequestCharacterEncoding(字符串)<br>容器默认通过特定于供应商的配置<br>iso - 8859 - 1<br>必须在getWriter和提交要使用的字符编码的响应之前调用setCharacterEncoding、setContentType或setLocale方法。<br>有关MIME的更多信息，请参阅Internet RFC 2045等RFC。SMTP和HTTP等协议定义了MIME的概要文件，这些标准还在不断发展。</p>
+<h2 id="HttpServletRequest"><a href="#HttpServletRequest" class="headerlink" title="HttpServletRequest"></a>HttpServletRequest</h2><p>扩展ServletRequest接口，为HTTP servlet提供请求信息。<br>servlet容器创建一个HttpServletRequest对象，并将其作为参数传递给servlet的服务方法(doGet、doPost等)。</p>
+<h2 id="HttpServletResponse"><a href="#HttpServletResponse" class="headerlink" title="HttpServletResponse"></a>HttpServletResponse</h2><p>扩展ServletResponse接口，在发送响应时提供http特定的功能。例如，它有访问HTTP头文件和cookie的方法。<br>servlet容器创建一个HttpServletResponse对象，并将其作为参数传递给servlet的服务方法(doGet、doPost等)。</p>
+<h2 id="HttpSession"><a href="#HttpSession" class="headerlink" title="HttpSession"></a>HttpSession</h2><p>提供一种方法，可以跨多个页面请求或访问Web站点来标识用户，并存储有关该用户的信息。<br>servlet容器使用这个接口在HTTP客户机和HTTP服务器之间创建会话。会话在来自用户的多个连接或页面请求之间持续存在指定的时间段。一个会话通常对应一个用户，该用户可能多次访问一个站点。服务器可以通过许多方式维护会话，比如使用cookie或重写url。<br>这个接口允许servlet这样做<br>    · 查看和操作有关会话的信息，如会话标识符、创建时间和最后访问时间<br>    · 将对象绑定到会话，允许用户信息跨多个用户连接持久存储<br>当应用程序在会话中存储对象或从会话中删除对象时，会话将检查该对象是否实现HttpSessionBindingListener。如果它这样做了，servlet将通知对象它已被绑定到会话或从会话解除绑定。绑定方法完成后发送通知。对于无效或过期的会话，将在会话无效或过期后发送通知。</p>
 <p>当容器在分布式容器设置中的vm之间迁移会话时，将通知实现HttpSessionActivationListener接口的所有会话属性。<br>servlet应该能够处理客户机不选择加入会话的情况，比如在有意关闭cookie时。在客户机加入会话之前，isNew返回true。如果客户机选择不加入会话，getSession将对每个请求返回一个不同的会话，isNew将始终返回true。<br>会话信息的作用域仅限于当前web应用程序(ServletContext)，因此存储在一个上下文中的信息在另一个上下文中不会直接可见。</p>
-<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>创建一个cookie，由servlet发送到Web浏览器的少量信息，由浏览器保存，然后发送回服务器。 cookie的值可以唯一标识客户端，因此cookie通常用于会话管理。 Cookie具有名称，单个值和可选属性，例如注释，路径和域限定符，最大年龄和版本号。某些Web浏览器在处理可选属性方面存在缺陷，因此请谨慎使用它们以提高servlet的互操作性。 servlet使用HttpServletResponse.addCookie方法将cookie发送到浏览器，该方法将字段添加到HTTP响应标头，以便一次一个地向浏览器发送cookie。浏览器预计每个Web服务器支持20个cookie，总共300个cookie，并且可能将cookie大小限制为每个4KB。浏览器通过向HTTP请求标头添加字段将cookie返回给servlet。可以使用HttpServletRequest.getCookies方法从请求中检索Cookie。多个cookie可能具有相同的名称但路径属性不同。 Cookie会影响使用它们的网页的缓存。HTTP 1.0不会缓存使用使用此类创建的cookie的页面。此类不支持使用HTTP 1.1定义的缓存控制。此类支持RFC 2109和RFC 6265规范。默认情况下，使用RFC 6265创建cookie。</p>
-<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><p>特定于Java-5的接口，用于定义模型属性的持有者。主要用于向模型添加属性。允许以java.util.Map的形式访问整个模型。</p>
-<h1 id="MultipartFile"><a href="#MultipartFile" class="headerlink" title="MultipartFile"></a>MultipartFile</h1><p>在多部分请求中接收的上载文件的表示。文件内容存储在内存中或临时存储在磁盘上。在任何一种情况下，如果需要，用户负责将文件内容复制到会话级或持久性存储。临时存储将在请求处理结束时清除。</p>
-<h1 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h1><p>表示带注释的类是“控制器”（例如Web控制器）。此注释用作@Component的特化，允许通过类路径扫描自动检测实现类。它通常与基于org.springframework.web.bind.annotation.RequestMapping批注的带注释的处理程序方法结合使用。</p>
-<h1 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h1><p>表示带注释的类是“组件”。当使用基于注释的配置和类路径扫描时，这些类被视为自动检测的候选者。其他类级注释也可以被认为是识别组件，通常是特殊类型的组件：例如， @Repository注释或AspectJ的@Aspect注释。</p>
-<h1 id="Repository"><a href="#Repository" class="headerlink" title="@Repository"></a>@Repository</h1><p>表示带注释的类是“存储库”，最初由域驱动设计（Evans，2003）定义为“用于封装模拟对象集合的存储，检索和搜索行为的机制”。实现传统Java EE模式（如“数据访问对象”）的团队也可以将此构造型应用于DAO类，但在此之前应注意理解数据访问对象和DDD样式存储库之间的区别。这个注释是一个通用的刻板印象，个别团队可能会缩小其语义并在适当时使用。当与PersistenceExceptionTranslationPostProcessor一起使用时，这样注释的类有资格进行Spring DataAccessException转换。带注释的类还阐明了它在整个应用程序体系结构中的作用，用于工具，方面等。从Spring 2.5开始，这个注释也用作@Component的特化，允许通过类路径自动检测实现类扫描。</p>
-<h1 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h1><p>使用灵活方法签名将Web请求映射到请求处理类中的方法的注释。Spring MVC和Spring WebFlux都通过RequestMappingHandlerMapping和RequestMappingHandlerAdapter在它们各自的模块和包结构中支持这个注释。有关每个支持的处理程序方法参数和返回类型的确切列表，请使用下面的参考文档链接：<br>    · Spring MVC方法参数和返回值Spring<br>    · WebFlux方法参数和返回值<br>注意：此批注可以在类和方法级别。在大多数情况下，在方法级别，应用程序将更喜欢使用HTTP方法特定变体之一@GetMapping，@PostMapping，@PutMapping，@DelaMapping或@PatchMapping。注意：使用控制器接口（例如，用于AOP代理）时，请确保始终将所有映射注释（例如@RequestMapping和@SessionAttributes）放在控制器接口而不是实现类上。</p>
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>指示方法返回值的注释应绑定到Web响应主体。支持带注释的处理程序方法。从版本4.0开始，此注释也可以添加到类型级别，在这种情况下，它是继承的，不需要在方法级别添加。</p>
-<h1 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h1><p>用于将HTTP GET请求映射到特定处理程序方法的注释。具体来说，@ GetMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.GET）的快捷方式。</p>
-<h1 id="PostMapping"><a href="#PostMapping" class="headerlink" title="@PostMapping"></a>@PostMapping</h1><p>用于将HTTP POST请求映射到特定处理程序方法的注释。具体来说，@ PostMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.POST）的快捷方式。</p>
-<h1 id="PutMapping"><a href="#PutMapping" class="headerlink" title="@PutMapping"></a>@PutMapping</h1><p>用于将HTTP PUT请求映射到特定处理程序方法的注释。具体来说，@ PutMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.PUT）的快捷方式。</p>
-<h1 id="DeleteMapping"><a href="#DeleteMapping" class="headerlink" title="@DeleteMapping"></a>@DeleteMapping</h1><p>用于将HTTP DELETE请求映射到特定处理程序方法的注释。具体来说，@ DeleteMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.DELETE）的快捷方式。</p>
-<h1 id="PickMapping"><a href="#PickMapping" class="headerlink" title="@PickMapping"></a>@PickMapping</h1><p>用于将HTTP PATCH请求映射到特定处理程序方法的注释。具体来说，@ PickMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.PATCH）的快捷方式。</p>
-<h1 id="RequestMethod"><a href="#RequestMethod" class="headerlink" title="RequestMethod"></a>RequestMethod</h1><p>Java5枚举HTTP请求方法。旨在与RequestMapping批注的RequestMapping.method（）属性一起使用。请注意，默认情况下，org.springframework.web.servlet.DispatcherServlet仅支持GET，HEAD，POST，PUT，PATCH和DELETE。 DispatcherServlet将使用默认的HttpServlet行为处理TRACE和OPTIONS，除非明确告知也要分派这些请求类型：检查“dispatchOptionsRequest”和“dispatchTraceRequest”属性，必要时将它们切换为“true”。</p>
-<h1 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h1><p>将构造函数，字段，setter方法或配置方法标记为由Spring的依赖注入工具自动装配。这是JSR-330 javax.inject.Inject注释的替代方法，添加了必需与可选的语义。任何给定bean类只有一个构造函数（最大值）可以声明这个注释，并将’required’参数设置为true，表示构造函数在用作Spring bean时要自动装配。如果多个非必需构造函数声明了注释，则它们将被视为自动装配的候选者。将选择具有最大数量的依赖项的构造函数，这些构造函数可以通过匹配Spring容器中的bean来满足。如果不能满足任何候选者，则将使用主要/默认构造函数（如果存在）。如果一个类只声明一个构造函数开头，它将始终被使用，即使没有注释。带注释的构造函数不必是公共的。在调用任何配置方法之前，在构造bean之后立即注入字段。这样的配置字段不必是公共的。配置方法可以有任意名称和任意数量的参数;每个参数都将使用Spring容器中的匹配bean进行自动装配。 Bean属性设置器方法实际上只是这种通用配置方法的特例。这种配置方法不必是公开的。对于多参数构造函数或方法，’required’参数适用于所有参数。单个参数可以声明为Java-8样式的java.util.Optional，或者从Spring Framework 5.0开始，也可以在Kotlin中声明为@Nullable或非null参数类型，从而覆盖基本所需的语义。对于java.util.Collection或java.util.Map依赖类型，容器会自动装配与声明的值类型匹配的所有bean。为此目的，必须将映射键声明为String类型，并将其解析为相应的bean名称。这样一个容器提供的集合将被排序，考虑到目标组件的org.springframework.core.Ordered / org.springframework.core.annotation.Order值，否则遵循它们在容器中的注册顺序。或者，单个匹配的目标bean也可以是通常类型的Collection或Map本身，如此注入。请注意，实际注入是通过BeanPostProcessor执行的，而BeanPostProcessor又意味着您无法使用@Autowired将引用注入BeanPostProcessor或BeanFactoryPostProcessor类型。请参考javadoc获取AutowiredAnnotationBeanPostProcessor类（默认情况下，它会检查是否存在此批注）。</p>
-<h1 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h1><p>表示带注释的类是“服务”，最初由域驱动设计（Evans，2003）定义为“作为模型中独立的接口提供的操作，没有封装状态”。也可能表明一个类是“业务服务门面”（在核心J2EE模式意义上）或类似的东西。这个注释是一个通用的刻板印象，个别团队可能会缩小其语义并在适当时使用。此注释用作@Component的特化，允许通过类路径扫描自动检测实现类。</p>
-<h1 id="MapperScan"><a href="#MapperScan" class="headerlink" title="@MapperScan"></a>@MapperScan</h1><p>使用Java Config时，使用此批注注册MyBatis映射器接口。它通过MapperScannerRegistrar执行与MapperScannerConfigurer相同的工作。配置示例：</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>创建一个cookie，由servlet发送到Web浏览器的少量信息，由浏览器保存，然后发送回服务器。 cookie的值可以唯一标识客户端，因此cookie通常用于会话管理。 Cookie具有名称，单个值和可选属性，例如注释，路径和域限定符，最大年龄和版本号。某些Web浏览器在处理可选属性方面存在缺陷，因此请谨慎使用它们以提高servlet的互操作性。 servlet使用HttpServletResponse.addCookie方法将cookie发送到浏览器，该方法将字段添加到HTTP响应标头，以便一次一个地向浏览器发送cookie。浏览器预计每个Web服务器支持20个cookie，总共300个cookie，并且可能将cookie大小限制为每个4KB。浏览器通过向HTTP请求标头添加字段将cookie返回给servlet。可以使用HttpServletRequest.getCookies方法从请求中检索Cookie。多个cookie可能具有相同的名称但路径属性不同。 Cookie会影响使用它们的网页的缓存。HTTP 1.0不会缓存使用使用此类创建的cookie的页面。此类不支持使用HTTP 1.1定义的缓存控制。此类支持RFC 2109和RFC 6265规范。默认情况下，使用RFC 6265创建cookie。</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>特定于Java-5的接口，用于定义模型属性的持有者。主要用于向模型添加属性。允许以java.util.Map的形式访问整个模型。</p>
+<h2 id="MultipartFile"><a href="#MultipartFile" class="headerlink" title="MultipartFile"></a>MultipartFile</h2><p>在多部分请求中接收的上载文件的表示。文件内容存储在内存中或临时存储在磁盘上。在任何一种情况下，如果需要，用户负责将文件内容复制到会话级或持久性存储。临时存储将在请求处理结束时清除。</p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h2><p>表示带注释的类是“控制器”（例如Web控制器）。此注释用作@Component的特化，允许通过类路径扫描自动检测实现类。它通常与基于org.springframework.web.bind.annotation.RequestMapping批注的带注释的处理程序方法结合使用。</p>
+<h2 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h2><p>表示带注释的类是“组件”。当使用基于注释的配置和类路径扫描时，这些类被视为自动检测的候选者。其他类级注释也可以被认为是识别组件，通常是特殊类型的组件：例如， @Repository注释或AspectJ的@Aspect注释。</p>
+<h2 id="Repository"><a href="#Repository" class="headerlink" title="@Repository"></a>@Repository</h2><p>表示带注释的类是“存储库”，最初由域驱动设计（Evans，2003）定义为“用于封装模拟对象集合的存储，检索和搜索行为的机制”。实现传统Java EE模式（如“数据访问对象”）的团队也可以将此构造型应用于DAO类，但在此之前应注意理解数据访问对象和DDD样式存储库之间的区别。这个注释是一个通用的刻板印象，个别团队可能会缩小其语义并在适当时使用。当与PersistenceExceptionTranslationPostProcessor一起使用时，这样注释的类有资格进行Spring DataAccessException转换。带注释的类还阐明了它在整个应用程序体系结构中的作用，用于工具，方面等。从Spring 2.5开始，这个注释也用作@Component的特化，允许通过类路径自动检测实现类扫描。</p>
+<h2 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h2><p>使用灵活方法签名将Web请求映射到请求处理类中的方法的注释。Spring MVC和Spring WebFlux都通过RequestMappingHandlerMapping和RequestMappingHandlerAdapter在它们各自的模块和包结构中支持这个注释。有关每个支持的处理程序方法参数和返回类型的确切列表，请使用下面的参考文档链接：<br>    · Spring MVC方法参数和返回值Spring<br>    · WebFlux方法参数和返回值<br>注意：此批注可以在类和方法级别。在大多数情况下，在方法级别，应用程序将更喜欢使用HTTP方法特定变体之一@GetMapping，@PostMapping，@PutMapping，@DelaMapping或@PatchMapping。注意：使用控制器接口（例如，用于AOP代理）时，请确保始终将所有映射注释（例如@RequestMapping和@SessionAttributes）放在控制器接口而不是实现类上。</p>
+<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h2><p>指示方法返回值的注释应绑定到Web响应主体。支持带注释的处理程序方法。从版本4.0开始，此注释也可以添加到类型级别，在这种情况下，它是继承的，不需要在方法级别添加。</p>
+<h2 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h2><p>用于将HTTP GET请求映射到特定处理程序方法的注释。具体来说，@ GetMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.GET）的快捷方式。</p>
+<h2 id="PostMapping"><a href="#PostMapping" class="headerlink" title="@PostMapping"></a>@PostMapping</h2><p>用于将HTTP POST请求映射到特定处理程序方法的注释。具体来说，@ PostMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.POST）的快捷方式。</p>
+<h2 id="PutMapping"><a href="#PutMapping" class="headerlink" title="@PutMapping"></a>@PutMapping</h2><p>用于将HTTP PUT请求映射到特定处理程序方法的注释。具体来说，@ PutMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.PUT）的快捷方式。</p>
+<h2 id="DeleteMapping"><a href="#DeleteMapping" class="headerlink" title="@DeleteMapping"></a>@DeleteMapping</h2><p>用于将HTTP DELETE请求映射到特定处理程序方法的注释。具体来说，@ DeleteMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.DELETE）的快捷方式。</p>
+<h2 id="PickMapping"><a href="#PickMapping" class="headerlink" title="@PickMapping"></a>@PickMapping</h2><p>用于将HTTP PATCH请求映射到特定处理程序方法的注释。具体来说，@ PickMapping是一个组合注释，充当@RequestMapping（method = RequestMethod.PATCH）的快捷方式。</p>
+<h2 id="RequestMethod"><a href="#RequestMethod" class="headerlink" title="RequestMethod"></a>RequestMethod</h2><p>Java5枚举HTTP请求方法。旨在与RequestMapping批注的RequestMapping.method（）属性一起使用。请注意，默认情况下，org.springframework.web.servlet.DispatcherServlet仅支持GET，HEAD，POST，PUT，PATCH和DELETE。 DispatcherServlet将使用默认的HttpServlet行为处理TRACE和OPTIONS，除非明确告知也要分派这些请求类型：检查“dispatchOptionsRequest”和“dispatchTraceRequest”属性，必要时将它们切换为“true”。</p>
+<h2 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h2><p>将构造函数，字段，setter方法或配置方法标记为由Spring的依赖注入工具自动装配。这是JSR-330 javax.inject.Inject注释的替代方法，添加了必需与可选的语义。任何给定bean类只有一个构造函数（最大值）可以声明这个注释，并将’required’参数设置为true，表示构造函数在用作Spring bean时要自动装配。如果多个非必需构造函数声明了注释，则它们将被视为自动装配的候选者。将选择具有最大数量的依赖项的构造函数，这些构造函数可以通过匹配Spring容器中的bean来满足。如果不能满足任何候选者，则将使用主要/默认构造函数（如果存在）。如果一个类只声明一个构造函数开头，它将始终被使用，即使没有注释。带注释的构造函数不必是公共的。在调用任何配置方法之前，在构造bean之后立即注入字段。这样的配置字段不必是公共的。配置方法可以有任意名称和任意数量的参数;每个参数都将使用Spring容器中的匹配bean进行自动装配。 Bean属性设置器方法实际上只是这种通用配置方法的特例。这种配置方法不必是公开的。对于多参数构造函数或方法，’required’参数适用于所有参数。单个参数可以声明为Java-8样式的java.util.Optional，或者从Spring Framework 5.0开始，也可以在Kotlin中声明为@Nullable或非null参数类型，从而覆盖基本所需的语义。对于java.util.Collection或java.util.Map依赖类型，容器会自动装配与声明的值类型匹配的所有bean。为此目的，必须将映射键声明为String类型，并将其解析为相应的bean名称。这样一个容器提供的集合将被排序，考虑到目标组件的org.springframework.core.Ordered / org.springframework.core.annotation.Order值，否则遵循它们在容器中的注册顺序。或者，单个匹配的目标bean也可以是通常类型的Collection或Map本身，如此注入。请注意，实际注入是通过BeanPostProcessor执行的，而BeanPostProcessor又意味着您无法使用@Autowired将引用注入BeanPostProcessor或BeanFactoryPostProcessor类型。请参考javadoc获取AutowiredAnnotationBeanPostProcessor类（默认情况下，它会检查是否存在此批注）。</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h2><p>表示带注释的类是“服务”，最初由域驱动设计（Evans，2003）定义为“作为模型中独立的接口提供的操作，没有封装状态”。也可能表明一个类是“业务服务门面”（在核心J2EE模式意义上）或类似的东西。这个注释是一个通用的刻板印象，个别团队可能会缩小其语义并在适当时使用。此注释用作@Component的特化，允许通过类路径扫描自动检测实现类。</p>
+<h2 id="MapperScan"><a href="#MapperScan" class="headerlink" title="@MapperScan"></a>@MapperScan</h2><p>使用Java Config时，使用此批注注册MyBatis映射器接口。它通过MapperScannerRegistrar执行与MapperScannerConfigurer相同的工作。配置示例：</p>
 <pre><code>@Configuration
 @MapperScan(&quot;org.mybatis.spring.sample.mapper&quot;)
 public class AppConfig {
@@ -348,7 +346,7 @@ public class AppConfig {
         return sessionFactory.getObject();
     }
 }
-</code></pre><h1 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h1><h1 id="Before"><a href="#Before" class="headerlink" title="@Before"></a>@Before</h1><p>编写测试时，通常会发现多个测试需要在运行之前创建类似的对象。使用@Before注释public void方法会导致该方法在Test方法之前运行。 @Before超类方法将在当前类的方法之前运行，除非它们在当前类中被重写。没有定义其他排序。<br>这是一个简单的例子：</p>
+</code></pre><h1 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h1><h2 id="Before"><a href="#Before" class="headerlink" title="@Before"></a>@Before</h2><p>编写测试时，通常会发现多个测试需要在运行之前创建类似的对象。使用@Before注释public void方法会导致该方法在Test方法之前运行。 @Before超类方法将在当前类的方法之前运行，除非它们在当前类中被重写。没有定义其他排序。<br>这是一个简单的例子：</p>
 <pre><code>public class Example {
     List empty;
     @Before
@@ -366,7 +364,7 @@ public class AppConfig {
         ...
     }
 }
-</code></pre><h1 id="Test"><a href="#Test" class="headerlink" title="@Test"></a>@Test</h1><p>annotation告诉JUnit它附加的公共void方法可以作为测试用例运行。要运行该方法，JUnit首先构造一个新的类实例，然后调用带注释的方法。 JUnit将报告测试引发的任何异常为失败。如果没有抛出异常，则假定测试成功。一个简单的测试如下所示：</p>
+</code></pre><h2 id="Test"><a href="#Test" class="headerlink" title="@Test"></a>@Test</h2><p>annotation告诉JUnit它附加的公共void方法可以作为测试用例运行。要运行该方法，JUnit首先构造一个新的类实例，然后调用带注释的方法。 JUnit将报告测试引发的任何异常为失败。如果没有抛出异常，则假定测试成功。一个简单的测试如下所示：</p>
 <p>Test annotation支持两个可选参数。第一个是预期的，声明测试方法应该抛出异常。如果它不抛出异常或抛出与声明的异常不同的异常，则测试失败。</p>
 <p>例如，以下测试成功：</p>
 <pre><code>@Test（expected = IndexOutOfBoundsException.class）
@@ -384,7 +382,7 @@ public void sleep100（）{
     Thread.sleep（100）;
 }
 </code></pre><p>线程安全警告：带有超时参数的测试方法在运行夹具的@Before和@After方法的线程以外的线程中运行。与没有超时参数的相同测试方法相比，这可能会对非线程安全的代码产生不同的行为。请考虑使用Timeout规则，以确保测试方法在与fixture的@Before和@After方法相同的线程上运行。</p>
-<h1 id="After"><a href="#After" class="headerlink" title="@After"></a>@After</h1><p>如果在Before方法中分配外部资源，则需要在测试运行后释放它们。使用@After注释公共void方法会导致该方法在Test方法之后运行。即使Before或Test方法抛出异常，也保证所有@After方法都能运行。在超类中声明的@After方法将在当前类的那些之后运行，除非它们在当前类中被重写。这是一个简单的例子：</p>
+<h2 id="After"><a href="#After" class="headerlink" title="@After"></a>@After</h2><p>如果在Before方法中分配外部资源，则需要在测试运行后释放它们。使用@After注释公共void方法会导致该方法在Test方法之后运行。即使Before或Test方法抛出异常，也保证所有@After方法都能运行。在超类中声明的@After方法将在当前类的那些之后运行，除非它们在当前类中被重写。这是一个简单的例子：</p>
 <pre><code>public class Example {
     File output;
     @Before
@@ -719,7 +717,29 @@ $(document).ready(function() {
     })
   });
 </script></div>
-  <script type="text/javascript" src="/js/snow.js"></script>
+  <script src="/js/sakura.js"></script>
   <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
 </body>
 </html>

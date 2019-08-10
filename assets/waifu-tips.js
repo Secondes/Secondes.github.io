@@ -26,10 +26,10 @@ live2d_settings['hitokotoAPI']          = 'lwl12.com';                  // 一�
 
 // 默认模型
 live2d_settings['modelId']              = 1;            // 默认模型 ID，可在 F12 控制台找到
-live2d_settings['modelTexturesId']      = 74;           // 默认材质 ID，可在 F12 控制台找到
-
+//live2d_settings['modelTexturesId']      = 87;           // 默认材质 ID，可在 F12 控制台找到
+live2d_settings['modelTexturesId']      = Math.floor(Math.random() * (87 - 1)) + 1;
 // 工具栏设置
-live2d_settings['showToolMenu']         = true;         // 显示 工具栏          ，可选 true(真), false(假)
+live2d_settings['showToolMenu']         = false;         // 显示 工具栏          ，可选 true(真), false(假)
 live2d_settings['canCloseLive2d']       = false;         // 显示 关闭看板娘  按钮，可选 true(真), false(假)
 live2d_settings['canSwitchModel']       = false;         // 显示 模型切换    按钮，可选 true(真), false(假)
 live2d_settings['canSwitchTextures']    = true;         // 显示 材质切换    按钮，可选 true(真), false(假)

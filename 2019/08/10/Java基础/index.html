@@ -70,9 +70,7 @@
   <figure id="centerbg" class="centerbg">
     <div class="focusinfo no-select">
       <div class="header-tou">
-        <a href="https://secondes.github.io/">
-          <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
-        </a>
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
       </div>
       <div class="header-info">
         <p>The degree of loving is measured by the degree of giving</p>
@@ -274,7 +272,7 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer10.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer10.gif">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer13.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer13.gif">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
@@ -353,12 +351,12 @@ private void readObjectNoData() throws ObjectStreamException;
 <h2 id="java内存区域"><a href="#java内存区域" class="headerlink" title="java内存区域"></a>java内存区域</h2><p>code segment 存放代码<br>data segment 静态变量 字符串常量<br>stack 局部变量<br>heap new出的对象</p>
 <h2 id="java变量的分类"><a href="#java变量的分类" class="headerlink" title="java变量的分类"></a>java变量的分类</h2><p>按位置划分<br>局部变量:方法体内部声明的变量(方法的参数也是局部变量)<br>成员变量:方法体外面,类里面(也就是俗称的属性)<br>按数据类型划分<br>基本数据类型<br>引用数据类型</p>
 <h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>方法调用自身称为递归</p>
-<p>System类<br>System类包含几个有用的类字段和方法。它无法实例化。 System类提供的功能包括标准输入，标准输出和错误输出流;访问外部定义的属性和环境变量;加载文件和库的方法;以及用于快速复制阵列的一部分的实用方法。</p>
+<h2 id="System类"><a href="#System类" class="headerlink" title="System类"></a>System类</h2><p>System类包含几个有用的类字段和方法。它无法实例化。 System类提供的功能包括标准输入，标准输出和错误输出流;访问外部定义的属性和环境变量;加载文件和库的方法;以及用于快速复制阵列的一部分的实用方法。</p>
 <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><p>对一个对象的抽象,叫做类<br>对一个类的实际描述,叫对象<br>类是静态的概念,代码区<br>对象是new出来的,位于heap,类的每个成员变量在不同的对象中的都有不一样的值(除了静态变量),而方法只有一份,执行的时候占用内存<br>heap是动态分配内存的<br>java里面除了基本类型之外的变量类型都称之为引用类型<br>java中的对象是通过引用对其操作的</p>
 <pre><code>C c = new C();
 code seg
 </code></pre><p>先读取代码,然后在栈中创建c对象,指向堆内存种的C对象</p>
-<p>关联关系<br>是最弱的一种关系<br>一个类使用的参数为另一个对象称为有关联关系<br>如 教授.教(研究生);</p>
+<h2 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h2><p>是最弱的一种关系<br>一个类使用的参数为另一个对象称为有关联关系<br>如 教授.教(研究生);</p>
 <h2 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h2><p>java类单继承,接口多继承</p>
 <h2 id="实现关系"><a href="#实现关系" class="headerlink" title="实现关系"></a>实现关系</h2><p>接口的实现</p>
 <h2 id="方法的重写和重载"><a href="#方法的重写和重载" class="headerlink" title="方法的重写和重载"></a>方法的重写和重载</h2><p>对象的创建和使用<br>1.使用new关键字<br>2.使用对象引用.成员变量或者引用对象的成员变量<br>3.使用对象引用.方法(参数列表)来调用对象的方法<br>4.同一个类的每个对象有不同的成员变量存储空间<br>5.同一个类的每个对象共享该类的方法<br>6.非静态方法是针对每个对象进行调用</p>
@@ -761,7 +759,29 @@ $(document).ready(function() {
     })
   });
 </script></div>
-  <script type="text/javascript" src="/js/snow.js"></script>
+  <script src="/js/sakura.js"></script>
   <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
 </body>
 </html>
