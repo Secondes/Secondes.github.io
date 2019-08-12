@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">Hive函数 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/1878600225/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer15.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer15.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Hive函数</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-12<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Hive函数"><a href="#Hive函数" class="headerlink" title="Hive函数"></a>Hive函数</h1><p>​Hive中提供了非常丰富的运算符和内置函数支撑，具体操作如下：</p>
+<h2 id="1-内置运算符"><a href="#1-内置运算符" class="headerlink" title="1.内置运算符"></a>1.内置运算符</h2><h3 id="1-1关系运算符"><a href="#1-1关系运算符" class="headerlink" title="1.1关系运算符"></a>1.1关系运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A = B</td>
+<td>所有原始类型</td>
+<td>如果A与B相等,返回TRUE,否则返回FALSE</td>
+</tr>
+<tr>
+<td>A == B</td>
+<td>无</td>
+<td>失败，因为无效的语法。 SQL使用”=”，不使用”==”。</td>
+</tr>
+<tr>
+<td>A &lt;&gt; B</td>
+<td>所有原始类型</td>
+<td>如果A不等于B返回TRUE,否则返回FALSE。如果A或B值为”NULL”，结果返回”NULL”。</td>
+</tr>
+<tr>
+<td>A &lt; B</td>
+<td>所有原始类型</td>
+<td>如果A小于B返回TRUE,否则返回FALSE。如果A或B值为”NULL”，结果返回”NULL”。</td>
+</tr>
+<tr>
+<td>A &lt;= B</td>
+<td>所有原始类型</td>
+<td>如果A小于等于B返回TRUE,否则返回FALSE。如果A或B值为”NULL”，结果返回”NULL”。</td>
+</tr>
+<tr>
+<td>A &gt; B</td>
+<td>所有原始类型</td>
+<td>如果A大于B返回TRUE,否则返回FALSE。如果A或B值为”NULL”，结果返回”NULL”。</td>
+</tr>
+<tr>
+<td>A &gt;= B</td>
+<td>所有原始类型</td>
+<td>如果A大于等于B返回TRUE,否则返回FALSE。如果A或B值为”NULL”，结果返回”NULL”。</td>
+</tr>
+<tr>
+<td>A IS NULL</td>
+<td>所有类型</td>
+<td>如果A值为”NULL”，返回TRUE,否则返回FALSE</td>
+</tr>
+<tr>
+<td>A IS NOT NULL</td>
+<td>所有类型</td>
+<td>如果A值不为”NULL”，返回TRUE,否则返回FALSE</td>
+</tr>
+<tr>
+<td>A LIKE B</td>
+<td>字符串</td>
+<td>如 果A或B值为”NULL”，结果返回”NULL”。字符串A与B通过sql进行匹配，如果相符返回TRUE，不符返回FALSE。B字符串中 的”<em>”代表任一字符，”%”则代表多个任意字符。例如： (‘foobar’ like ‘foo’)返回FALSE，（ ‘foobar’ like ‘foo</em> _ _’或者 ‘foobar’ like ‘foo%’)则返回TURE</td>
+</tr>
+<tr>
+<td>A RLIKE B</td>
+<td>字符串</td>
+<td>如 果A或B值为”NULL”，结果返回”NULL”。字符串A与B通过java进行匹配，如果相符返回TRUE，不符返回FALSE。例如：（ ‘foobar’ rlike ‘foo’）返回FALSE，（’foobar’ rlike ‘^f.*r$’ ）返回TRUE。</td>
+</tr>
+<tr>
+<td>A REGEXP B</td>
+<td>字符串</td>
+<td>与RLIKE相同。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-2算术运算符"><a href="#1-2算术运算符" class="headerlink" title="1.2算术运算符"></a>1.2算术运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A + B</td>
+<td>所有数字类型</td>
+<td>A和B相加。结果的与操作数值有共同类型。例如每一个整数是一个浮点数，浮点数包含整数。所以，一个浮点数和一个整数相加结果也是一个浮点数。</td>
+</tr>
+<tr>
+<td>A – B</td>
+<td>所有数字类型</td>
+<td>A和B相减。结果的与操作数值有共同类型。</td>
+</tr>
+<tr>
+<td>A * B</td>
+<td>所有数字类型</td>
+<td>A和B相乘，结果的与操作数值有共同类型。需要说明的是，如果乘法造成溢出，将选择更高的类型。</td>
+</tr>
+<tr>
+<td>A / B</td>
+<td>所有数字类型</td>
+<td>A和B相除，结果是一个double（双精度）类型的结果。</td>
+</tr>
+<tr>
+<td>A % B</td>
+<td>所有数字类型</td>
+<td>A除以B余数与操作数值有共同类型。</td>
+</tr>
+<tr>
+<td>A &amp; B</td>
+<td>所有数字类型</td>
+<td>运算符查看两个参数的二进制表示法的值，并执行按位”与”操作。两个表达式的一位均为1时，则结果的该位为 1。否则，结果的该位为 0。</td>
+</tr>
+<tr>
+<td>A\</td>
+<td>B</td>
+<td>所有数字类型</td>
+<td>运算符查看两个参数的二进制表示法的值，并执行按位”或”操作。只要任一表达式的一位为 1，则结果的该位为 1。否则，结果的该位为 0。</td>
+</tr>
+<tr>
+<td>A ^ B</td>
+<td>所有数字类型</td>
+<td>运算符查看两个参数的二进制表示法的值，并执行按位”异或”操作。当且仅当只有一个表达式的某位上为 1 时，结果的该位才为 1。否则结果的该位为 0。</td>
+</tr>
+<tr>
+<td>~A</td>
+<td>所有数字类型</td>
+<td>对一个表达式执行按位”非”（取反）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-3逻辑运算符"><a href="#1-3逻辑运算符" class="headerlink" title="1.3逻辑运算符"></a>1.3逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A AND B</td>
+<td>布尔值</td>
+<td>A和B同时正确时,返回TRUE,否则FALSE。如果A或B值为NULL，返回NULL。</td>
+</tr>
+<tr>
+<td>A &amp;&amp; B</td>
+<td>布尔值</td>
+<td>与”A AND B”相同</td>
+</tr>
+<tr>
+<td>A OR B</td>
+<td>布尔值</td>
+<td>A或B正确,或两者同时正确返返回TRUE,否则FALSE。如果A和B值同时为NULL，返回NULL。</td>
+</tr>
+<tr>
+<td>A \</td>
+<td>B</td>
+<td>布尔值</td>
+<td>与”A OR B”相同</td>
+</tr>
+<tr>
+<td>NOT A</td>
+<td>布尔值</td>
+<td>如果A为NULL或错误的时候返回TURE，否则返回FALSE。</td>
+</tr>
+<tr>
+<td>! A</td>
+<td>布尔值</td>
+<td>与”NOT A”相同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4复杂类型函数"><a href="#1-4复杂类型函数" class="headerlink" title="1.4复杂类型函数"></a>1.4复杂类型函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>map</td>
+<td>(key1, value1, key2, value2, …)</td>
+<td>通过指定的键/值对，创建一个map。</td>
+</tr>
+<tr>
+<td>struct</td>
+<td>(val1, val2, val3, …)</td>
+<td>通过指定的字段值，创建一个结构。结构字段名称将COL1，COL2，…</td>
+</tr>
+<tr>
+<td>array</td>
+<td>(val1, val2, …)</td>
+<td>通过指定的元素，创建一个数组。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-5对复杂类型函数操作"><a href="#1-5对复杂类型函数操作" class="headerlink" title="1.5对复杂类型函数操作"></a>1.5对复杂类型函数操作</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A[n]</td>
+<td>A是一个数组，n为int型</td>
+<td>返回数组A的第n个元素，第一个元素的索引为0。如果A数组为[‘foo’,’bar’]，则A[0]返回’foo’和A[1]返回”bar”。</td>
+</tr>
+<tr>
+<td>M[key]</td>
+<td>M是Map&lt;K, V&gt;，关键K型</td>
+<td>返回关键值对应的值，例如mapM为 {‘f’ -&gt; ‘foo’, ‘b’ -&gt; ‘bar’, ‘all’ -&gt; ‘foobar’}，则M[‘all’] 返回’foobar’。</td>
+</tr>
+<tr>
+<td>S.x</td>
+<td>S为struct</td>
+<td>返回结构x字符串在结构S中的存储位置。如 foobar {int foo, int bar} foobar.foo的领域中存储的整数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-内置函数"><a href="#2-内置函数" class="headerlink" title="2.内置函数"></a>2.内置函数</h2><h3 id="2-1数学函数"><a href="#2-1数学函数" class="headerlink" title="2.1数学函数"></a>2.1数学函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>round(double a)</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>round(double a, int d)</td>
+<td>小数部分d位之后数字四舍五入，例如round(21.263,2),返回21.26</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>floor(double a)</td>
+<td>对给定数据进行向下舍入最接近的整数。例如floor(21.2),返回21。</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>ceil(double a), ceiling(double a)</td>
+<td>将参数向上舍入为最接近的整数。例如ceil(21.2),返回23.</td>
+</tr>
+<tr>
+<td>double</td>
+<td>rand(), rand(int seed)</td>
+<td>返回大于或等于0且小于1的平均分布随机数（依重新计算而变）</td>
+</tr>
+<tr>
+<td>double</td>
+<td>exp(double a)</td>
+<td>返回e的n次方</td>
+</tr>
+<tr>
+<td>double</td>
+<td>ln(double a)</td>
+<td>返回给定数值的自然对数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>log10(double a)</td>
+<td>返回给定数值的以10为底自然对数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>log2(double a)</td>
+<td>返回给定数值的以2为底自然对数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>log(double base, double a)</td>
+<td>返回给定底数及指数返回自然对数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>pow(double a, double p) power(double a, double p)</td>
+<td>返回某数的乘幂</td>
+</tr>
+<tr>
+<td>double</td>
+<td>sqrt(double a)</td>
+<td>返回数值的平方根</td>
+</tr>
+<tr>
+<td>string</td>
+<td>bin(BIGINT a)</td>
+<td>返回二进制格式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>hex(BIGINT a) hex(string a)</td>
+<td>将整数或字符转换为十六进制格式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>unhex(string a)</td>
+<td>十六进制字符转换由数字表示的字符。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>conv(BIGINT num, int from_base, int to_base)</td>
+<td>将 指定数值，由原来的度量体系转换为指定的试题体系。例如CONV(‘a’,16,2),返回。参考：’1010′ <a href="http://dev.mysql.com/doc/refman/5.0/en/mathematical-functions.html#function_conv" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.0/en/mathematical-functions.html#function_conv</a></td>
+</tr>
+<tr>
+<td>double</td>
+<td>abs(double a)</td>
+<td>取绝对值</td>
+</tr>
+<tr>
+<td>int double</td>
+<td>pmod(int a, int b) pmod(double a, double b)</td>
+<td>返回a除b的余数的绝对值</td>
+</tr>
+<tr>
+<td>double</td>
+<td>sin(double a)</td>
+<td>返回给定角度的正弦值</td>
+</tr>
+<tr>
+<td>double</td>
+<td>asin(double a)</td>
+<td>返回x的反正弦，即是X。如果X是在-1到1的正弦值，返回NULL。</td>
+</tr>
+<tr>
+<td>double</td>
+<td>cos(double a)</td>
+<td>返回余弦</td>
+</tr>
+<tr>
+<td>double</td>
+<td>acos(double a)</td>
+<td>返回X的反余弦，即余弦是X，，如果-1&lt;= A &lt;= 1，否则返回null.</td>
+</tr>
+<tr>
+<td>int double</td>
+<td>positive(int a) positive(double a)</td>
+<td>返回A的值，例如positive(2)，返回2。</td>
+</tr>
+<tr>
+<td>int double</td>
+<td>negative(int a) negative(double a)</td>
+<td>返回A的相反数，例如negative(2),返回-2。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2收集函数"><a href="#2-2收集函数" class="headerlink" title="2.2收集函数"></a>2.2收集函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>size(Map&lt;K.V&gt;)</td>
+<td>返回的map类型的元素的数量</td>
+</tr>
+<tr>
+<td>int</td>
+<td>size(Array<t>)</t></td>
+<td>返回数组类型的元素数量</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-3类型转换函数"><a href="#2-3类型转换函数" class="headerlink" title="2.3类型转换函数"></a>2.3类型转换函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指定 “type”</td>
+<td>cast(expr as <type>)</type></td>
+<td>类型转换。例如将字符”1″转换为整数:cast(’1′ as bigint)，如果转换失败返回NULL。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-4日期函数"><a href="#2-4日期函数" class="headerlink" title="2.4日期函数"></a>2.4日期函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>from_unixtime(bigint unixtime[, string format])</td>
+<td>UNIX_TIMESTAMP参数表示返回一个值’YYYY- MM – DD HH：MM：SS’或YYYYMMDDHHMMSS.uuuuuu格式，这取决于是否是在一个字符串或数字语境中使用的功能。该值表示在当前的时区。</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>unix_timestamp()</td>
+<td>如果不带参数的调用，返回一个Unix时间戳（从’1970- 01 – 0100:00:00′到现在的UTC秒数）为无符号整数。</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>unix_timestamp(string date)</td>
+<td>指定日期参数调用UNIX_TIMESTAMP（），它返回参数值’1970- 01 – 0100:00:00′到指定日期的秒数。</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>unix_timestamp(string date, string pattern)</td>
+<td>指定时间输入格式，返回到1970年秒数：unix_timestamp(’2009-03-20′, ‘yyyy-MM-dd’) = 1237532400</td>
+</tr>
+<tr>
+<td>string</td>
+<td>to_date(string timestamp)</td>
+<td>返回时间中的年月日： to_date(“1970-01-01 00:00:00″) = “1970-01-01″</td>
+</tr>
+<tr>
+<td>string</td>
+<td>to_dates(string date)</td>
+<td>给定一个日期date，返回一个天数（0年以来的天数）</td>
+</tr>
+<tr>
+<td>int</td>
+<td>year(string date)</td>
+<td>返回指定时间的年份，范围在1000到9999，或为”零”日期的0。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>month(string date)</td>
+<td>返回指定时间的月份，范围为1至12月，或0一个月的一部分，如’0000-00-00′或’2008-00-00′的日期。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>day(string date) dayofmonth(date)</td>
+<td>返回指定时间的日期</td>
+</tr>
+<tr>
+<td>int</td>
+<td>hour(string date)</td>
+<td>返回指定时间的小时，范围为0到23。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>minute(string date)</td>
+<td>返回指定时间的分钟，范围为0到59。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>second(string date)</td>
+<td>返回指定时间的秒，范围为0到59。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>weekofyear(string date)</td>
+<td>返回指定日期所在一年中的星期号，范围为0到53。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>datediff(string enddate, string startdate)</td>
+<td>两个时间参数的日期之差。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>date_add(string startdate, int days)</td>
+<td>给定时间，在此基础上加上指定的时间段。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>date_sub(string startdate, int days)</td>
+<td>给定时间，在此基础上减去指定的时间段。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-5条件函数"><a href="#2-5条件函数" class="headerlink" title="2.5条件函数"></a>2.5条件函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>if(boolean testCondition, T valueTrue, T valueFalseOrNull)</td>
+<td>判断是否满足条件，如果满足返回一个值，如果不满足则返回另一个值。</td>
+</tr>
+<tr>
+<td>T</td>
+<td>COALESCE(T v1, T v2, …)</td>
+<td>返回一组数据中，第一个不为NULL的值，如果均为NULL,返回NULL。</td>
+</tr>
+<tr>
+<td>T</td>
+<td>CASE a WHEN b THEN c [WHEN d THEN e]* [ELSE f] END</td>
+<td>当a=b时,返回c；当a=d时，返回e，否则返回f。</td>
+</tr>
+<tr>
+<td>T</td>
+<td>CASE WHEN a THEN b [WHEN c THEN d]* [ELSE e] END</td>
+<td>当值为a时返回b,当值为c时返回d。否则返回e。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-6字符函数"><a href="#2-6字符函数" class="headerlink" title="2.6字符函数"></a>2.6字符函数</h3><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>length(string A)</td>
+<td>返回字符串的长度</td>
+</tr>
+<tr>
+<td>string</td>
+<td>reverse(string A)</td>
+<td>返回倒序字符串</td>
+</tr>
+<tr>
+<td>string</td>
+<td>concat(string A, string B…)</td>
+<td>连接多个字符串，合并为一个字符串，可以接受任意数量的输入字符串</td>
+</tr>
+<tr>
+<td>string</td>
+<td>concat_ws(string SEP, string A, string B…)</td>
+<td>链接多个字符串，字符串之间以指定的分隔符分开。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>substr(string A, int start) substring(string A, int start)</td>
+<td>从文本字符串中指定的起始位置后的字符。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>substr(string A, int start, int len) substring(string A, int start, int len)</td>
+<td>从文本字符串中指定的位置指定长度的字符。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>upper(string A) ucase(string A)</td>
+<td>将文本字符串转换成字母全部大写形式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>lower(string A) lcase(string A)</td>
+<td>将文本字符串转换成字母全部小写形式</td>
+</tr>
+<tr>
+<td>string</td>
+<td>trim(string A)</td>
+<td>删除字符串两端的空格，字符之间的空格保留</td>
+</tr>
+<tr>
+<td>string</td>
+<td>ltrim(string A)</td>
+<td>删除字符串左边的空格，其他的空格保留</td>
+</tr>
+<tr>
+<td>string</td>
+<td>rtrim(string A)</td>
+<td>删除字符串右边的空格，其他的空格保留</td>
+</tr>
+<tr>
+<td>string</td>
+<td>regexp_replace(string A, string B, string C)</td>
+<td>字符串A中的B字符被C字符替代</td>
+</tr>
+<tr>
+<td>string</td>
+<td>regexp_extract(string subject, string pattern, int index)</td>
+<td>通过下标返回正则表达式指定的部分。regexp_extract(‘foothebar’, ‘foo(.*?)(bar)’, 2) returns ‘bar.’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>parse_url(string urlString, string partToExtract [, string keyToExtract])</td>
+<td>返回URL指定的部分。parse_url(‘<a href="http://facebook.com/path1/p.php?k1=v1&amp;k2=v2#Ref1′" target="_blank" rel="noopener">http://facebook.com/path1/p.php?k1=v1&amp;k2=v2#Ref1′</a>, ‘HOST’) 返回：’facebook.com’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>get_json_object(string json_string, string path)</td>
+<td>select a.timestamp, get_json_object(a.appevents, ‘$.eventid’), get_json_object(a.appenvets, ‘$.eventname’) from log a;</td>
+</tr>
+<tr>
+<td>string</td>
+<td>space(int n)</td>
+<td>返回指定数量的空格</td>
+</tr>
+<tr>
+<td>string</td>
+<td>repeat(string str, int n)</td>
+<td>重复N次字符串</td>
+</tr>
+<tr>
+<td>int</td>
+<td>ascii(string str)</td>
+<td>返回字符串中首字符的数字值</td>
+</tr>
+<tr>
+<td>string</td>
+<td>lpad(string str, int len, string pad)</td>
+<td>返回指定长度的字符串，给定字符串长度小于指定长度时，由指定字符从左侧填补。</td>
+</tr>
+<tr>
+<td>string</td>
+<td>rpad(string str, int len, string pad)</td>
+<td>返回指定长度的字符串，给定字符串长度小于指定长度时，由指定字符从右侧填补。</td>
+</tr>
+<tr>
+<td>array</td>
+<td>split(string str, string pat)</td>
+<td>将字符串转换为数组。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>find_in_set(string str, string strList)</td>
+<td>返回字符串str第一次在strlist出现的位置。如果任一参数为NULL,返回NULL；如果第一个参数包含逗号，返回0。</td>
+</tr>
+<tr>
+<td>array&lt;array<string>&gt;</string></td>
+<td>sentences(string str, string lang, string locale)</td>
+<td>将字符串中内容按语句分组，每个单词间以逗号分隔，最后返回数组。 例如sentences(‘Hello there! How are you?’) 返回：( (“Hello”, “there”), (“How”, “are”, “you”) )</td>
+</tr>
+<tr>
+<td>array&lt;struct&lt;string,double&gt;&gt;</td>
+<td>ngrams(array&lt;array<string>&gt;, int N, int K, int pf)</string></td>
+<td>SELECT ngrams(sentences(lower(tweet)), 2, 100 [, 1000]) FROM twitter;</td>
+</tr>
+<tr>
+<td>array&lt;struct&lt;string,double&gt;&gt;</td>
+<td>context_ngrams(array&lt;array<string>&gt;, array<string>, int K, int pf)</string></string></td>
+<td>SELECT context_ngrams(sentences(lower(tweet)), array(null,null), 100, [, 1000]) FROM twitter;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-内置的聚合函数（UDAF）"><a href="#3-内置的聚合函数（UDAF）" class="headerlink" title="3.内置的聚合函数（UDAF）"></a>3.内置的聚合函数（UDAF）</h2><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bigint</td>
+<td>count(*) , count(expr), count(DISTINCT expr[, expr_., expr_.])</td>
+<td>返回记录条数。</td>
+</tr>
+<tr>
+<td>double</td>
+<td>sum(col), sum(DISTINCT col)</td>
+<td>求和</td>
+</tr>
+<tr>
+<td>double</td>
+<td>avg(col), avg(DISTINCT col)</td>
+<td>求平均值</td>
+</tr>
+<tr>
+<td>double</td>
+<td>min(col)</td>
+<td>返回指定列中最小值</td>
+</tr>
+<tr>
+<td>double</td>
+<td>max(col)</td>
+<td>返回指定列中最大值</td>
+</tr>
+<tr>
+<td>double</td>
+<td>var_pop(col)</td>
+<td>返回指定列的方差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>var_samp(col)</td>
+<td>返回指定列的样本方差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>stddev_pop(col)</td>
+<td>返回指定列的偏差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>stddev_samp(col)</td>
+<td>返回指定列的样本偏差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>covar_pop(col1, col2)</td>
+<td>两列数值协方差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>covar_samp(col1, col2)</td>
+<td>两列数值样本协方差</td>
+</tr>
+<tr>
+<td>double</td>
+<td>corr(col1, col2)</td>
+<td>返回两列数值的相关系数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>percentile(col, p)</td>
+<td>返回数值区域的百分比数值点。0&lt;=P&lt;=1,否则返回NULL,不支持浮点型数值。</td>
+</tr>
+<tr>
+<td>array<double></double></td>
+<td>percentile(col, array(p~1,,\ [, p,,2,,]…))</td>
+<td>返回数值区域的一组百分比值分别对应的数值点。0&lt;=P&lt;=1,否则返回NULL,不支持浮点型数值。</td>
+</tr>
+<tr>
+<td>double</td>
+<td>percentile_approx(col, p[, B])</td>
+<td>Returns an approximate p^th^ percentile of a numeric column (including floating point types) in the group. The B parameter controls approximation accuracy at the cost of memory. Higher values yield better approximations, and the default is 10,000. When the number of distinct values in col is smaller than B, this gives an exact percentile value.</td>
+</tr>
+<tr>
+<td>array<double></double></td>
+<td>percentile_approx(col, array(p~1,, [, p,,2_]…) [, B])</td>
+<td>Same as above, but accepts and returns an array of percentile values instead of a single one.</td>
+</tr>
+<tr>
+<td>array&lt;struct{‘x’,’y’}&gt;</td>
+<td>histogram_numeric(col, b)</td>
+<td>Computes a histogram of a numeric column in the group using b non-uniformly spaced bins. The output is an array of size b of double-valued (x,y) coordinates that represent the bin centers and heights</td>
+</tr>
+<tr>
+<td>array</td>
+<td>collect_set(col)</td>
+<td>返回无重复记录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-内置表生成函数（UDTF）"><a href="#4-内置表生成函数（UDTF）" class="headerlink" title="4.内置表生成函数（UDTF）"></a>4.内置表生成函数（UDTF）</h2><table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数组</td>
+<td>explode(array<type> a)</type></td>
+<td>数组一条记录中有多个参数，将参数拆分，每个参数生成一列。</td>
+</tr>
+<tr>
+<td></td>
+<td>json_tuple</td>
+<td>get_json_object 语句：select a.timestamp, get_json_object(a.appevents, ‘$.eventid’), get_json_object(a.appenvets, ‘$.eventname’) from log a; json_tuple语句: select a.timestamp, b.* from log a lateral view json_tuple(a.appevent, ‘eventid’, ‘eventname’) b as f1, f2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-自定义函数"><a href="#5-自定义函数" class="headerlink" title="5.自定义函数"></a>5.自定义函数</h2><p>自定义函数包括三种UDF、UDAF、UDTF<br>UDF(User-Defined-Function) ：一进一出<br>UDAF(User- Defined Aggregation Funcation) ：聚集函数，多进一出。Count/max/min<br>UDTF(User-Defined Table-Generating Functions) :一进多出，如explore()</p>
+<h3 id="5-1-UDF-开发"><a href="#5-1-UDF-开发" class="headerlink" title="5.1 UDF 开发"></a><strong>5.1</strong> UDF 开发</h3><p>1、UDF函数可以直接应用于select语句，对查询结构做格式化处理后，再输出内容。<br>2、编写UDF函数的时候需要注意一下几点：<br>a）自定义UDF需要继承org.apache.hadoop.hive.ql.UDF。<br>b）需要实现evaluate函数，evaluate函数支持重载。<br>3、步骤<br>(1)将jar包上传到虚拟机中：<br>a）把程序打包放到目标机器上去；<br>b）进入hive客户端，添加jar包：hive&gt;add jar /run/jar/udf_test.jar;<br>c）创建临时函数：hive&gt;CREATE TEMPORARY FUNCTION add_example AS ‘hive.udf.Add’;<br>d）查询HQL语句：</p>
+<pre><code>​SELECT add_example(8, 9) FROM scores;
+​SELECT add_example(scores.math, scores.art) FROM scores;
+​SELECT add_example(6, 7, 8, 6.8) FROM scores;
+</code></pre><p>e）销毁临时函数：hive&gt; DROP TEMPORARY FUNCTION add_example;<br>​注意：此种方式创建的函数属于临时函数，当关闭了当前会话之后，函数会无法使用，因为jar的引用没有了，无法找到对应的java文件进行处理，因此不推荐使用。<br>(2)将jar包上传到hdfs集群中：</p>
+<p>​a）把程序打包上传到hdfs的某个目录下<br>​b）创建函数：hive&gt;CREATE FUNCTION add_example AS ‘hive.udf.Add’ using jar “hdfs://mycluster/jar/udf_test.jar”;<br>d）查询HQL语句：</p>
+<pre><code>​SELECT add_example(8, 9) FROM scores;
+​SELECT add_example(scores.math, scores.art) FROM scores;
+​SELECT add_example(6, 7, 8, 6.8) FROM scores;
+</code></pre><p>​<br>e）销毁临时函数：hive&gt; DROP  FUNCTION add_example;</p>
+<h1 id="Hive参数操作和运行方式"><a href="#Hive参数操作和运行方式" class="headerlink" title="Hive参数操作和运行方式"></a>Hive参数操作和运行方式</h1><h2 id="1、Hive参数操作"><a href="#1、Hive参数操作" class="headerlink" title="1、Hive参数操作"></a>1、Hive参数操作</h2><h3 id="1、hive参数介绍"><a href="#1、hive参数介绍" class="headerlink" title="1、hive参数介绍"></a>1、hive参数介绍</h3><p>​hive当中的参数、变量都是以命名空间开头的，详情如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th><strong>命名空间</strong></th>
+<th><strong>读写权限</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hiveconf</td>
+<td>可读写</td>
+<td>hive-site.xml当中的各配置变量例：hive –hiveconf hive.cli.print.header=true</td>
+</tr>
+<tr>
+<td>system</td>
+<td>可读写</td>
+<td>系统变量，包含JVM运行参数等例：system:user.name=root</td>
+</tr>
+<tr>
+<td>env</td>
+<td>只读</td>
+<td>环境变量例：env：JAVA_HOME</td>
+</tr>
+<tr>
+<td>hivevar</td>
+<td>可读写</td>
+<td>例：hive -d val=key</td>
+</tr>
+</tbody>
+</table>
+<p>​hive的变量可以通过${}方式进行引用，其中system、env下的变量必须以前缀开头</p>
+<h3 id="2、hive参数的设置方式"><a href="#2、hive参数的设置方式" class="headerlink" title="2、hive参数的设置方式"></a>2、hive参数的设置方式</h3><p>​1、在${HIVE_HOME}/conf/hive-site.xml文件中添加参数设置<br>​<strong>注意：永久生效，所有的hive会话都会加载对应的配置</strong><br>​2、在启动hive cli时，通过–hiveconf key=value的方式进行设置<br>​例如：hive –hiveconf hive.cli.print.header=true<br>​<strong>注意：只在当前会话有效，退出会话之后参数失效</strong><br>​3、在进入到cli之后，通过set命令设置<br>​例如：set hive.cli.print.header=true;</p>
+<pre><code class="sql">--在hive cli控制台可以通过set对hive中的参数进行查询设置
+--set设置
+set hive.cli.print.header=true;
+--set查看
+set hive.cli.print.header
+--set查看全部属性
+set
+</code></pre>
+<p>​4、hive参数初始化设置<br>​在当前用户的家目录下创建<strong>.hiverc</strong>文件，在当前文件中设置hive参数的命令，每次进入hive cli的时候，都会加载.hiverc的文件，执行文件中的命令。<br>​<strong>注意：在当前用户的家目录下还会存在.hivehistory文件，此文件中保存了hive cli中执行的所有命令</strong></p>
+<h2 id="2、hive运行方式"><a href="#2、hive运行方式" class="headerlink" title="2、hive运行方式"></a>2、hive运行方式</h2><h3 id="1、hive运行方式分类"><a href="#1、hive运行方式分类" class="headerlink" title="1、hive运行方式分类"></a>1、hive运行方式分类</h3><p>​（1）命令行方式或者控制台模式<br>​（2）脚本运行方式（实际生产环境中用最多）<br>（3）JDBC方式：hiveserver2<br>​（4）web GUI接口（hwi、hue等）</p>
+<h3 id="2、hive命令行模式详解"><a href="#2、hive命令行模式详解" class="headerlink" title="2、hive命令行模式详解"></a>2、hive命令行模式详解</h3><p>​（1）在命令行中可以直接输入SQL语句，例如：select * from table_name<br>​（2）在命令行中可以与HDFS交互，例如：dfs ls /<br>​（3）在命令行中可以与linux交互，例如：! pwd或者! ls /<br>​<strong>注意：与linux交互的时候必须要加!</strong></p>
+<h3 id="3、hive脚本运行方式"><a href="#3、hive脚本运行方式" class="headerlink" title="3、hive脚本运行方式"></a>3、hive脚本运行方式</h3><pre><code class="sql">--hive直接执行sql命令，可以写一个sql语句，也可以使用;分割写多个sql语句
+hive -e &quot;&quot;
+--hive执行sql命令，将sql语句执行的结果重定向到某一个文件中
+hive -e &quot;&quot;&gt;aaa
+--hive静默输出模式，输出的结果中不包含ok，time token等关键字
+hive -S -e &quot;&quot;&gt;aaa
+--hive可以直接读取文件中的sql命令，进行执行
+hive -f file
+--hive可以从文件中读取命令，并且执行初始化操作
+hive -i /home/my/hive-init.sql
+--在hive的命令行中也可以执行外部文件中的命令
+hive&gt; source file (在hive cli中运行)
+</code></pre>
+<p>​4、hive JDBC访问方式，之前讲过，不再赘述<br>5、Hive GUI方式<br>​<img src="[https://github.com/msbbigdata/hive/blob/master/images/hive%20hwi.png]" alt></p>
+<h1 id="Hive动态分区和分桶"><a href="#Hive动态分区和分桶" class="headerlink" title="Hive动态分区和分桶"></a>Hive动态分区和分桶</h1><h2 id="1、Hive动态分区"><a href="#1、Hive动态分区" class="headerlink" title="1、Hive动态分区"></a>1、Hive动态分区</h2><h3 id="1、hive的动态分区介绍"><a href="#1、hive的动态分区介绍" class="headerlink" title="1、hive的动态分区介绍"></a>1、hive的动态分区介绍</h3><p>​hive的静态分区需要用户在插入数据的时候必须手动指定hive的分区字段值，但是这样的话会导致用户的操作复杂度提高，而且在使用的时候会导致数据只能插入到某一个指定分区，无法让数据散列分布，因此更好的方式是当数据在进行插入的时候，根据数据的某一个字段或某几个字段值动态的将数据插入到不同的目录中，此时，引入动态分区。</p>
+<h3 id="2、hive的动态分区配置"><a href="#2、hive的动态分区配置" class="headerlink" title="2、hive的动态分区配置"></a>2、hive的动态分区配置</h3><pre><code class="sql">--hive设置hive动态分区开启
+set hive.exec.dynamic.partition=true;
+默认：true
+--hive的动态分区模式
+set hive.exec.dynamic.partition.mode=nostrict;
+默认：strict（至少有一个分区列是静态分区）
+--每一个执行mr节点上，允许创建的动态分区的最大数量(100)
+set hive.exec.max.dynamic.partitions.pernode;
+--所有执行mr节点上，允许创建的所有动态分区的最大数量(1000)
+set hive.exec.max.dynamic.partitions;
+--所有的mr job允许创建的文件的最大数量(100000)
+set hive.exec.max.created.files;
+</code></pre>
+<h3 id="3、hive动态分区语法"><a href="#3、hive动态分区语法" class="headerlink" title="3、hive动态分区语法"></a>3、hive动态分区语法</h3><pre><code class="sql">--Hive extension (dynamic partition inserts):
+INSERT OVERWRITE TABLE tablename PARTITION (partcol1[=val1], partcol2[=val2] ...)         select_statement FROM from_statement;
+INSERT INTO TABLE tablename PARTITION (partcol1[=val1], partcol2[=val2] ...)             select_statement FROM from_statement;
+</code></pre>
+<h2 id="2、Hive分桶"><a href="#2、Hive分桶" class="headerlink" title="2、Hive分桶"></a>2、Hive分桶</h2><h3 id="1、Hive分桶的介绍"><a href="#1、Hive分桶的介绍" class="headerlink" title="1、Hive分桶的介绍"></a>1、Hive分桶的介绍</h3><pre><code class="sql">Bucketed tables are fantastic in that they allow much more efficient sampling than do non-bucketed tables, and they may later allow for time saving operations such as mapside joins. However, the bucketing specified at table creation is not enforced when the table is written to, and so it is possible for the table&#39;s metadata to advertise properties which are not upheld by the table&#39;s actual layout. This should obviously be avoided. Here is how to do it right.
+
+</code></pre>
+<p>​注意：<br>​   1、Hive分桶表是对列值取hash值得方式，将不同数据放到不同文件中存储<br>​    2、对于hive中每一个表、分区都可以进一步进行分桶<br>​    3、由列的hash值除以桶的个数来决定每条数据划分在哪个桶中</p>
+<h3 id="2、Hive分桶的配置"><a href="#2、Hive分桶的配置" class="headerlink" title="2、Hive分桶的配置"></a>2、Hive分桶的配置</h3><pre><code class="sql">--设置hive支持分桶
+set hive.enforce.bucketing=true;
+</code></pre>
+<h3 id="3、Hive分桶的抽样查询"><a href="#3、Hive分桶的抽样查询" class="headerlink" title="3、Hive分桶的抽样查询"></a>3、Hive分桶的抽样查询</h3><pre><code class="sql">--案例
+select * from bucket_table tablesample(bucket 1 out of 4 on columns)
+--TABLESAMPLE语法：
+TABLESAMPLE(BUCKET x OUT OF y)
+    x：表示从哪个bucket开始抽取数据
+    y：必须为该表总bucket数的倍数或因子
+</code></pre>
+<h1 id="Hive的视图和索引"><a href="#Hive的视图和索引" class="headerlink" title="Hive的视图和索引"></a>Hive的视图和索引</h1><h2 id="1、Hive-Lateral-View"><a href="#1、Hive-Lateral-View" class="headerlink" title="1、Hive Lateral View"></a>1、Hive Lateral View</h2><h3 id="1、基本介绍"><a href="#1、基本介绍" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h3><p>​Lateral View用于和UDTF函数（explode、split）结合来使用。<br>​首先通过UDTF函数拆分成多行，再将多行结果组合成一个支持别名的虚拟表。主要解决在select使用UDTF做查询过程中，查询只能包含单个UDTF，不能包含其他字段、以及多个UDTF的问题。<br>​语法：<br>​   LATERAL VIEW udtf(expression) tableAlias AS columnAlias (‘,’ columnAlias)</p>
+<h3 id="2、案例"><a href="#2、案例" class="headerlink" title="2、案例"></a>2、案例</h3><pre><code class="sql">select count(distinct(myCol1)), count(distinct(myCol2)) from psn2
+LATERAL VIEW explode(likes) myTable1 AS myCol1
+LATERAL VIEW explode(address) myTable2 AS myCol2, myCol3;
+</code></pre>
+<h2 id="2、Hive视图"><a href="#2、Hive视图" class="headerlink" title="2、Hive视图"></a>2、Hive视图</h2><h3 id="1、Hive视图基本介绍"><a href="#1、Hive视图基本介绍" class="headerlink" title="1、Hive视图基本介绍"></a>1、Hive视图基本介绍</h3><p>​Hive 中的视图和RDBMS中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条SELECT语句的结果集。视图是纯粹的逻辑对象，没有关联的存储(Hive 3.0.0引入的物化视图除外)，当查询引用视图时，Hive可以将视图的定义与查询结合起来，例如将查询中的过滤器推送到视图中。</p>
+<h3 id="2、Hive视图特点"><a href="#2、Hive视图特点" class="headerlink" title="2、Hive视图特点"></a>2、Hive视图特点</h3><p>​1、不支持物化视图<br>​2、只能查询，不能做加载数据操作<br>​3、视图的创建，只是保存一份元数据，查询视图时才执行对应的子查询<br>​4、view定义中若包含了ORDER BY/LIMIT语句，当查询视图时也进行ORDER BY/LIMIT语句操作，view当中              定义的优先级更高<br>5、view支持迭代视图</p>
+<h3 id="3、Hive视图语法"><a href="#3、Hive视图语法" class="headerlink" title="3、Hive视图语法"></a>3、Hive视图语法</h3><pre><code class="sql">--创建视图：
+CREATE VIEW [IF NOT EXISTS] [db_name.]view_name
+  [(column_name [COMMENT column_comment], ...) ]
+  [COMMENT view_comment]
+  [TBLPROPERTIES (property_name = property_value, ...)]
+  AS SELECT ... ;
+--查询视图：
+select colums from view;
+--删除视图：
+DROP VIEW [IF EXISTS] [db_name.]view_name;
+</code></pre>
+<h2 id="3、Hive索引"><a href="#3、Hive索引" class="headerlink" title="3、Hive索引"></a>3、Hive索引</h2><h3 id="1、hive索引"><a href="#1、hive索引" class="headerlink" title="1、hive索引"></a>1、hive索引</h3><p>为了提高数据的检索效率，可以使用hive的索引</p>
+<h3 id="2、hive基本操作"><a href="#2、hive基本操作" class="headerlink" title="2、hive基本操作"></a>2、hive基本操作</h3><pre><code class="sql">--创建索引：
+create index t1_index on table psn2(name)
+as &#39;org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler&#39; with deferred             rebuild in table t1_index_table;
+--as：指定索引器；
+--in table：指定索引表，若不指定默认生成在default__psn2_t1_index__表中
+create index t1_index on table psn2(name)
+as &#39;org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler&#39; with deferred             rebuild;
+--查询索引
+show index on psn2;
+--重建索引（建立索引之后必须重建索引才能生效）
+ALTER INDEX t1_index ON psn2 REBUILD;
+--删除索引
+DROP INDEX IF EXISTS t1_index ON psn2;
+</code></pre>
+<h1 id="Hive权限管理"><a href="#Hive权限管理" class="headerlink" title="Hive权限管理"></a>Hive权限管理</h1><h2 id="1、hive授权模型介绍"><a href="#1、hive授权模型介绍" class="headerlink" title="1、hive授权模型介绍"></a>1、hive授权模型介绍</h2><p><img src="[https://github.com/msbbigdata/hive/blob/master/images/hive%E6%8E%88%E6%9D%83%E6%A8%A1%E5%9E%8B.png]" alt></p>
+<p>（1）Storage Based Authorization in the Metastore Server<br>    基于存储的授权 - 可以对Metastore中的元数据进行保护，但是没有提供更加细粒度的访问控制（例如：列级别、行级别）。<br>（2）SQL Standards Based Authorization in HiveServer2<br>    基于SQL标准的Hive授权 - 完全兼容SQL的授权模型，推荐使用该模式。<br>（3）Default Hive Authorization (Legacy Mode)<br>    hive默认授权 - 设计目的仅仅只是为了防止用户产生误操作，而不是防止恶意用户访问未经授权的数据。</p>
+<h2 id="2、基于SQL标准的hiveserver2授权模式"><a href="#2、基于SQL标准的hiveserver2授权模式" class="headerlink" title="2、基于SQL标准的hiveserver2授权模式"></a>2、基于SQL标准的hiveserver2授权模式</h2><p>（1）完全兼容SQL的授权模型<br>（2）除支持对于用户的授权认证，还支持角色role的授权认证<br>    1、role可理解为是一组权限的集合，通过role为用户授权<br>    2、一个用户可以具有一个或多个角色，默认包含另种角色：public、admin</p>
+<h2 id="3、基于SQL标准的hiveserver2授权模式的限制"><a href="#3、基于SQL标准的hiveserver2授权模式的限制" class="headerlink" title="3、基于SQL标准的hiveserver2授权模式的限制"></a>3、基于SQL标准的hiveserver2授权模式的限制</h2><p>1、启用当前认证方式之后，dfs, add, delete, compile, and reset等命令被禁用。<br>2、通过set命令设置hive configuration的方式被限制某些用户使用。（可通过修改配置文件hive-site.xml中hive.security.authorization.sqlstd.confwhitelist进行配置）<br>3、添加、删除函数以及宏的操作，仅为具有admin的用户开放。<br>​4、用户自定义函数（开放支持永久的自定义函数），可通过具有admin角色的用户创建，其他用户都可以使用。<br>5、Transform功能被禁用。</p>
+<h2 id="4、详细配置"><a href="#4、详细配置" class="headerlink" title="4、详细配置"></a>4、详细配置</h2><pre><code>&lt;property&gt;
+  &lt;name&gt;hive.security.authorization.enabled&lt;/name&gt;
+  &lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.enable.doAs&lt;/name&gt;
+  &lt;value&gt;false&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.users.in.admin.role&lt;/name&gt;
+  &lt;value&gt;root&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.security.authorization.manager&lt;/name&gt;  &lt;value&gt;org.apache.hadoop.hive.ql.security.authorization.plugin.sqlstd.SQLStdHiveAuthorizerFactory&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.security.authenticator.manager&lt;/name&gt;
+  &lt;value&gt;org.apache.hadoop.hive.ql.security.SessionStateUserAuthenticator&lt;/value&gt;
+&lt;/property&gt;
+</code></pre><h2 id="5、Hive权限管理命令"><a href="#5、Hive权限管理命令" class="headerlink" title="5、Hive权限管理命令"></a>5、Hive权限管理命令</h2><pre><code class="sql">--角色的添加、删除、查看、设置：
+-- 创建角色
+CREATE ROLE role_name;  
+-- 删除角色
+DROP ROLE role_name;
+-- 设置角色
+SET ROLE (role_name|ALL|NONE);
+-- 查看当前具有的角色
+SHOW CURRENT ROLES;  
+-- 查看所有存在的角色
+SHOW ROLES;  
+</code></pre>
+<h2 id="6、Hive权限分配图"><a href="#6、Hive权限分配图" class="headerlink" title="6、Hive权限分配图"></a>6、Hive权限分配图</h2><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Select</th>
+<th>Insert</th>
+<th>Update</th>
+<th>Delete</th>
+<th>Owership</th>
+<th>Admin</th>
+<th>URL Privilege(RWX Permission + Ownership)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALTER DATABASE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER INDEX PROPERTIES</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER INDEX REBUILD</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER PARTITION LOCATION</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td>Y (for new partition location)</td>
+</tr>
+<tr>
+<td>ALTER TABLE (all of them except the ones above)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER TABLE ADD PARTITION</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y (for partition location)</td>
+</tr>
+<tr>
+<td>ALTER TABLE DROP PARTITION</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER TABLE LOCATION</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td>Y (for new location)</td>
+</tr>
+<tr>
+<td>ALTER VIEW PROPERTIES</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ALTER VIEW RENAME</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ANALYZE TABLE</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATE DATABASE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y (if custom location specified)</td>
+</tr>
+<tr>
+<td>CREATE FUNCTION</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>CREATE INDEX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y (of table)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATE MACRO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>CREATE TABLE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y (of database)</td>
+<td></td>
+<td>Y  (for create external table – the location)</td>
+</tr>
+<tr>
+<td>CREATE TABLE AS SELECT</td>
+<td>Y (of input)</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y (of database)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATE VIEW</td>
+<td>Y + G</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DESCRIBE TABLE</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP DATABASE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP FUNCTION</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>DROP INDEX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP MACRO</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>DROP TABLE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP VIEW</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP VIEW PROPERTIES</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EXPLAIN</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td>Y (for OVERWRITE)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>LOAD</td>
+<td></td>
+<td>Y (output)</td>
+<td></td>
+<td>Y (output)</td>
+<td></td>
+<td></td>
+<td>Y (input location)</td>
+</tr>
+<tr>
+<td>MSCK (metastore check)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SHOW COLUMNS</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SHOW CREATE TABLE</td>
+<td>Y+G</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SHOW PARTITIONS</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SHOW TABLE PROPERTIES</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SHOW TABLE STATUS</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TRUNCATE TABLE</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/12/Hive优化/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer16.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Hive优化</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/12/HiveSQL操作/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer17.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                HiveSQL操作</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>

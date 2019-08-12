@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">Hive优化 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/1878600225/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer16.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer16.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Hive优化</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-12<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Hive优化"><a href="#Hive优化" class="headerlink" title="Hive优化"></a>Hive优化</h1><p>​Hive的存储层依托于HDFS，Hive的计算层依托于MapReduce，一般Hive的执行效率主要取决于SQL语句的执行效率，因此，Hive的优化的核心思想是MapReduce的优化。</p>
+<h2 id="1、查看Hive执行计划（小白慎用）"><a href="#1、查看Hive执行计划（小白慎用）" class="headerlink" title="1、查看Hive执行计划（小白慎用）"></a>1、查看Hive执行计划（小白慎用）</h2><p>​Hive的SQL语句在执行之前需要将SQL语句转换成MapReduce任务，因此需要了解具体的转换过程，可以在SQL语句中输入如下命令查看具体的执行计划。</p>
+<pre><code class="sql">--查看执行计划，添加extended关键字可以查看更加详细的执行计划
+explain [extended] query
+</code></pre>
+<h2 id="2、Hive的抓取策略"><a href="#2、Hive的抓取策略" class="headerlink" title="2、Hive的抓取策略"></a>2、Hive的抓取策略</h2><p>​Hive的某些SQL语句需要转换成MapReduce的操作，某些SQL语句就不需要转换成MapReduce操作，但是同学们需要注意，理论上来说，所有的SQL语句都需要转换成MapReduce操作，只不过Hive在转换SQL语句的过程中会做部分优化，使某些简单的操作不再需要转换成MapReduce，例如：</p>
+<p>​（1）select 仅支持本表字段<br>​（2）where仅对本表字段做条件过滤</p>
+<pre><code class="sql">--查看Hive的数据抓取策略
+Set hive.fetch.task.conversion=none/more;
+</code></pre>
+<h2 id="3、Hive本地模式"><a href="#3、Hive本地模式" class="headerlink" title="3、Hive本地模式"></a>3、Hive本地模式</h2><p>​类似于MapReduce的操作，Hive的运行也分为本地模式和集群模式，在开发阶段可以选择使用本地执行，提高SQL语句的执行效率，验证SQL语句是否正确。</p>
+<pre><code class="sql">--设置本地模式
+set hive.exec.mode.local.auto=true;
+</code></pre>
+<p>​注意：要想使用Hive的本地模式，加载数据文件大小不能超过128M,如果超过128M,就算设置了本地模式，也会按照集群模式运行。</p>
+<pre><code class="sql">--设置读取数据量的大小限制
+set hive.exec.mode.local.auto.inputbytes.max=128M
+</code></pre>
+<h2 id="4、Hive并行模式"><a href="#4、Hive并行模式" class="headerlink" title="4、Hive并行模式"></a>4、Hive并行模式</h2><p>​在SQL语句足够复杂的情况下，可能在一个SQL语句中包含多个子查询语句，且多个子查询语句之间没有任何依赖关系，此时，可以Hive运行的并行度</p>
+<pre><code class="sql">--设置Hive SQL的并行度
+set hive.exec.parallel=true;
+</code></pre>
+<p>​注意：Hive的并行度并不是无限增加的，在一次SQL计算中，可以通过以下参数来设置并行的job的个数</p>
+<pre><code class="sql">--设置一次SQL计算允许并行执行的job个数的最大值
+set hive.exec.parallel.thread.number
+</code></pre>
+<h2 id="5、Hive严格模式"><a href="#5、Hive严格模式" class="headerlink" title="5、Hive严格模式"></a>5、Hive严格模式</h2><p>​Hive中为了提高SQL语句的执行效率，可以设置严格模式，充分利用Hive的某些特点。</p>
+<pre><code class="sql">-- 设置Hive的严格模式
+set hive.mapred.mode=strict;
+</code></pre>
+<p>注意：当设置严格模式之后，会有如下限制：<br>（1）对于分区表，必须添加where对于分区字段的条件过滤<br>（2）order by语句必须包含limit输出限制<br>​（3）限制执行笛卡尔积的查询</p>
+<h2 id="6、Hive排序"><a href="#6、Hive排序" class="headerlink" title="6、Hive排序"></a>6、Hive排序</h2><p>​在编写SQL语句的过程中，很多情况下需要对数据进行排序操作，Hive中支持多种排序操作适合不同的应用场景。</p>
+<p>​1、Order By - 对于查询结果做全排序，只允许有一个reduce处理<br>​（当数据量较大时，应慎用。严格模式下，必须结合limit来使用）<br>​2、Sort By - 对于单个reduce的数据进行排序<br>​3、Distribute By - 分区排序，经常和Sort By结合使用<br>​4、Cluster By - 相当于 Sort By + Distribute By（Cluster By不能通过asc、desc的方式指定排序规则；可通过 distribute by column sort by column asc|desc 的方式）</p>
+<h2 id="7、Hive-join"><a href="#7、Hive-join" class="headerlink" title="7、Hive join"></a>7、Hive join</h2><p>​1、Hive 在多个表的join操作时尽可能多的使用相同的连接键，这样在转换MR任务时会转换成少的MR的任务。</p>
+<p>​2、手动Map join:在map端完成join操作</p>
+<pre><code class="sql">--SQL方式，在SQL语句中添加MapJoin标记（mapjoin hint）
+SELECT  /*+ MAPJOIN(smallTable) */  smallTable.key,  bigTable.value
+FROM  smallTable  JOIN  bigTable  ON  smallTable.key  =  bigTable.key;
+</code></pre>
+<p>​3、开启自动的Map Join</p>
+<pre><code class="sql">--通过修改以下配置启用自动的mapjoin：
+set hive.auto.convert.join = true;
+--（该参数为true时，Hive自动对左边的表统计量，如果是小表就加入内存，即对小表使用Map join）
+--相关配置参数：
+hive.mapjoin.smalltable.filesize;  
+--（大表小表判断的阈值，如果表的大小小于该值则会被加载到内存中运行）
+hive.ignore.mapjoin.hint；
+--（默认值：true；是否忽略mapjoin hint 即mapjoin标记）
+</code></pre>
+<p>​4、大表join大表<br>​（1）空key过滤：有时join超时是因为某些key对应的数据太多，而相同key对应的数据都会发送到相同的reducer上，从而导致内存不够。此时我们应该仔细分析这些异常的key，很多情况下，这些key对应的数据是异常数据，我们需要在SQL语句中进行过滤。<br>​（2）空key转换：有时虽然某个key为空对应的数据很多，但是相应的数据不是异常数据，必须要包含在join的结果中，此时我们可以表a中key为空的字段赋一个随机的值，使得数据随机均匀地分不到不同的reducer上</p>
+<h2 id="8、Map-Side聚合"><a href="#8、Map-Side聚合" class="headerlink" title="8、Map-Side聚合"></a>8、Map-Side聚合</h2><p>​Hive的某些SQL操作可以实现map端的聚合，类似于MR的combine操作</p>
+<pre><code class="sql">--通过设置以下参数开启在Map端的聚合：
+set hive.map.aggr=true;
+--相关配置参数：
+--map端group by执行聚合时处理的多少行数据（默认：100000）
+hive.groupby.mapaggr.checkinterval：
+--进行聚合的最小比例（预先对100000条数据做聚合，若聚合之后的数据量/100000的值大于该配置0.5，则不会聚合）
+hive.map.aggr.hash.min.reduction：
+--map端聚合使用的内存的最大值
+hive.map.aggr.hash.percentmemory：
+--是否对GroupBy产生的数据倾斜做优化，默认为false
+hive.groupby.skewindata
+</code></pre>
+<h2 id="9、合并小文件"><a href="#9、合并小文件" class="headerlink" title="9、合并小文件"></a>9、合并小文件</h2><p>​Hive在操作的时候，如果文件数目小，容易在文件存储端造成压力，给hdfs造成压力，影响效率</p>
+<pre><code class="sql">--设置合并属性
+--是否合并map输出文件：
+set hive.merge.mapfiles=true
+--是否合并reduce输出文件：
+set hive.merge.mapredfiles=true;
+--合并文件的大小：
+set hive.merge.size.per.task=256*1000*1000
+</code></pre>
+<h2 id="10、合理设置Map以及Reduce的数量"><a href="#10、合理设置Map以及Reduce的数量" class="headerlink" title="10、合理设置Map以及Reduce的数量"></a>10、合理设置Map以及Reduce的数量</h2><pre><code class="sql">--Map数量相关的参数
+--一个split的最大值，即每个map处理文件的最大值
+set mapred.max.split.size
+--一个节点上split的最小值
+set mapred.min.split.size.per.node
+--一个机架上split的最小值
+set mapred.min.split.size.per.rack
+--Reduce数量相关的参数
+--强制指定reduce任务的数量
+set mapred.reduce.tasks
+--每个reduce任务处理的数据量
+set hive.exec.reducers.bytes.per.reducer
+--每个任务最大的reduce数
+set hive.exec.reducers.max
+</code></pre>
+<h2 id="11、JVM重用"><a href="#11、JVM重用" class="headerlink" title="11、JVM重用"></a>11、JVM重用</h2><pre><code class="sql">/*
+适用场景：
+    1、小文件个数过多
+    2、task个数过多
+缺点：
+    设置开启之后，task插槽会一直占用资源，不论是否有task运行，直到所有的task即整个job全部执行完成时，才会释放所有的task插槽资源！
+*/
+set mapred.job.reuse.jvm.num.tasks=n;--（n为task插槽个数）
+</code></pre>
+<h1 id="压缩和存储"><a href="#压缩和存储" class="headerlink" title="压缩和存储"></a>压缩和存储</h1><h2 id="1、-Hadoop压缩配置"><a href="#1、-Hadoop压缩配置" class="headerlink" title="1、 Hadoop压缩配置"></a>1、 Hadoop压缩配置</h2><h3 id="1-MR支持的压缩编码"><a href="#1-MR支持的压缩编码" class="headerlink" title="1) MR支持的压缩编码"></a><strong>1)</strong> MR支持的压缩编码</h3><table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>工具</th>
+<th>算法</th>
+<th>文件扩展名</th>
+<th>是否可切分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEFAULT</td>
+<td>无</td>
+<td>DEFAULT</td>
+<td>.deflate</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Gzip</td>
+<td>gzip</td>
+<td>DEFAULT</td>
+<td>.gz</td>
+<td>否</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>.bz2</td>
+<td>是</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>lzop</td>
+<td>LZO</td>
+<td>.lzo</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LZ4</td>
+<td>无</td>
+<td>LZ4</td>
+<td>.lz4</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>无</td>
+<td>Snappy</td>
+<td>.snappy</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p>为了支持多种压缩/解压缩算法，Hadoop引入了编码/解码器，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>对应的编码/解码器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEFLATE</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+</tr>
+<tr>
+<td>gzip</td>
+<td>org.apache.hadoop.io.compress.GzipCodec</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>org.apache.hadoop.io.compress.BZip2Codec</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>com.hadoop.compression.lzo.LzopCodec</td>
+</tr>
+<tr>
+<td>LZ4</td>
+<td>org.apache.hadoop.io.compress.Lz4Codec</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>org.apache.hadoop.io.compress.SnappyCodec</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-压缩配置参数"><a href="#2-压缩配置参数" class="headerlink" title="2) 压缩配置参数"></a><strong>2)</strong> 压缩配置参数</h3><p>要在Hadoop中启用压缩，可以配置如下参数（mapred-site.xml文件中）：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>阶段</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>io.compression.codecs   （在core-site.xml中配置）</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec, org.apache.hadoop.io.compress.GzipCodec, org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.Lz4Codec</td>
+<td>输入压缩</td>
+<td>Hadoop使用文件扩展名判断是否支持某种编解码器</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress</td>
+<td>false</td>
+<td>mapper输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.map.output.compress.codec</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+<td>mapper输出</td>
+<td>使用LZO、LZ4或snappy编解码器在此阶段压缩数据</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress</td>
+<td>false</td>
+<td>reducer输出</td>
+<td>这个参数设为true启用压缩</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.codec</td>
+<td>org.apache.hadoop.io.compress. DefaultCodec</td>
+<td>reducer输出</td>
+<td>使用标准工具或者编解码器，如gzip和bzip2</td>
+</tr>
+<tr>
+<td>mapreduce.output.fileoutputformat.compress.type</td>
+<td>RECORD</td>
+<td>reducer输出</td>
+<td>SequenceFile输出使用的压缩类型：NONE和BLOCK</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-开启Map输出阶段压缩"><a href="#3-开启Map输出阶段压缩" class="headerlink" title="3) 开启Map输出阶段压缩"></a><strong>3)</strong> 开启Map输出阶段压缩</h3><p>​开启map输出阶段压缩可以减少job中map和Reduce task间数据传输量。具体配置如下：<br>案例实操：</p>
+<pre><code class="sql">--1）开启hive中间传输数据压缩功能
+hive (default)&gt;set hive.exec.compress.intermediate=true;
+--2）开启mapreduce中map输出压缩功能
+hive (default)&gt;set mapreduce.map.output.compress=true;
+--3）设置mapreduce中map输出数据的压缩方式
+hive (default)&gt;set mapreduce.map.output.compress.codec= org.apache.hadoop.io.compress.SnappyCodec;
+--4）执行查询语句
+hive (default)&gt; select count(*) from aaaa;
+</code></pre>
+<h3 id="4-开启Reduce输出阶段压缩"><a href="#4-开启Reduce输出阶段压缩" class="headerlink" title="4) 开启Reduce输出阶段压缩"></a><strong>4)</strong> 开启Reduce输出阶段压缩</h3><p>​当Hive将输出写入到表中时，输出内容同样可以进行压缩。属性hive.exec.compress.output控制着这个功能。用户可能需要保持默认设置文件中的默认值false，这样默认的输出就是非压缩的纯文本文件了。用户可以通过在查询语句或执行脚本中设置这个值为true，来开启输出结果压缩功能。</p>
+<p>案例实操：</p>
+<pre><code class="sql">--1）开启hive最终输出数据压缩功能
+hive (default)&gt;set hive.exec.compress.output=true;
+--2）开启mapreduce最终输出数据压缩
+hive (default)&gt;set mapreduce.output.fileoutputformat.compress=true;
+--3）设置mapreduce最终数据输出压缩方式
+hive (default)&gt; set mapreduce.output.fileoutputformat.compress.codec = org.apache.hadoop.io.compress.SnappyCodec;
+--4）设置mapreduce最终数据输出压缩为块压缩
+hive (default)&gt; set mapreduce.output.fileoutputformat.compress.type=BLOCK;
+--5）测试一下输出结果是否是压缩文件
+hive (default)&gt; insert overwrite local directory &#39;/root/data&#39; select * from aaaa;
+</code></pre>
+<h2 id="2、文件存储格式"><a href="#2、文件存储格式" class="headerlink" title="2、文件存储格式"></a>2、文件存储格式</h2><p>​Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
+<h3 id="1-列式存储和行式存储"><a href="#1-列式存储和行式存储" class="headerlink" title="1) 列式存储和行式存储"></a>1) 列式存储和行式存储</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/%E8%A1%8C%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%8E%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8.png" alt="行式存储与列式存储"></p>
+<p>上图左边为逻辑表，右边第一个为行式存储，第二个为列式存储。</p>
+<p><strong>行存储的特点：</strong> 查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
+<p><strong>列存储的特点：</strong> 因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p>
+<p>TEXTFILE和SEQUENCEFILE的存储格式都是基于行存储的；</p>
+<p>ORC和PARQUET是基于列式存储的。</p>
+<h3 id="2-TEXTFILE格式"><a href="#2-TEXTFILE格式" class="headerlink" title="2) TEXTFILE格式"></a><strong>2)</strong> <strong>TEXTFILE格式</strong></h3><p>默认格式，数据不做压缩，磁盘开销大，数据解析开销大。可结合Gzip、Bzip2使用(系统自动检查，执行查询时自动解压)，但使用这种方式，hive不会对数据进行切分，从而无法对数据进行并行操作。</p>
+<h3 id="3-ORC格式"><a href="#3-ORC格式" class="headerlink" title="3) ORC格式"></a><strong>3)</strong> ORC格式</h3><p>​Orc (Optimized Row Columnar)是hive 0.11版里引入的新的存储格式。</p>
+<p>​可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data,Row Data,Stripe Footer：</p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/orc%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="orc文件格式"></p>
+<p>1）Index Data：一个轻量级的index，默认是每隔1W行做一个索引。这里做的索引应该只是记录某行的各字段在Row Data中的offset。<br>2）Row Data：存的是具体的数据，先取部分行，然后对这些行按列进行存储。对每个列进行了编码，分成多个Stream来存储。<br>3）Stripe Footer：存的是各个Stream的类型，长度等信息。</p>
+<p>​每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
+<h3 id="4-PARQUET格式"><a href="#4-PARQUET格式" class="headerlink" title="4) PARQUET格式"></a><strong>4)</strong> PARQUET格式</h3><p>​Parquet是面向分析型业务的列式存储格式，由Twitter和Cloudera合作开发，2015年5月从Apache的孵化器里毕业成为Apache顶级项目。</p>
+<p>​Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
+<p>​通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如下图所示。</p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/parquet%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="parquet文件格式"></p>
+<p>​上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
+<h3 id="5-主流文件存储格式对比实验"><a href="#5-主流文件存储格式对比实验" class="headerlink" title="5) 主流文件存储格式对比实验"></a><strong>5)</strong> 主流文件存储格式对比实验</h3><p>​从存储文件的压缩比和查询速度两个角度对比。<br>​存储文件的压缩比测试：</p>
+<pre><code class="sql">--1）TextFile
+--（1）创建表，存储数据格式为TEXTFILE
+create table log_text (track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as textfile ;
+--（2）向表中加载数据
+hive (default)&gt; load data local inpath &#39;/root/log&#39; into table log_text ;
+--（3）查看表中数据大小
+dfs -du -h /user/hive/warehouse/log_text;
+18.1 M  /user/hive/warehouse/log_text/log.data
+--2）ORC
+--（1）创建表，存储数据格式为ORC
+create table log_orc(track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as orc ;
+--（2）向表中加载数据
+insert into table log_orc select * from log_text ;
+--（3）查看表中数据大小
+dfs -du -h /user/hive/warehouse/log_orc/ ;
+2.8 M  /user/hive/warehouse/log_orc/000000_0
+--3）Parquet
+--（1）创建表，存储数据格式为parquet
+create table log_parquet(track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as parquet ;
+--（2）向表中加载数据
+insert into table log_parquet select * from log_text ;
+--（3）查看表中数据大小
+dfs -du -h /user/hive/warehouse/log_parquet/ ;
+13.1 M  /user/hive/warehouse/log_parquet/000000_0
+--存储文件的压缩比总结：
+ORC &gt;  Parquet &gt;  textFile
+</code></pre>
+<h2 id="3、存储和压缩结合"><a href="#3、存储和压缩结合" class="headerlink" title="3、存储和压缩结合"></a>3、存储和压缩结合</h2><p>​官网：<a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC</a><br>​ORC存储方式的压缩：</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orc.compress</td>
+<td>ZLIB</td>
+<td>high level compression (one of NONE, ZLIB, SNAPPY)</td>
+</tr>
+<tr>
+<td>orc.compress.size</td>
+<td>262,144</td>
+<td>number of bytes in each compression chunk</td>
+</tr>
+<tr>
+<td>orc.stripe.size</td>
+<td>67,108,864</td>
+<td>number of bytes in each stripe</td>
+</tr>
+<tr>
+<td>orc.row.index.stride</td>
+<td>10,000</td>
+<td>number of rows between index entries (must be &gt;= 1000)</td>
+</tr>
+<tr>
+<td>orc.create.index</td>
+<td>true</td>
+<td>whether to create row indexes</td>
+</tr>
+<tr>
+<td>orc.bloom.filter.columns</td>
+<td>“”</td>
+<td>comma separated list of column names for which bloom filter should be created</td>
+</tr>
+<tr>
+<td>orc.bloom.filter.fpp</td>
+<td>0.05</td>
+<td>false positive probability for bloom filter (must &gt;0.0 and &lt;1.0)</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="sql">--1）创建一个非压缩的的ORC存储方式
+--（1）建表语句
+create table log_orc_none(track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as orc tblproperties (&quot;orc.compress&quot;=&quot;NONE&quot;);
+--（2）插入数据
+insert into table log_orc_none select * from log_text ;
+--（3）查看插入后数据
+dfs -du -h /user/hive/warehouse/log_orc_none/ ;
+7.7 M  /user/hive/warehouse/log_orc_none/000000_0
+--2）创建一个SNAPPY压缩的ORC存储方式
+--（1）建表语句
+create table log_orc_snappy(track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as orc tblproperties (&quot;orc.compress&quot;=&quot;SNAPPY&quot;);
+--（2）插入数据
+insert into table log_orc_snappy select * from log_text ;
+--（3）查看插入后数据
+dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;
+3.8 M  /user/hive/warehouse/log_orc_snappy/000000_0
+--3）上一节中默认创建的ORC存储方式，导入数据后的大小为
+2.8 M  /user/hive/warehouse/log_orc/000000_0
+--总结
+比Snappy压缩的还小。原因是orc存储文件默认采用ZLIB压缩。比snappy压缩的小。
+</code></pre>
+<p>hive—high Avaliable</p>
+<p>hive的搭建方式有三种，分别是</p>
+<p>1、Local/Embedded Metastore Database (Derby)<br>​2、Remote Metastore Database<br>​3、Remote Metastore Server</p>
+<p>​一般情况下，我们在学习的时候直接使用hive –service metastore的方式启动服务端，使用hive的方式直接访问登录客户端，除了这种方式之外，hive提供了hiveserver2的服务端启动方式，提供了beeline和jdbc的支持，并且官网也提出，一般在生产环境中，使用hiveserver2的方式比较多，如图：</p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/hiveserver2.png" alt="hiveserver2"></p>
+<p>使用hiveserver2的优点如下：</p>
+<p>​1、在应用端不需要部署hadoop和hive的客户端<br>​2、hiveserver2不用直接将hdfs和metastore暴露给用户<br>​3、有HA机制，解决应用端的并发和负载问题<br>​4、jdbc的连接方式，可以使用任何语言，方便与应用进行数据交互<br>本文档主要介绍如何进行hive的HA的搭建：<br>如何进行搭建，参照之前hadoop的HA，使用zookeeper完成HA</p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/hive%20HA.png" alt="hive HA"></p>
+<p><strong>1、环境如下:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Node01</th>
+<th>Node02</th>
+<th>Node03</th>
+<th>Node04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Namenode</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Journalnode</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>Datanode</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Zkfc</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>zookeeper</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>resourcemanager</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>nodemanager</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Hiveserver2</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>beeline</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2、node02—hive-site.xml</strong></p>
+<pre><code class="xml">&lt;property&gt;  
+  &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;  
+  &lt;value&gt;/user/hive/warehouse&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;  
+  &lt;value&gt;jdbc:mysql://node01:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;  
+  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;  
+&lt;/property&gt;     
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;  
+  &lt;value&gt;root&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;  
+  &lt;value&gt;123&lt;/value&gt;  
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.support.dynamic.service.discovery&lt;/name&gt;
+  &lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.zookeeper.namespace&lt;/name&gt;
+  &lt;value&gt;hiveserver2_zk&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.zookeeper.quorum&lt;/name&gt;
+  &lt;value&gt;node01:2181,node02:2181,node03:2181&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.zookeeper.client.port&lt;/name&gt;
+  &lt;value&gt;2181&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt;
+  &lt;value&gt;node02&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.thrift.port&lt;/name&gt;
+  &lt;value&gt;10001&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p><strong>3、node4—hive-site.xml</strong></p>
+<pre><code class="xml">&lt;property&gt;  
+  &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;  
+  &lt;value&gt;/user/hive/warehouse&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;  
+  &lt;value&gt;jdbc:mysql://node01:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;  
+  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;  
+&lt;/property&gt;     
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;  
+  &lt;value&gt;root&lt;/value&gt;  
+&lt;/property&gt;  
+&lt;property&gt;  
+  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;  
+  &lt;value&gt;123&lt;/value&gt;  
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.support.dynamic.service.discovery&lt;/name&gt;
+  &lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.zookeeper.namespace&lt;/name&gt;
+  &lt;value&gt;hiveserver2_zk&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.zookeeper.quorum&lt;/name&gt;
+  &lt;value&gt;node01:2181,node02:2181,node03:2181&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.zookeeper.client.port&lt;/name&gt;
+  &lt;value&gt;2181&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.thrift.bind.host&lt;/name&gt;
+  &lt;value&gt;node04&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;hive.server2.thrift.port&lt;/name&gt;
+  &lt;value&gt;10001&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<p><strong>4、使用jdbc或者beeline两种方式进行访问</strong></p>
+<p>1） beeline</p>
+<pre><code>!connect jdbc:hive2://node01,node02,node03/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2_zk root 123
+</code></pre><p>2）jdbc</p>
+<pre><code class="java">public class HiveJdbcClient2 {
+
+    private static String driverName = &quot;org.apache.hive.jdbc.HiveDriver&quot;;
+
+    public static void main(String[] args) throws SQLException {
+        try {
+            Class.forName(driverName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection conn = DriverManager.getConnection(&quot;jdbc:hive2://node01,node02,node03/default;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2_zk&quot;, &quot;root&quot;, &quot;&quot;);
+        Statement stmt = conn.createStatement();
+        String sql = &quot;select * from tbl&quot;;
+        ResultSet res = stmt.executeQuery(sql);
+        while (res.next()) {
+            System.out.println(res.getString(1));
+        }
+    }
+}
+</code></pre>
+<p>​</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/12/HiveJDBC/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer18.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                HiveJDBC</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/12/Hive函数/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer15.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Hive函数</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>

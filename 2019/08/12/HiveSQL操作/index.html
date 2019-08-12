@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">HiveSQL操作 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/1878600225/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer17.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer17.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      HiveSQL操作</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-12<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Hive基本SQL操作"><a href="#Hive基本SQL操作" class="headerlink" title="Hive基本SQL操作"></a>Hive基本SQL操作</h1><h2 id="Hive-DDL（数据库定义语言）"><a href="#Hive-DDL（数据库定义语言）" class="headerlink" title="Hive DDL（数据库定义语言）"></a>Hive DDL（数据库定义语言）</h2><h3 id="1、数据库的基本操作"><a href="#1、数据库的基本操作" class="headerlink" title="1、数据库的基本操作"></a>1、数据库的基本操作</h3><pre><code class="sql">--展示所有数据库
+show databases;
+--切换数据库
+use database_name;
+/*
+创建数据库        
+CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
+[COMMENT database_comment]
+[LOCATION hdfs_path]
+[WITH DBPROPERTIES (property_name=property_value, ...)];
+*/
+create database test;
+/*
+删除数据库
+DROP (DATABASE|SCHEMA) [IF EXISTS] database_name [RESTRICT|CASCADE];
+*/
+drop database database_name;
+</code></pre>
+<p><strong>注意：当进入hive的命令行开始编写SQL语句的时候，如果没有任何相关的数据库操作，那么默认情况下，所有的表存在于default数据库，在hdfs上的展示形式是将此数据库的表保存在hive的默认路径下，如果创建了数据库，那么会在hive的默认路径下生成一个database_name.db的文件夹，此数据库的所有表会保存在database_name.db的目录下。</strong></p>
+<h3 id="2、数据库表的基本操作"><a href="#2、数据库表的基本操作" class="headerlink" title="2、数据库表的基本操作"></a>2、数据库表的基本操作</h3><pre><code class="sql">/*
+创建表的操作
+基本语法：
+CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name    --             (Note: TEMPORARY available in Hive 0.14.0 and later)
+    [(col_name data_type [COMMENT col_comment], ... [constraint_specification])]
+    [COMMENT table_comment]
+    [PARTITIONED BY (col_name data_type [COMMENT col_comment], ...)]
+    [CLUSTERED BY (col_name, col_name, ...) [SORTED BY (col_name [ASC|DESC], ...)]                 INTO num_buckets BUCKETS]
+    [SKEWED BY (col_name, col_name, ...)                  -- (Note: Available in Hive             0.10.0 and later)]
+    ON ((col_value, col_value, ...), (col_value, col_value, ...), ...)
+    [STORED AS DIRECTORIES]
+    [
+        [ROW FORMAT row_format]
+        [STORED AS file_format]
+        | STORED BY &#39;storage.handler.class.name&#39; [WITH SERDEPROPERTIES (...)]  --                 (Note: Available in Hive 0.6.0 and later)
+    ]
+    [LOCATION hdfs_path]
+    [TBLPROPERTIES (property_name=property_value, ...)]   -- (Note: Available in Hive             0.6.0 and later)
+    [AS select_statement];   -- (Note: Available in Hive 0.5.0 and later; not                     supported for external tables)
+
+CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name
+        LIKE existing_table_or_view_name
+    [LOCATION hdfs_path];
+    复杂数据类型
+data_type
+     : primitive_type
+     | array_type
+     | map_type
+     | struct_type
+     | union_type  -- (Note: Available in Hive 0.7.0 and later)
+    基本数据类型
+primitive_type
+     : TINYINT
+     | SMALLINT
+     | INT
+     | BIGINT
+     | BOOLEAN
+     | FLOAT
+     | DOUBLE
+     | DOUBLE PRECISION -- (Note: Available in Hive 2.2.0 and later)
+     | STRING
+     | BINARY      -- (Note: Available in Hive 0.8.0 and later)
+     | TIMESTAMP   -- (Note: Available in Hive 0.8.0 and later)
+     | DECIMAL     -- (Note: Available in Hive 0.11.0 and later)
+     | DECIMAL(precision, scale)  -- (Note: Available in Hive 0.13.0 and later)
+     | DATE        -- (Note: Available in Hive 0.12.0 and later)
+     | VARCHAR     -- (Note: Available in Hive 0.12.0 and later)
+     | CHAR        -- (Note: Available in Hive 0.13.0 and later)
+
+array_type
+     : ARRAY &lt; data_type &gt;
+
+map_type
+     : MAP &lt; primitive_type, data_type &gt;
+
+struct_type
+     : STRUCT &lt; col_name : data_type [COMMENT col_comment], ...&gt;
+
+union_type
+     : UNIONTYPE &lt; data_type, data_type, ... &gt;  -- (Note: Available in Hive 0.7.0 and             later)
+    行格式规范
+row_format
+     : DELIMITED [FIELDS TERMINATED BY char [ESCAPED BY char]] [COLLECTION ITEMS                 TERMINATED BY char]
+       [MAP KEYS TERMINATED BY char] [LINES TERMINATED BY char]
+   [NULL DEFINED AS char]   -- (Note: Available in Hive 0.13 and later)
+        | SERDE serde_name [WITH SERDEPROPERTIES (property_name=property_value,                 property_name=property_value, ...)]
+    文件基本类型
+file_format:
+     : SEQUENCEFILE
+     | TEXTFILE    -- (Default, depending on hive.default.fileformat configuration)
+     | RCFILE      -- (Note: Available in Hive 0.6.0 and later)
+     | ORC         -- (Note: Available in Hive 0.11.0 and later)
+     | PARQUET     -- (Note: Available in Hive 0.13.0 and later)
+     | AVRO        -- (Note: Available in Hive 0.14.0 and later)
+     | JSONFILE    -- (Note: Available in Hive 4.0.0 and later)
+     | INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname
+    表约束
+constraint_specification:
+     : [, PRIMARY KEY (col_name, ...) DISABLE NOVALIDATE ]
+       [, CONSTRAINT constraint_name FOREIGN KEY (col_name, ...) REFERENCES                     table_name(col_name, ...) DISABLE NOVALIDATE
+*/
+
+--创建普通hive表（不包含行定义格式）
+create table psn
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+--创建自定义行格式的hive表
+create table psn2
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+row format delimited
+fields terminated by &#39;,&#39;
+collection items terminated by &#39;-&#39;
+map keys terminated by &#39;:&#39;;
+--创建默认分隔符的hive表（^A、^B、^C）
+create table psn3
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+row format delimited
+fields terminated by &#39;\001&#39;
+collection items terminated by &#39;\002&#39;
+map keys terminated by &#39;\003&#39;;
+--或者
+create table psn3
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+--创建hive的外部表(需要添加external和location的关键字)
+create external table psn4
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+row format delimited
+fields terminated by &#39;,&#39;
+collection items terminated by &#39;-&#39;
+map keys terminated by &#39;:&#39;
+location &#39;/data&#39;;
+/*
+在之前创建的表都属于hive的内部表（psn,psn2,psn3）,而psn4属于hive的外部表，
+内部表跟外部表的区别：
+    1、hive内部表创建的时候数据存储在hive的默认存储目录中，外部表在创建的时候需要制定额外的目录
+    2、hive内部表删除的时候，会将元数据和数据都删除，而外部表只会删除元数据，不会删除数据
+应用场景:
+    内部表:需要先创建表，然后向表中添加数据，适合做中间表的存储
+    外部表：可以先创建表，再添加数据，也可以先有数据，再创建表，本质上是将hdfs的某一个目录的数据跟hive的表关联映射起来，因此适合原始数据的存储，不会因为误操作将数据给删除掉
+*/
+/*
+hive的分区表:
+    hive默认将表的数据保存在某一个hdfs的存储目录下，当需要检索符合条件的某一部分数据的时候，需要全量遍历数据，io量比较大，效率比较低，因此可以采用分而治之的思想，将符合某些条件的数据放置在某一个目录，此时检索的时候只需要搜索指定目录即可，不需要全量遍历数据。
+*/
+--创建单分区表
+create table psn5
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+partitioned by(gender string)
+row format delimited
+fields terminated by &#39;,&#39;
+collection items terminated by &#39;-&#39;
+map keys terminated by &#39;:&#39;;
+--创建多分区表
+create table psn6
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+partitioned by(gender string,age int)
+row format delimited
+fields terminated by &#39;,&#39;
+collection items terminated by &#39;-&#39;
+map keys terminated by &#39;:&#39;;
+/*
+注意：
+    1、当创建完分区表之后，在保存数据的时候，会在hdfs目录中看到分区列会成为一个目录，以多级目录的形式存在
+    2、当创建多分区表之后，插入数据的时候不可以只添加一个分区列，需要将所有的分区列都添加值
+    3、多分区表在添加分区列的值得时候，与顺序无关，与分区表的分区列的名称相关，按照名称就行匹配
+*/
+--给分区表添加分区列的值
+alter table table_name add partition(col_name=col_value)
+--删除分区列的值
+alter table table_name drop partition(col_name=col_value)
+/*
+注意:
+    1、添加分区列的值的时候，如果定义的是多分区表，那么必须给所有的分区列都赋值
+    2、删除分区列的值的时候，无论是单分区表还是多分区表，都可以将指定的分区进行删除
+*/
+/*
+修复分区:在使用hive外部表的时候，可以先将数据上传到hdfs的某一个目录中，然后再创建外部表建立映射关系，如果在上传数据的时候，参考分区表的形式也创建了多级目录，那么此时创建完表之后，是查询不到数据的，原因是分区的元数据没有保存在mysql中，因此需要修复分区，将元数据同步更新到mysql中，此时才可以查询到元数据。具体操作如下：
+*/
+--在hdfs创建目录并上传文件
+hdfs dfs -mkdir /msb
+hdfs dfs -mkdir /msb/age=10
+hdfs dfs -mkdir /msb/age=20
+hdfs dfs -put /root/data/data /msb/age=10
+hdfs dfs -put /root/data/data /msb/age=20
+--创建外部表
+create external table psn7
+(
+    id int,
+    name string,
+    likes array&lt;string&gt;,
+    address map&lt;string,string&gt;
+)
+partitioned by(age int)
+row format delimited
+fields terminated by &#39;,&#39;
+collection items terminated by &#39;-&#39;
+map keys terminated by &#39;:&#39;
+location &#39;/msb&#39;;
+--查询结果（没有数据）
+select * from psn7;
+--修复分区
+msck repair table psn7;
+--查询结果（有数据）
+select * from psn7;
+/*
+问题：以上面的方式创建hive的分区表会存在问题，每次插入的数据都是人为指定分区列的值，我们更加希望能够根据记录中的某一个字段来判断将数据插入到哪一个分区目录下，此时利用我们上面的分区方式是无法完成操作的，需要使用动态分区来完成相关操作，现在学的知识点无法满足，后续讲解。
+*/
+
+</code></pre>
+<h2 id="Hive-DML"><a href="#Hive-DML" class="headerlink" title="Hive DML"></a>Hive DML</h2><h3 id="1、插入数据"><a href="#1、插入数据" class="headerlink" title="1、插入数据"></a>1、插入数据</h3><h4 id="1、Loading-files-into-tables"><a href="#1、Loading-files-into-tables" class="headerlink" title="1、Loading files into tables"></a>1、Loading files into tables</h4><pre><code class="sql">/*
+记载数据文件到某一张表中
+语法：
+    LOAD DATA [LOCAL] INPATH &#39;filepath&#39; [OVERWRITE] INTO TABLE tablename [PARTITION         (partcol1=val1, partcol2=val2 ...)]
+
+    LOAD DATA [LOCAL] INPATH &#39;filepath&#39; [OVERWRITE] INTO TABLE tablename [PARTITION         (partcol1=val1, partcol2=val2 ...)] [INPUTFORMAT &#39;inputformat&#39; SERDE &#39;serde&#39;]             (3.0 or later)
+*/
+--加载本地数据到hive表
+load data local inpath &#39;/root/data/data&#39; into table psn;--(/root/data/data指的是本地        linux目录)
+--加载hdfs数据文件到hive表
+load data inpath &#39;/data/data&#39; into table psn;--(/data/data指的是hdfs的目录)
+/*
+注意：
+    1、load操作不会对数据做任何的转换修改操作
+    2、从本地linux load数据文件是复制文件的过程
+    3、从hdfs load数据文件是移动文件的过程
+    4、load操作也支持向分区表中load数据，只不过需要添加分区列的值
+*/
+</code></pre>
+<h4 id="2、Inserting-data-into-Hive-Tables-from-queries"><a href="#2、Inserting-data-into-Hive-Tables-from-queries" class="headerlink" title="2、Inserting data into Hive Tables from queries"></a>2、Inserting data into Hive Tables from queries</h4><pre><code class="sql">/*
+从查询语句中获取数据插入某张表
+语法：
+    Standard syntax:
+    INSERT OVERWRITE TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...)             [IF NOT EXISTS]] select_statement1 FROM from_statement;
+    INSERT INTO TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...)]                 select_statement1 FROM from_statement;
+
+    Hive extension (multiple inserts):
+    FROM from_statement
+    INSERT OVERWRITE TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...)             [IF NOT EXISTS]] select_statement1
+    [INSERT OVERWRITE TABLE tablename2 [PARTITION ... [IF NOT EXISTS]]                             select_statement2]
+    [INSERT INTO TABLE tablename2 [PARTITION ...] select_statement2] ...;
+        FROM from_statement
+    INSERT INTO TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...)]                 select_statement1
+    [INSERT INTO TABLE tablename2 [PARTITION ...] select_statement2]
+    [INSERT OVERWRITE TABLE tablename2 [PARTITION ... [IF NOT EXISTS]]                             select_statement2] ...;
+
+    Hive extension (dynamic partition inserts):
+        INSERT OVERWRITE TABLE tablename PARTITION (partcol1[=val1], partcol2[=val2]                 ...) select_statement FROM from_statement;
+        INSERT INTO TABLE tablename PARTITION (partcol1[=val1], partcol2[=val2] ...)                 select_statement FROM from_statement;
+*/
+--注意：这种方式插入数据的时候需要预先创建好结果表
+--从表中查询数据插入结果表
+INSERT OVERWRITE TABLE psn9 SELECT id,name FROM psn
+--从表中获取部分列插入到新表中
+from psn
+insert overwrite table psn9
+select id,name
+insert into table psn10
+select id
+</code></pre>
+<h4 id="3、Writing-data-into-the-filesystem-from-queries"><a href="#3、Writing-data-into-the-filesystem-from-queries" class="headerlink" title="3、Writing data into the filesystem from queries"></a>3、Writing data into the filesystem from queries</h4><pre><code class="sql">/*
+将查询到的结果插入到文件系统中
+语法：
+Standard syntax:
+    INSERT OVERWRITE [LOCAL] DIRECTORY directory1
+        [ROW FORMAT row_format] [STORED AS file_format] (Note: Only available starting             with Hive 0.11.0)
+        SELECT ... FROM ...
+
+Hive extension (multiple inserts):
+    FROM from_statement
+    INSERT OVERWRITE [LOCAL] DIRECTORY directory1 select_statement1
+    [INSERT OVERWRITE [LOCAL] DIRECTORY directory2 select_statement2] ...
+    row_format
+        : DELIMITED [FIELDS TERMINATED BY char [ESCAPED BY char]] [COLLECTION ITEMS             TERMINATED BY char]
+    [MAP KEYS TERMINATED BY char] [LINES TERMINATED BY char]
+    [NULL DEFINED AS char] (Note: Only available starting with Hive 0.13)
+*/
+--注意：路径千万不要填写根目录，会把所有的数据文件都覆盖
+--将查询到的结果导入到hdfs文件系统中
+insert overwrite directory &#39;/result&#39; select * from psn;
+--将查询的结果导入到本地文件系统中
+insert overwrite local directory &#39;/result&#39; select * from psn;
+</code></pre>
+<h4 id="4、Inserting-values-into-tables-from-SQL"><a href="#4、Inserting-values-into-tables-from-SQL" class="headerlink" title="4、Inserting values into tables from SQL"></a>4、Inserting values into tables from SQL</h4><pre><code class="sql">/*
+使用传统关系型数据库的方式插入数据，效率较低
+语法：
+Standard Syntax:
+    INSERT INTO TABLE tablename [PARTITION (partcol1[=val1], partcol2[=val2] ...)]             VALUES values_row [, values_row ...]
+
+Where values_row is:
+    ( value [, value ...] )
+    where a value is either null or any valid SQL literal
+*/
+--插入数据
+insert into psn values(1,&#39;zhangsan&#39;)
+</code></pre>
+<h3 id="2、数据更新和删除"><a href="#2、数据更新和删除" class="headerlink" title="2、数据更新和删除"></a>2、数据更新和删除</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/delete.png" alt="delete"></p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/update.png" alt="update"></p>
+<p>​在官网中我们明确看到hive中是支持Update和Delete操作的，但是实际上，是需要事务的支持的，Hive对于事务的支持有很多的限制，如下图所示：</p>
+<p><img src="https://github.com/msbbigdata/hive/blob/master/images/transaction_limitations.png" alt="transaction_limitations"></p>
+<p>因此，在使用hive的过程中，我们一般不会产生删除和更新的操作，如果你需要测试的话，参考下面如下配置：</p>
+<pre><code class="java">//在hive的hive-site.xml中添加如下配置：
+    &lt;property&gt;
+        &lt;name&gt;hive.support.concurrency&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hive.enforce.bucketing&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hive.exec.dynamic.partition.mode&lt;/name&gt;
+        &lt;value&gt;nonstrict&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hive.txn.manager&lt;/name&gt;
+        &lt;value&gt;org.apache.hadoop.hive.ql.lockmgr.DbTxnManager&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hive.compactor.initiator.on&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hive.compactor.worker.threads&lt;/name&gt;
+        &lt;value&gt;1&lt;/value&gt;
+    &lt;/property&gt;
+//操作语句
+    create table test_trancaction (user_id Int,name String) clustered by (user_id) into 3             buckets stored as orc TBLPROPERTIES (&#39;transactional&#39;=&#39;true&#39;);
+    create table test_insert_test(id int,name string) row format delimited fields                   TERMINATED BY &#39;,&#39;;
+    insert into test_trancaction select * from test_insert_test;
+    update test_trancaction set name=&#39;jerrick_up&#39; where id=1;
+//数据文件
+    1,jerrick
+    2,tom
+    3,jerry
+    4,lily
+    5,hanmei
+    6,limlei
+    7,lucky
+</code></pre>
+<h1 id="HiveSerde"><a href="#HiveSerde" class="headerlink" title="HiveSerde"></a>HiveSerde</h1><p>目的：</p>
+<p>​    Hive Serde用来做序列化和反序列化，构建在数据存储和执行引擎之间，对两者实现解耦。</p>
+<p>应用场景：</p>
+<p>​    1、hive主要用来存储结构化数据，如果结构化数据存储的格式嵌套比较复杂的时候，可以使用serde的方式，利用正则表达式匹配的方法来读取数据，例如，表字段如下：id,name,map&lt;string,array&lt;map&lt;string,string&gt;&gt;&gt;</p>
+<p>​    2、当读取数据的时候，数据的某些特殊格式不希望显示在数据中，如：</p>
+<p>192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] “GET /bg-upper.png HTTP/1.1” 304 -</p>
+<p>不希望数据显示的时候包含[]或者””,此时可以考虑使用serde的方式</p>
+<p>语法规则：</p>
+<pre><code>row_format
+: DELIMITED
+  [FIELDS TERMINATED BY char [ESCAPED BY char]]
+  [COLLECTION ITEMS TERMINATED BY char]
+  [MAP KEYS TERMINATED BY char]
+  [LINES TERMINATED BY char]
+: SERDE serde_name [WITH SERDEPROPERTIES (property_name=property_value,property_name=property_value, ...)]
+</code></pre><p>应用案例：</p>
+<p>​1、数据文件</p>
+<pre><code>192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-upper.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-nav.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /asf-logo.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-button.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-middle.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET / HTTP/1.1&quot; 200 11217
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET / HTTP/1.1&quot; 200 11217
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.css HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /asf-logo.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-middle.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-button.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-nav.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-upper.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET / HTTP/1.1&quot; 200 11217
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.css HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET / HTTP/1.1&quot; 200 11217
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.css HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /tomcat.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-button.png HTTP/1.1&quot; 304 -
+192.168.57.4 - - [29/Feb/2019:18:14:36 +0800] &quot;GET /bg-upper.png HTTP/1.1&quot; 304 -
+</code></pre><p>​    2、基本操作：</p>
+<pre><code class="sql">--创建表
+CREATE TABLE logtbl (
+    host STRING,
+    identity STRING,
+    t_user STRING,
+    time STRING,
+    request STRING,
+    referer STRING,
+    agent STRING)
+    ROW FORMAT SERDE &#39;org.apache.hadoop.hive.serde2.RegexSerDe&#39;
+WITH SERDEPROPERTIES (&quot;input.regex&quot; = &quot;([^ ]*) ([^ ]*) ([^ ]*) \\[(.*)\\] \&quot;(.*)\&quot; (-|[0-9]*) (-|[0-9]*)&quot;
+)STORED AS TEXTFILE;
+--加载数据
+load data local inpath &#39;/root/data/log&#39; into table logtbl;
+--查询操作
+select * from logtbl;
+--数据显示如下（不包含[]和&quot;）
+192.168.57.4    -    -    29/Feb/2019:18:14:35 +0800    GET /bg-upper.png HTTP/1.1    304    -
+192.168.57.4    -    -    29/Feb/2019:18:14:35 +0800    GET /bg-nav.png HTTP/1.1    304    -
+192.168.57.4    -    -    29/Feb/2019:18:14:35 +0800    GET /asf-logo.png HTTP/1.1    304    -
+192.168.57.4    -    -    29/Feb/2019:18:14:35 +0800    GET /bg-button.png HTTP/1.1    304    -
+192.168.57.4    -    -    29/Feb/2019:18:14:35 +0800    GET /bg-middle.png HTTP/1.1    304    -
+
+</code></pre>
+<h1 id="HiveServer2"><a href="#HiveServer2" class="headerlink" title="HiveServer2"></a>HiveServer2</h1><h2 id="基本概念介绍"><a href="#基本概念介绍" class="headerlink" title="基本概念介绍"></a>基本概念介绍</h2><p>1、HiveServer2基本介绍</p>
+<pre><code class="sql">HiveServer2 (HS2) is a server interface that enables remote clients to execute queries against Hive and retrieve the results (a more detailed intro here). The current implementation, based on Thrift RPC, is an improved version of HiveServer and supports multi-client concurrency and authentication. It is designed to provide better support for open API clients like JDBC and ODBC.
+</code></pre>
+<p>​HiveServer2是一个服务接口，能够允许远程的客户端去执行SQL请求且得到检索结果。HiveServer2的实现，依托于Thrift RPC，是HiveServer的提高版本，它被设计用来提供更好的支持对于open API例如JDBC和ODBC。</p>
+<pre><code>HiveServer is an optional service that allows a remote client to submit requests to Hive, using a variety of programming languages, and retrieve results. HiveServer is built on Apache ThriftTM (http://thrift.apache.org/), therefore it is sometimes called the Thrift server although this can lead to confusion because a newer service named HiveServer2 is also built on Thrift. Since the introduction of HiveServer2, HiveServer has also been called HiveServer1.
+</code></pre><p>​HiveServer是一个可选的服务，只允许一个远程的客户端去提交请求到hive中。（目前已被淘汰）</p>
+<p>2、Beeline</p>
+<p>​HiveServer2 supports a command shell Beeline that works with HiveServer2. It’s a JDBC client that is based on the SQLLine CLI 。</p>
+<p>​HiveServer2提供了一种新的命令行接口，可以提交执行SQL语句。</p>
+<h2 id="hiveserver2的搭建使用"><a href="#hiveserver2的搭建使用" class="headerlink" title="hiveserver2的搭建使用"></a>hiveserver2的搭建使用</h2><p>​在搭建hiveserver2服务的时候需要修改hdfs的超级用户的管理权限，修改配置如下：</p>
+<pre><code class="sql">--在hdfs集群的core-site.xml文件中添加如下配置文件
+&lt;property&gt;
+    &lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt;
+    &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;hadoop.proxyuser.root.hosts&lt;/name&gt;
+    &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+--配置完成之后重新启动集群，或者在namenode的节点上执行如下命令
+hdfs dfsadmin -fs hdfs://node01:8020 -refreshSuperUserGroupsConfiguration
+hdfs dfsadmin -fs hdfs://node02:8020 -refreshSuperUserGroupsConfiguration
+
+</code></pre>
+<h3 id="1、独立hiveserver2模式"><a href="#1、独立hiveserver2模式" class="headerlink" title="1、独立hiveserver2模式"></a>1、独立hiveserver2模式</h3><p>​1、将现有的所有hive的服务停止，不需要修改任何服务，在node03机器上执行hiveserver2或者hive –service hiveserver2的命令，开始启动hiveserver2的服务，hiveserver2的服务也是一个阻塞式窗口，当开启服务后，会开启一个10000的端口，对外提供服务。</p>
+<p>​2、在node04上使用beeline的方式进行登录</p>
+<h3 id="2、共享metastore-server的hiveserver2模式搭建"><a href="#2、共享metastore-server的hiveserver2模式搭建" class="headerlink" title="2、共享metastore server的hiveserver2模式搭建"></a>2、共享metastore server的hiveserver2模式搭建</h3><p>​1、在node03上执行hive –service metastore启动元数据服务</p>
+<p>​2、在node04上执行hiveserver2或者hive –service hiveserver2两个命令其中一个都可以</p>
+<p>​3、在任意一台包含beeline脚本的虚拟机中执行beeline的命令进行连接</p>
+<h2 id="HiveServer2的访问方式"><a href="#HiveServer2的访问方式" class="headerlink" title="HiveServer2的访问方式"></a>HiveServer2的访问方式</h2><h3 id="1、beeline的访问方式"><a href="#1、beeline的访问方式" class="headerlink" title="1、beeline的访问方式"></a>1、beeline的访问方式</h3><p>（1）beeline -u jdbc:hive2://<host>:<port>/<db> -n name<br>​（2）beeline进入到beeline的命令行</db></port></host></p>
+<pre><code>beeline&gt; !connect jdbc:hive2://&lt;host&gt;:&lt;port&gt;/&lt;db&gt; root 123
+</code></pre><p>​注意：</p>
+<p>​    1、使用beeline方式登录的时候，默认的用户名和密码是不验证的，也就是说随便写用户名和密码即可</p>
+<p>​    2、使用第一种beeline的方式访问的时候，用户名和密码可以不输入</p>
+<p>​   3、使用第二种beeline方式访问的时候，必须输入用户名和密码，用户名和密码是什么无所谓</p>
+<h3 id="2、jdbc的访问方式"><a href="#2、jdbc的访问方式" class="headerlink" title="2、jdbc的访问方式"></a>2、jdbc的访问方式</h3><p>​1、创建普通的java项目，将hive的jar包添加到classpath中，最精简的jar包如下：</p>
+<pre><code>commons-lang-2.6.jar
+commons-logging-1.2.jar
+curator-client-2.7.1.jar
+curator-framework-2.7.1.jar
+guava-14.0.1.jar
+hive-exec-2.3.4.jar
+hive-jdbc-2.3.4.jar
+hive-jdbc-handler-2.3.4.jar
+hive-metastore-2.3.4.jar
+hive-service-2.3.4.jar
+hive-service-rpc-2.3.4.jar
+httpclient-4.4.jar
+httpcore-4.4.jar
+libfb303-0.9.3.jar
+libthrift-0.9.3.jar
+log4j-1.2-api-2.6.2.jar
+log4j-api-2.6.2.jar
+log4j-core-2.6.2.jar
+log4j-jul-2.5.jar
+log4j-slf4j-impl-2.6.2.jar
+log4j-web-2.6.2.jar
+zookeeper-3.4.6.jar
+</code></pre><p>​2、编辑如下代码：</p>
+<pre><code class="java">package com.mashibing;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class HiveJdbcClient {
+
+    private static String driverName = &quot;org.apache.hive.jdbc.HiveDriver&quot;;
+
+    public static void main(String[] args) throws SQLException {
+        try {
+            Class.forName(driverName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection conn = DriverManager.getConnection(&quot;jdbc:hive2://node04:10000/default&quot;, &quot;root&quot;, &quot;&quot;);
+        Statement stmt = conn.createStatement();
+        String sql = &quot;select * from psn limit 5&quot;;
+        ResultSet res = stmt.executeQuery(sql);
+        while (res.next()) {
+            System.out.println(res.getString(1) + &quot;-&quot; + res.getString(&quot;name&quot;));
+        }
+    }
+}
+
+</code></pre>
+<p>运行之后，即可得到最终结果。</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/12/Hive函数/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer15.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Hive函数</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/12/Hive基础知识/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer14.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Hive基础知识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>
