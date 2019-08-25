@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">Dubbo初识 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/08/25/QQ20190825181328f906f.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181328f906f.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Dubbo初识</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-16<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Dubbo-01"><a href="#Dubbo-01" class="headerlink" title="Dubbo 01"></a>Dubbo 01</h1><h2 id="架构模型"><a href="#架构模型" class="headerlink" title="架构模型"></a>架构模型</h2><h3 id="传统架构-All-in-One"><a href="#传统架构-All-in-One" class="headerlink" title="传统架构 All in One"></a>传统架构 All in One</h3><p>测试麻烦，微小修改 全都得重新测</p>
+<p>单体架构也称之为单体系统或者是单体应用。就是一种把系统中所有的功能、模块耦合在一个应用中的架构方式。其优点为：项目易于管理、部署简单。缺点：测试成本高、可伸缩性差、可靠性差、迭代困难、跨语言程度差、团队协作难</p>
+<p>聚合项目划分</p>
+<p>单项目容易 因为某个功能导致整体oom</p>
+<p>拆分完 咋实现</p>
+<h3 id="SOA-架构-Service-Oriented-Architecture"><a href="#SOA-架构-Service-Oriented-Architecture" class="headerlink" title="SOA 架构: Service-Oriented Architecture"></a>SOA 架构: Service-Oriented Architecture</h3><p>面向服务的架构（SOA）是一个组件模型，它将应用程序拆分成不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。这使得构建在各种各样的系统中的服务可以以一种统一和通用的方式进行交互。</p>
+<p>在没有实施SOA的年代，从我们研发的角度来看，只能在代码级别复用，即Ctrl +V。SOA出现，我们开始走向了模块、业务线的复用。</p>
+<p>SOA年代的典型实现： SOAP协议，CXF框架，XML传输</p>
+<p>xsd，数据校验</p>
+<p>SOA架构伴随着软件研发行业20年的发展，在最初的时候，大型it公司内部系统规模越来越大，IT系统越来越复杂，All in One单体架构的思想导致公司内项目业务和数据相互隔离，形成了孤岛。</p>
+<p>最初，我们使用数据库作为项目之间数据交互和中转的平台，现在我们有了消息中间件。</p>
+<p>最初，我们使用XML完成系统之间解耦与相互关联，现在我们有了RPC，Restful</p>
+<p>最初，我们使用业务维度划分整体项目结构，</p>
+<p>最初，我们多项目节点维护一个共享数据中心，现在我们做冗余存储，闭环数据，保证高效运行及数据最终一致性</p>
+<p>最初，SOA思想指导指导我们把所有的IT系统汇总成一个大的整体，按照业务维度划分服务，集中化管理 现在我们拆分抽象服务使其可以多系统复用相同的功能模块。</p>
+<h3 id="基于dubbo-RPC的微服务式架构"><a href="#基于dubbo-RPC的微服务式架构" class="headerlink" title="基于dubbo RPC的微服务式架构"></a>基于dubbo RPC的微服务式架构</h3><p>RPC远程过程调用 : Remote Procedure Call Protocol</p>
+<p>远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在<a href="#_OSI网络通讯模型_:">OSI</a>网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</p>
+<p>原来的RPC也有其他几种比如DCOM，CORBA，RMI（Java）等</p>
+<ul>
+<li>RMI——Remote Method Invoke：调用远程的方法。“方法”一般是附属于某个对象上的，所以通常RMI指对在远程的计算机上的某个对象，进行其方法函数的调用。</li>
+<li>RPC——Remote Procedure Call：远程过程调用。指的是对网络上另外一个计算机上的，某段特定的函数代码的调用。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/rpc-rmi_flow.png" alt="RMI 构建图 "></p>
+<p><strong>传输协议</strong></p>
+<ul>
+<li>RPC，可以基于TCP协议，也可以基于HTTP协议</li>
+<li>HTTP，基于HTTP协议</li>
+</ul>
+<p><strong>传输效率</strong></p>
+<ul>
+<li>RPC，使用自定义的TCP协议，可以让请求报文体积更小，或者使用HTTP2协议，也可以很好的减少报文的体积，提高传输效率</li>
+<li>HTTP，如果是基于HTTP1.1的协议，请求中会包含很多无用的内容，如果是基于HTTP2.0，那么简单的封装以下是可以作为一个RPC来使用的，这时标准RPC框架更多的是服务治理</li>
+</ul>
+<p><strong>性能消耗</strong></p>
+<ul>
+<li>RPC，可以基于thrift实现高效的二进制传输</li>
+<li>HTTP，大部分是通过json来实现的，字节大小和序列化耗时都比thrift要更消耗性能</li>
+</ul>
+<p><strong>负载均衡</strong></p>
+<ul>
+<li>RPC，基本都自带了负载均衡策略</li>
+<li>HTTP，需要配置Nginx，HAProxy来实现</li>
+</ul>
+<p><strong>服务治理</strong></p>
+<ul>
+<li>RPC，能做到自动通知，不影响上游</li>
+<li>HTTP，需要事先通知，修改Nginx/HAProxy配置</li>
+</ul>
+<p>RPC主要用于公司内部的服务调用，性能消耗低，传输效率高，服务治理方便。HTTP主要用于对外的异构环境，浏览器接口调用，APP接口调用，第三方接口调用等。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Dubbo介绍"><a href="#Dubbo介绍" class="headerlink" title="Dubbo介绍"></a>Dubbo介绍</h3><p>Apache Dubbo |ˈdʌbəʊ| 是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
+<p>Dubbo是阿里巴巴公司开源的一个高性能优秀的<a href="https://baike.baidu.com/item/服务框架" target="_blank" rel="noopener">服务框架</a>，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和<a href="https://baike.baidu.com/item/Spring" target="_blank" rel="noopener">Spring</a>框架无缝集成。Dubbo框架，是基于容器运行的。容器是Spring。</p>
+<p>官方网站 : <a href="http://dubbo.apache.org/" target="_blank" rel="noopener">http://dubbo.apache.org/</a></p>
+<p>阿里巴巴已经将dubbo框架捐献给了Apache软件基金会</p>
+<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><h4 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h4><p>注册中心. 是用于发布和订阅服务的一个平台.用于替代SOA结构体系框架中的ESB服务总线的。</p>
+<h5 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h5><p>开发服务端代码完毕后, 将服务信息发布出去. 实现一个服务的公开.</p>
+<h5 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h5><p>客户端程序,从注册中心下载服务内容 这个过程是订阅.</p>
+<p>订阅服务的时候, 会将发布的服务所有信息,一次性下载到客户端.</p>
+<p>客户端也可以自定义, 修改部分服务配置信息. 如: 超时的时长, 调用的重试次数等.</p>
+<h4 id="consumer"><a href="#consumer" class="headerlink" title="consumer"></a>consumer</h4><p>服务的消费者, 就是服务的客户端.</p>
+<p>消费者必须使用Dubbo技术开发部分代码. 基本上都是配置文件定义.</p>
+<h4 id="provider"><a href="#provider" class="headerlink" title="provider"></a>provider</h4><p>服务的提供者, 就是服务端.</p>
+<p>服务端必须使用Dubbo技术开发部分代码. 以配置文件为主.</p>
+<h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><p>容器. Dubbo技术的服务端(Provider), 在启动执行的时候, 必须依赖容器才能正常启动.</p>
+<p>默认依赖的就是spring容器.  且Dubbo技术不能脱离spring框架.</p>
+<p>在2.5.3版本的dubbo中, 默认依赖的是spring2.5版本技术. 可以选用spring4.5以下版本.</p>
+<p>在2.5.7版本的dubbo中, 默认依赖的是spring4.3.10版本技术. 可以选择任意的spring版本.</p>
+<h4 id="monitor-dubbo-admin"><a href="#monitor-dubbo-admin" class="headerlink" title="monitor dubbo admin"></a>monitor dubbo admin</h4><p>监控中心. 是Dubbo提供的一个jar工程.</p>
+<p>主要功能是监控服务端(Provider)和消费端(Consumer)的使用数据的. 如: 服务端是什么,有多少接口,多少方法, 调用次数, 压力信息等. 客户端有多少, 调用过哪些服务端, 调用了多少次等. </p>
+<h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><ul>
+<li>start: 启动Spring容器时,自动启动Dubbo的Provider</li>
+<li>register: Dubbo的Provider在启动后自动会去注册中心注册内容.注册的内容包括:<ul>
+<li>Provider的 IP</li>
+<li>Provider 的端口.</li>
+<li>Provider 对外提供的接口列表.哪些方法.哪些接口类</li>
+<li>Dubbo 的版本.</li>
+<li>访问Provider的协议.</li>
+</ul>
+</li>
+<li>subscribe: 订阅.当Consumer启动时,自动去Registry获取到所已注册的服务的信息.</li>
+<li>notify: 通知.当Provider的信息发生变化时, 自动由Registry向Consumer推送通知.</li>
+<li>invoke: 调用. Consumer 调用Provider中方法<ul>
+<li>同步请求.消耗一定性能.但是必须是同步请求,因为需要接收调用方法后的结果.</li>
+</ul>
+</li>
+<li>count:次数. 每隔2分钟,provoider和consumer自动向Monitor发送访问次数.Monitor进行统计.</li>
+</ul>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><h4 id="Dubbo协议-官方推荐协议"><a href="#Dubbo协议-官方推荐协议" class="headerlink" title="Dubbo协议(官方推荐协议)"></a>Dubbo协议(官方推荐协议)</h4><p>优点：</p>
+<p>采用NIO复用单一长连接，并使用线程池并发处理请求，减少握手和加大并发效率，性能较好（推荐使用） </p>
+<p>缺点：</p>
+<p>大文件上传时,可能出现问题(不使用Dubbo文件上传)</p>
+<h4 id="RMI-Remote-Method-Invocation-协议"><a href="#RMI-Remote-Method-Invocation-协议" class="headerlink" title="RMI(Remote Method Invocation)协议"></a>RMI(Remote Method Invocation)协议</h4><p>优点:</p>
+<p>JDK自带的能力。可与原生RMI互操作，基于TCP协议</p>
+<p>缺点:</p>
+<p>偶尔连接失败.</p>
+<h4 id="Hessian协议"><a href="#Hessian协议" class="headerlink" title="Hessian协议"></a>Hessian协议</h4><p>优点:</p>
+<p>可与原生Hessian互操作，基于HTTP协议</p>
+<p>缺点:</p>
+<p>需hessian.jar支持，http短连接的开销大</p>
+<h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><h4 id="Zookeeper-官方推荐"><a href="#Zookeeper-官方推荐" class="headerlink" title="Zookeeper(官方推荐)"></a>Zookeeper(官方推荐)</h4><p>优点:</p>
+<p>支持分布式.很多周边产品.</p>
+<p>缺点: </p>
+<p>受限于Zookeeper软件的稳定性.Zookeeper专门分布式辅助软件,稳定较优</p>
+<h3 id="Multicast"><a href="#Multicast" class="headerlink" title="Multicast"></a>Multicast</h3><p>优点:</p>
+<p>去中心化,不需要单独安装软件.</p>
+<p>缺点:</p>
+<p>2.2.1 Provider和Consumer和Registry不能跨机房(路由)</p>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p>优点:</p>
+<p>支持集群,性能高</p>
+<p>缺点:</p>
+<p>要求服务器时间同步.否则可能出现集群失败问题.</p>
+<h3 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h3><p>优点: </p>
+<p>标准RPC服务.没有兼容问题</p>
+<p>缺点: </p>
+<p>不支持集群.</p>
+<h2 id="组件选型及成熟度"><a href="#组件选型及成熟度" class="headerlink" title="组件选型及成熟度"></a>组件选型及成熟度</h2><p><a href="http://dubbo.apache.org/zh-cn/docs/user/maturity.html" target="_blank" rel="noopener">http://dubbo.apache.org/zh-cn/docs/user/maturity.html</a></p>
+<h3 id="功能成熟度"><a href="#功能成熟度" class="headerlink" title="功能成熟度"></a>功能成熟度</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature</td>
+<td>Maturity</td>
+<td>Strength</td>
+<td>Problem</td>
+<td>Advise</td>
+<td>User</td>
+</tr>
+<tr>
+<td>并发控制</td>
+<td>Tested</td>
+<td>并发控制</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>连接控制</td>
+<td>Tested</td>
+<td>连接数控制</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>直连提供者</td>
+<td>Tested</td>
+<td>点对点直连服务提供方，用于测试</td>
+<td></td>
+<td>测试环境使用</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>分组聚合</td>
+<td>Tested</td>
+<td>分组聚合返回值，用于菜单聚合等服务</td>
+<td>特殊场景使用</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>参数验证</td>
+<td>Tested</td>
+<td>参数验证，JSR303验证框架集成</td>
+<td>对性能有影响</td>
+<td>试用</td>
+<td>LaiWang</td>
+</tr>
+<tr>
+<td>结果缓存</td>
+<td>Tested</td>
+<td>结果缓存，用于加速请求</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>泛化引用</td>
+<td>Stable</td>
+<td>泛化调用，无需业务接口类进行远程调用，用于测试平台，开放网关桥接等</td>
+<td></td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>泛化实现</td>
+<td>Stable</td>
+<td>泛化实现，无需业务接口类实现任意接口，用于Mock平台</td>
+<td></td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>回声测试</td>
+<td>Tested</td>
+<td>回声测试</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>隐式传参</td>
+<td>Stable</td>
+<td>附加参数</td>
+<td></td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>异步调用</td>
+<td>Tested</td>
+<td>不可靠异步调用</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>本地调用</td>
+<td>Tested</td>
+<td>本地调用</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>参数回调</td>
+<td>Tested</td>
+<td>参数回调</td>
+<td>特殊场景使用</td>
+<td>试用</td>
+<td>Registry</td>
+</tr>
+<tr>
+<td>事件通知</td>
+<td>Tested</td>
+<td>事件通知，在远程调用执行前后触发</td>
+<td></td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>本地存根</td>
+<td>Stable</td>
+<td>在客户端执行部分逻辑</td>
+<td></td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>本地伪装</td>
+<td>Stable</td>
+<td>伪造返回结果，可在失败时执行，或直接执行，用于服务降级</td>
+<td>需注册中心支持</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>延迟暴露</td>
+<td>Stable</td>
+<td>延迟暴露服务，用于等待应用加载warmup数据，或等待spring加载完成</td>
+<td></td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>延迟连接</td>
+<td>Tested</td>
+<td>延迟建立连接，调用时建立</td>
+<td></td>
+<td>试用</td>
+<td>Registry</td>
+</tr>
+<tr>
+<td>粘滞连接</td>
+<td>Tested</td>
+<td>粘滞连接，总是向同一个提供方发起请求，除非此提供方挂掉，再切换到另一台</td>
+<td></td>
+<td>试用</td>
+<td>Registry</td>
+</tr>
+<tr>
+<td>令牌验证</td>
+<td>Tested</td>
+<td>令牌验证，用于服务授权</td>
+<td>需注册中心支持</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>路由规则</td>
+<td>Tested</td>
+<td>动态决定调用关系</td>
+<td>需注册中心支持</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>配置规则</td>
+<td>Tested</td>
+<td>动态下发配置，实现功能的开关</td>
+<td>需注册中心支持</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>访问日志</td>
+<td>Tested</td>
+<td>访问日志，用于记录调用信息</td>
+<td>本地存储，影响性能，受磁盘大小限制</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>分布式事务</td>
+<td>Research</td>
+<td>JTA/XA三阶段提交事务</td>
+<td>不稳定</td>
+<td>不可用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="策略成熟度"><a href="#策略成熟度" class="headerlink" title="策略成熟度"></a>策略成熟度</h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zookeeper注册中心</td>
+<td>Stable</td>
+<td>支持基于网络的集群方式，有广泛周边开源产品，建议使用dubbo-2.3.3以上版本（推荐使用）</td>
+<td>依赖于Zookeeper的稳定性</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>Redis注册中心</td>
+<td>Stable</td>
+<td>支持基于客户端双写的集群方式，性能高</td>
+<td>要求服务器时间同步，用于检查心跳过期脏数据</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>Multicast注册中心</td>
+<td>Tested</td>
+<td>去中心化，不需要安装注册中心</td>
+<td>依赖于网络拓扑和路由，跨机房有风险</td>
+<td>小规模应用或开发测试环境</td>
+<td></td>
+</tr>
+<tr>
+<td>Simple注册中心</td>
+<td>Tested</td>
+<td>Dogfooding，注册中心本身也是一个标准的RPC服务</td>
+<td>没有集群支持，可能单点故障</td>
+<td>试用</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple监控中心</td>
+<td>Stable</td>
+<td>支持JFreeChart统计报表</td>
+<td>没有集群支持，可能单点故障，但故障后不影响RPC运行</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dubbo协议</td>
+<td>Stable</td>
+<td>采用NIO复用单一长连接，并使用线程池并发处理请求，减少握手和加大并发效率，性能较好（推荐使用）</td>
+<td>在大文件传输时，单一连接会成为瓶颈</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Rmi协议</td>
+<td>Stable</td>
+<td>可与原生RMI互操作，基于TCP协议</td>
+<td>偶尔会连接失败，需重建Stub</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Hessian协议</td>
+<td>Stable</td>
+<td>可与原生Hessian互操作，基于HTTP协议</td>
+<td>需hessian.jar支持，http短连接的开销大</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Netty Transporter</td>
+<td>Stable</td>
+<td>JBoss的NIO框架，性能较好（推荐使用）</td>
+<td>一次请求派发两种事件，需屏蔽无用事件</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Mina Transporter</td>
+<td>Stable</td>
+<td>老牌NIO框架，稳定</td>
+<td>待发送消息队列派发不及时，大压力下，会出现FullGC</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Grizzly Transporter</td>
+<td>Tested</td>
+<td>Sun的NIO框架，应用于GlassFish服务器中</td>
+<td>线程池不可扩展，Filter不能拦截下一Filter</td>
+<td>试用</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hessian Serialization</td>
+<td>Stable</td>
+<td>性能较好，多语言支持（推荐使用）</td>
+<td>Hessian的各版本兼容性不好，可能和应用使用的Hessian冲突，Dubbo内嵌了hessian3.2.1的源码</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Dubbo Serialization</td>
+<td>Tested</td>
+<td>通过不传送POJO的类元信息，在大量POJO传输时，性能较好</td>
+<td>当参数对象增加字段时，需外部文件声明</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>Json Serialization</td>
+<td>Tested</td>
+<td>纯文本，可跨语言解析，缺省采用FastJson解析</td>
+<td>性能较差</td>
+<td>试用</td>
+<td></td>
+</tr>
+<tr>
+<td>Java Serialization</td>
+<td>Stable</td>
+<td>Java原生支持</td>
+<td>性能较差</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Javassist ProxyFactory</td>
+<td>Stable</td>
+<td>通过字节码生成代替反射，性能比较好（推荐使用）</td>
+<td>依赖于javassist.jar包，占用JVM的Perm内存，Perm可能要设大一些：java -XX:PermSize=128m</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Jdk ProxyFactory</td>
+<td>Stable</td>
+<td>JDK原生支持</td>
+<td>性能较差</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Failover Cluster</td>
+<td>Stable</td>
+<td>失败自动切换，当出现失败，重试其它服务器，通常用于读操作（推荐使用）</td>
+<td>重试会带来更长延迟</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Failfast Cluster</td>
+<td>Stable</td>
+<td>快速失败，只发起一次调用，失败立即报错,通常用于非幂等性的写操作</td>
+<td>如果有机器正在重启，可能会出现调用失败</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Failsafe Cluster</td>
+<td>Stable</td>
+<td>失败安全，出现异常时，直接忽略，通常用于写入审计日志等操作</td>
+<td>调用信息丢失</td>
+<td>可用于生产环境</td>
+<td>Monitor</td>
+</tr>
+<tr>
+<td>Failback Cluster</td>
+<td>Tested</td>
+<td>失败自动恢复，后台记录失败请求，定时重发，通常用于消息通知操作</td>
+<td>不可靠，重启丢失</td>
+<td>可用于生产环境</td>
+<td>Registry</td>
+</tr>
+<tr>
+<td>Forking Cluster</td>
+<td>Tested</td>
+<td>并行调用多个服务器，只要一个成功即返回，通常用于实时性要求较高的读操作</td>
+<td>需要浪费更多服务资源</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>Broadcast Cluster</td>
+<td>Tested</td>
+<td>广播调用所有提供者，逐个调用，任意一台报错则报错，通常用于更新提供方本地状态</td>
+<td>速度慢，任意一台报错则报错</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random LoadBalance</td>
+<td>Stable</td>
+<td>随机，按权重设置随机概率（推荐使用）</td>
+<td>在一个截面上碰撞的概率高，重试时，可能出现瞬间压力不均</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>RoundRobin LoadBalance</td>
+<td>Stable</td>
+<td>轮询，按公约后的权重设置轮询比率</td>
+<td>存在慢的机器累积请求问题，极端情况可能产生雪崩</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>LeastActive LoadBalance</td>
+<td>Stable</td>
+<td>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差，使慢的机器收到更少请求</td>
+<td>不支持权重，在容量规划时，不能通过权重把压力导向一台机器压测容量</td>
+<td>可用于生产环境</td>
+<td></td>
+</tr>
+<tr>
+<td>ConsistentHash LoadBalance</td>
+<td>Stable</td>
+<td>一致性Hash，相同参数的请求总是发到同一提供者，当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动</td>
+<td>压力分摊不均</td>
+<td>可用于生产环境</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>条件路由规则</td>
+<td>Stable</td>
+<td>基于条件表达式的路由规则，功能简单易用</td>
+<td>有些复杂多分支条件情况，规则很难描述</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>脚本路由规则</td>
+<td>Tested</td>
+<td>基于脚本引擎的路由规则，功能强大</td>
+<td>没有运行沙箱，脚本能力过于强大，可能成为后门</td>
+<td>试用</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Maturity</th>
+<th>Strength</th>
+<th>Problem</th>
+<th>Advise</th>
+<th>User</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring Container</td>
+<td>Stable</td>
+<td>自动加载META-INF/spring目录下的所有Spring配置</td>
+<td></td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Jetty Container</td>
+<td>Stable</td>
+<td>启动一个内嵌Jetty，用于汇报状态</td>
+<td>大量访问页面时，会影响服务器的线程和内存</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+<tr>
+<td>Log4j Container</td>
+<td>Stable</td>
+<td>自动配置log4j的配置，在多进程启动时，自动给日志文件按进程分目录</td>
+<td>用户不能控制log4j的配置，不灵活</td>
+<td>可用于生产环境</td>
+<td>Alibaba</td>
+</tr>
+</tbody>
+</table>
+<h2 id="zookeeper安装"><a href="#zookeeper安装" class="headerlink" title="zookeeper安装"></a>zookeeper安装</h2><p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/1565092109186.png" alt="1565092109186"></p>
+<h3 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h3><ul>
+<li>rpm -ivh jdk-8u131-linux-x64.rpm</li>
+<li>java –version 检查是否成功</li>
+</ul>
+<h3 id="安装Zookeeper"><a href="#安装Zookeeper" class="headerlink" title="安装Zookeeper"></a>安装Zookeeper</h3><p>下载 <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">http://zookeeper.apache.org/</a> 并上传解压缩</p>
+<h4 id="配置zookeeper环境变量"><a href="#配置zookeeper环境变量" class="headerlink" title="配置zookeeper环境变量"></a>配置zookeeper环境变量</h4><p>修改文件 vi /etc/profile 追加内容</p>
+<p>在path后追加<code>/usr/local/zookeeper/bin</code></p>
+<p><strong>注意中间间隔是：冒号</strong></p>
+<pre><code>export PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:/usr/local/zo
+okeeper/bin
+</code></pre><p>source /etc/profile 重新加载配置</p>
+<h4 id="修改zoo-cfg"><a href="#修改zoo-cfg" class="headerlink" title="修改zoo.cfg"></a>修改zoo.cfg</h4><p>重命名zoo_sample.cfg 为zoo.cfg</p>
+<p>默认加载配置文件会找zoo.cfg这个文件</p>
+<p>修改配置文件</p>
+<pre><code>vi /usr/local/zookeeper/conf/zoo.cfg
+</code></pre><p>创建数据存放目录</p>
+<p>Mkdir /data/zookeeper</p>
+<p>创建Myid文件，并写入服务器编号</p>
+<p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/1565092323114.png" alt="1565092323114"></p>
+<p><strong>注意</strong>：这里写入myid文件的编号和接下来要配置的服务器列表编号一一对应，每台服务器配置的编号也应该不一样。</p>
+<p>Myid文件里只有一个数字 1</p>
+<p>创建好的这个目录用于存储zookeeper产生的数据</p>
+<p>修改datadir为刚才我们创建的目录</p>
+<p>dataDir=/data/zookeeper</p>
+<p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/1565092366744.png" alt="1565092366744"></p>
+<p>在最后面加入集群服务器列表</p>
+<pre><code>server.1=192.168.2.51:2888:3888
+server.2=cm02:2888:3888
+server.3=cm03:2888:3888
+</code></pre><p>配置的服务器集群个数建议是奇数的</p>
+<p>半数以上节点存活，就可以对外提供服务</p>
+<p>其中 server.x 这里的数字编号 就是我们的myid里写入的数字</p>
+<p>Cm01是主机名或ip地址</p>
+<p>接下来是对外通讯端口和内部选举端口</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>zkServer.sh start 命令启动一台zookeeper服务器</p>
+<p>没报错的话 使用jps看一下进程</p>
+<p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/1565092454496.png" alt="1565092454496"></p>
+<p>QuorumPeerMain是zookeeper的主进程</p>
+<p>通过status命令可以查看服务器运行状态</p>
+<p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/dubbo/1565092410017.png" alt="1565092410017"></p>
+<p><strong>注意：当我们使用集群模式启动zookeeper的时候，由于我们只启动了一台服务器，集群总共3台，没有满足zookeeper半数以上节点运行原则，所以服务虽然起来了，但是没有办法对外提供服务。</strong></p>
+<p><strong>这时我们需要启动第二台服务器</strong></p>
+<h2 id="Dubbo-Hello-World"><a href="#Dubbo-Hello-World" class="headerlink" title="Dubbo Hello World"></a>Dubbo Hello World</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>SpringBoot + dubbo</p>
+<h3 id="Pom-xml-依赖"><a href="#Pom-xml-依赖" class="headerlink" title="Pom.xml 依赖"></a>Pom.xml 依赖</h3><pre><code class="xml">&lt;!-- Aapche Dubbo --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.dubbo&lt;/groupId&gt;
+    &lt;artifactId&gt;dubbo-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;${dubbo.version}&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.dubbo&lt;/groupId&gt;
+    &lt;artifactId&gt;dubbo&lt;/artifactId&gt;
+    &lt;version&gt;${dubbo.version}&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;
+    &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;
+    &lt;version&gt;4.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;
+    &lt;artifactId&gt;curator-recipes&lt;/artifactId&gt;
+    &lt;version&gt;4.2.0&lt;/version&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;
+            &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;
+    &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;
+    &lt;version&gt;3.4.14&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="服务提供方-provider"><a href="#服务提供方-provider" class="headerlink" title="服务提供方 provider"></a>服务提供方 provider</h3><h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><pre><code class="pro">server.port=8081
+spring.application.name=DemoProvider
+dubbo.scan.base-packages=com.msb.db1.service
+dubbo.protocol.name=dubbo
+dubbo.protocol.port=666
+dubbo.protocol.host=192.168.101.106
+dubbo.registry.address=zookeeper://192.168.150.13:2181
+</code></pre>
+<h4 id="服务接口"><a href="#服务接口" class="headerlink" title="服务接口"></a>服务接口</h4><pre><code class="java">public interface DemoService {
+    String sayHello(String name);
+}
+
+</code></pre>
+<h4 id="接口实现"><a href="#接口实现" class="headerlink" title="接口实现"></a>接口实现</h4><pre><code class="java">import org.apache.dubbo.config.annotation.Service;
+import org.springframework.stereotype.Component;
+
+@Service(version = &quot;1.0.0&quot; ,timeout = 10000, interfaceClass = DemoService.class)
+@Component
+public class DemoServiceImpl implements DemoService {
+    @Override
+    public String sayHello(String name) {
+        // TODO Auto-generated method stub
+        System.out.println(&quot;来啦~~~！&quot;);
+        return &quot;hello:&quot; + name;
+    }
+}
+</code></pre>
+<h3 id="服务消费方-customer"><a href="#服务消费方-customer" class="headerlink" title="服务消费方 customer"></a>服务消费方 customer</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><pre><code>spring.application.name=DemoCustomer
+dubbo.scan.base-packages=com.msb.db1.service
+dubbo.registry.address=zookeeper://192.168.150.13:2181
+</code></pre><h4 id="自动注入"><a href="#自动注入" class="headerlink" title="自动注入"></a>自动注入</h4><pre><code class="java">@Reference(version = &quot;1.0.0&quot;)
+DemoService serv;
+</code></pre>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><pre><code class="java">public interface DemoService {
+    String sayHello(String name);
+}
+</code></pre>
+<p>本地存根（Stub）</p>
+<p>服务端的骨架对象(Skeleton)</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/16/Java基础之concurrent包/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ201908251813587a820.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Java基础之concurrent包</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/16/FastDFS集群/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518215326cce.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                FastDFS集群</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">FastDFS集群 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/08/25/QQ2019082518215326cce.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518215326cce.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      FastDFS集群</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-16<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="FastDFS-集群"><a href="#FastDFS-集群" class="headerlink" title="FastDFS 集群"></a>FastDFS 集群</h1><p><img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogcontent/fastdfs/1564986976390.png" alt="1564986976390"></p>
+<h2 id="克隆虚拟机"><a href="#克隆虚拟机" class="headerlink" title="克隆虚拟机"></a>克隆虚拟机</h2><p>VMware修改mac</p>
+<ul>
+<li>修改 ip地址</li>
+<li>rm -f /etc/udev/rules.d/70-persistent-net.rules</li>
+<li>reboot</li>
+</ul>
+<h2 id="Tracker集群搭建"><a href="#Tracker集群搭建" class="headerlink" title="Tracker集群搭建"></a>Tracker集群搭建</h2><p>克隆出来之前已经装好的两台虚拟机做Tracker节点</p>
+<p>tarcker 节点 ip 131、132</p>
+<p>启动两个Tracker节点</p>
+<pre><code>/etc/init.d/fdfs_trackerd start
+</code></pre><p>查看端口</p>
+<pre><code>netstat -unltp |grep fdfs
+</code></pre><p>启动日志</p>
+<pre><code>tail -100f trackerd.log
+</code></pre><h2 id="Storage集群搭建"><a href="#Storage集群搭建" class="headerlink" title="Storage集群搭建"></a>Storage集群搭建</h2><p>复制4台虚拟机</p>
+<p>第一组 ip： 181、182 对应 group1</p>
+<p>第二组 ip： 191、192 对应 group2</p>
+<p>修改配置文件<code>/etc/fdfs/storage.conf</code></p>
+<p>修改tracker_server 的ip地址，多个 tracker 直接添加多条配置</p>
+<pre><code>tracker_server=192.168.150.131:22122
+tracker_server=192.168.150.132:22122
+</code></pre><p>启动Storage服务</p>
+<p><code>/etc/init.d/fdfs_storaged start</code></p>
+<p>fdfsMonitor</p>
+<pre><code>/usr/bin/fdfs_monitor /etc/fdfs/storage.conf
+</code></pre><p>查看端口：<code>netstat -unltp | grep fdfs</code></p>
+<p>使用FastDFS中的Monitor查看：在所有的Storage启动成功后执行下述命令</p>
+<p><code>/usr/bin/fdfs_monitor /etc/fdfs/storage.conf</code></p>
+<h2 id="测试FastDfs集群"><a href="#测试FastDfs集群" class="headerlink" title="测试FastDfs集群"></a>测试FastDfs集群</h2><p>测试文件上传</p>
+<pre><code>fdfs_upload_file /etc/fdfs/client.conf tmp.sh
+</code></pre><p>修改tracker.conf文件中group的负载策略</p>
+<p>修改配置文件中的store_lookup，这个属性的可选值有0,1,2。分别代表：</p>
+<pre><code># 0: 轮询
+# 1: 指定卷，通过卷名指定访问某一个卷
+# 2: 访问空闲磁盘空间较大的。是默认的负载策略。
+</code></pre><h2 id="Nginx集群搭建"><a href="#Nginx集群搭建" class="headerlink" title="Nginx集群搭建"></a>Nginx集群搭建</h2><p>FastDFS 通过 Tracker 服务器,将文件放在 Storage 服务器存储，但是同组存储服务器之间需要进入文件复制，有同步延迟的问题。假设 Tracker 服务器将文件上传到了 S1，上传成功后文件 ID已经返回给客户端。</p>
+<p>此时 FastDFS 存储集群机制会将这个文件同步到同组存储 S2，在文件还没有复制完成的情况下，客户端如果用这个文件 ID 在 S2 上取文件,就会出现文件无法访问的错误。</p>
+<p>而 fastdfs-nginx-module 可以重定向文件连接到源服务器（S1）取文件,避免客户端由于复制延迟导致的文件无法访问错误。</p>
+<h3 id="Storage节点Nginx反向代理"><a href="#Storage节点Nginx反向代理" class="headerlink" title="Storage节点Nginx反向代理"></a>Storage节点Nginx反向代理</h3><p>在每个Storage节点安装配置Nginx</p>
+<h4 id="修改配置文件mod-fastdfs-conf"><a href="#修改配置文件mod-fastdfs-conf" class="headerlink" title="修改配置文件mod_fastdfs.conf"></a>修改配置文件mod_fastdfs.conf</h4><pre><code>connect_timeout=10
+#181、182 对应 group 1
+#191、192 对应 group 2
+group_name=
+tracker_server=192.168.150.131:22122
+tracker_server=192.168.150.132:22122
+group_count = 2
+# group settings for group #1
+# since v1.14
+# when support multi-group, uncomment following section
+[group1]
+group_name=group1
+storage_server_port=23000
+store_path_count=1
+store_path0=/var/data/fastdfs-storage/store
+#store_path1=/home/yuqing/fastdfs1
+# group settings for group #2
+# since v1.14
+# when support multi-group, uncomment following section as neccessary
+[group2]
+group_name=group2
+storage_server_port=23000
+store_path_count=1
+store_path0=/var/data/fastdfs-storage/store
+</code></pre><h4 id="检查Nginx配置文件"><a href="#检查Nginx配置文件" class="headerlink" title="检查Nginx配置文件"></a>检查Nginx配置文件</h4><p>端口80必须和Storage服务器中的/etc/fdfs/storage.conf配置文件中的http.server_port=80一致。</p>
+<pre><code>listen       80;
+location ~ /group([0-9])/M00 {
+    # add_header Content-Disposition &quot;attachment;filename=$arg_attname&quot;;
+    ngx_fastdfs_module;
+}
+</code></pre><p>测试访问文件</p>
+<p>报错</p>
+<pre><code>ERROR - file: /root/fastdfs-nginx-module/src//common.c, line: 709, expect parameter token or ts in url, uri: /
+group1/M00/00/00/wKiWtV1H4eKAKE4YAAABAE3E6HQ3627.gif
+</code></pre><p>检查防盗链系统</p>
+<p><code>vi /etc/fdfs/http.conf</code></p>
+<pre><code>http.anti_steal.check_token= 
+</code></pre><h2 id="Tracker节点-负载均衡反向代理"><a href="#Tracker节点-负载均衡反向代理" class="headerlink" title="Tracker节点 负载均衡反向代理"></a>Tracker节点 负载均衡反向代理</h2><p>在每个Tracker节点安装配置Nginx</p>
+<p>在 tracker 上安装的 nginx 主要为了提供 http 访问的反向代理、负载均衡以及缓存服务。</p>
+<h3 id="Nginx缓存"><a href="#Nginx缓存" class="headerlink" title="Nginx缓存"></a>Nginx缓存</h3><h4 id="传并解压ngx-cache-purge-2-3-tar-gz"><a href="#传并解压ngx-cache-purge-2-3-tar-gz" class="headerlink" title="传并解压ngx_cache_purge-2.3.tar.gz"></a>传并解压ngx_cache_purge-2.3.tar.gz</h4><pre><code>cd /root
+tar -zxf ngx_cache_purge-2.3.tar.gz
+</code></pre><h4 id="编译安装nginx"><a href="#编译安装nginx" class="headerlink" title="编译安装nginx"></a>编译安装nginx</h4><pre><code>./configure --prefix=/usr/local/tengine --add-module=/root/ngx_cache_purge-2.3
+make
+make install
+</code></pre><h4 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h4><p>ngx_cache_purge模块的作用：用于清除指定url的缓存</p>
+<p>下载地址：<a href="http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz" target="_blank" rel="noopener">http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz</a></p>
+<p>Nginx.conf</p>
+<pre><code class="shell">http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+    #                  &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+    #                  &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    #access_log  logs/access.log  main;
+    #access_log  &quot;pipe:rollback logs/access_log interval=1d baknum=7 maxsize=2G&quot;  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+    #设置缓存
+    server_names_hash_bucket_size 128;
+    client_header_buffer_size 32k;
+    large_client_header_buffers 4 32k;
+    client_max_body_size 300m;
+
+    proxy_redirect off;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_connect_timeout 90;
+    proxy_send_timeout 90;
+    proxy_read_timeout 90;
+    proxy_buffer_size 16k;
+    proxy_buffers 4 64k;
+    proxy_busy_buffers_size 128k;
+    proxy_temp_file_write_size 128k;
+    #设置缓存存储路径、存储方式、分配内存大小、磁盘最大空间、缓存期限   
+    #levels=1:2 表示缓存文件有两级目录 1表示第一级目录名为1位数，2表示第二级目录名为2位数
+    proxy_cache_path /var/data/cache/nginx/proxy_cache levels=1:2       
+    #keys_zone 缓存区域名字，分配200m空间，最大缓存1g,有效期30天
+    keys_zone=http-cache:200m max_size=1g inactive=30d;
+
+    proxy_temp_path /var/data/cache/nginx/proxy_cache/tmp;
+    #设置 group1 的服务器
+    upstream fdfs_group1 {
+        server 192.168.150.181:80 weight=1 max_fails=2 fail_timeout=30s;  
+        server 192.168.150.18:80 weight=1 max_fails=2 fail_timeout=30s; 
+    }
+    #设置 group2 的服务器
+    upstream fdfs_group2 {
+    server 192.168.150.191:80 weight=1 max_fails=2 fail_timeout=30s;
+    server 192.168.150.192:80 weight=1 max_fails=2 fail_timeout=30s;
+    }
+
+    #gzip  on;
+    listen       80;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+    #access_log  &quot;pipe:rollback logs/host.access_log interval=1d baknum=7 maxsize=2G&quot;  main;
+
+    server_name  localhost;
+    location /group1/M00 {
+
+    proxy_next_upstream http_502 http_504 error timeout invalid_header;
+        proxy_cache http-cache;
+        proxy_cache_valid  200 304 12h;
+        proxy_cache_key $uri$is_args$args;
+        proxy_pass http://fdfs_group1;
+        expires 30d;
+    }
+
+    location /group2/M00 {
+        proxy_next_upstream http_502 http_504 error timeout invalid_header;
+        proxy_cache http-cache;
+        proxy_cache_valid  200 304 12h;
+        proxy_cache_key $uri$is_args$args;
+        proxy_pass http://fdfs_group2;
+        expires 30d;
+    }
+
+    #设置清除缓存的访问权限
+    location ~/purge(/.*) {
+        allow 127.0.0.1;
+        allow 192.168.2.0/24;
+        deny all;
+        proxy_cache_purge http-cache $1$is_args$args;
+    }
+
+</code></pre>
+<h5 id="purge命令清除静态缓存"><a href="#purge命令清除静态缓存" class="headerlink" title="purge命令清除静态缓存"></a>purge命令清除静态缓存</h5><p>http://域名+purge+静态资源相对路径    来清除静态资源缓存</p>
+<h3 id="添加Nginx模块-保留原有模块"><a href="#添加Nginx模块-保留原有模块" class="headerlink" title="添加Nginx模块,保留原有模块"></a>添加Nginx模块,保留原有模块</h3><p>查看nginx编译安装时的命令，安装了哪些模块</p>
+<p>命令<br><code>/usr/local/nginx/sbin/nginx -V</code></p>
+<p>编译</p>
+<pre><code class="shell">./configure --prefix=/usr/local/tengine --add-module=/root/ngx_c --以前的模块
+ache_purge-2.3
+make
+</code></pre>
+<p>注意make完 不要make install</p>
+<p>拷贝obj下的 Nginx文件到 已安装好的sbin目录下 覆盖即可</p>
+<pre><code class="shell">cp ./nginx /usr/local/tengine/sbin/
+</code></pre>
+<h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h2><h3 id="keepalived安装"><a href="#keepalived安装" class="headerlink" title="keepalived安装"></a>keepalived安装</h3><p>上传并解压keepalived-1.2.18.tar.gz</p>
+<pre><code class="shell">cd /root/
+tar -zxf keepalived-1.2.18.tar.gz
+</code></pre>
+<p>编译并安装Keepalived</p>
+<pre><code class="shell">cd /root/keepalived-1.2.18
+./configure --prefix=/usr/local/keepalived
+make &amp;&amp; make install
+</code></pre>
+<h3 id="Keepalived安装成Linux服务"><a href="#Keepalived安装成Linux服务" class="headerlink" title="Keepalived安装成Linux服务"></a>Keepalived安装成Linux服务</h3><pre><code class="shell">mkdir /etc/keepalived
+cp /usr/local/keepalived/etc/keepalived/keepalived.conf /etc/keepalived/
+cp /usr/local/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/
+cp /usr/local/keepalived/etc/sysconfig/keepalived /etc/sysconfig/
+ln -s /usr/local/sbin/keepalived /usr/sbin/
+ln -s /usr/local/keepalived/sbin/keepalived /sbin/
+</code></pre>
+<p>设置开机启动</p>
+<pre><code class="shell">chkconfig keepalived on
+</code></pre>
+<h3 id="修改keepalived-conf"><a href="#修改keepalived-conf" class="headerlink" title="修改keepalived.conf"></a>修改keepalived.conf</h3><p>ts1</p>
+<pre><code>! Configuration File for keepalived 
+
+global_defs { 
+   ## keepalived 自带的邮件提醒需要开启 sendmail 服务。建议用独立的监控或第三方 SMTP 
+   router_id NK1  ## 标识本节点的字条串，通常为 hostname 
+} 
+##  keepalived 会定时执行脚本并对脚本执行的结果进行分析，动态调整 vrrp_instance 的优先级。如果脚本执行结果为 0，并且 weight 配置的值大于 0，则优先级相应的增加。如果脚本执行结果非 0，并且 weight配置的值小于 0，则优先级相应的减少。其他情况，维持原本配置的优先级，即配置文件中 priority 对应的值。 
+vrrp_script chk_nginx { 
+    script &quot;/etc/keepalived/nginx_check.sh&quot;  ## 检测 nginx 状态的脚本路径 
+    interval 2  ## 检测时间间隔 
+    weight -20  ## 如果条件成立，权重-20  
+} 
+## 定义虚拟路由，VI_1 为虚拟路由的标示符，自己定义名称 
+vrrp_instance VI_1 { 
+    state MASTER  ## 主节点为 MASTER，对应的备份节点为 BACKUP 
+    interface eth1  ## 绑定虚拟 IP 的网络接口，与本机 IP 地址所在的网络接口相同，我的是 eth1 
+    virtual_router_id 51  ## 虚拟路由的 ID 号，两个节点设置必须一样，可选 IP 最后一段使用,  相同的 VRID 为一个组，他将决定多播的 MAC 地址 
+    mcast_src_ip 192.168.2.117  ## 本机 IP 地址 
+    priority 100  ## 节点优先级，值范围 0-254，MASTER 要比BACKUP 高 
+    nopreempt ## 优先级高的设置 nopreempt 解决异常恢复后再次抢占的问题 
+    advert_int 1  ## 组播信息发送间隔，两个节点设置必须一样，默认 1s 
+    ## 设置验证信息，两个节点必须一致 
+    authentication { 
+        auth_type PASS 
+        auth_pass 1111  ## 真实生产，按需求对应该过来 
+    } 
+    ## 将 track_script 块加入instance 配置块 
+    track_script { 
+        chk_nginx  ## 执行 Nginx 监控的服务 
+    } 
+    ## 虚拟 IP 池, 两个节点设置必须一样 
+    virtual_ipaddress { 
+        192.168.150.138/24   dev  eth0  label  eth0:2
+    } 
+}
+</code></pre><p>ts2</p>
+<pre><code>! Configuration File for keepalived
+global_defs {
+    # notification_email {
+    # acassen@firewall.loc
+    # failover@firewall.loc
+    # sysadmin@firewall.loc
+    # }
+    # notification_email_from Alexandre.Cassen@firewall.loc
+    # smtp_server 192.168.200.1
+    # smtp_connect_timeout 30
+    router_id ts2
+}
+
+vrrp_script chk_nginx {
+    script &quot;/etc/keepalived/nginx_check.sh&quot;  ## 检测 nginx 状态的脚本路径
+    interval 2  ## 检测时间间隔
+    weight -20  ## 如果条件成立，权重-20
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 51
+    priority 90
+    advert_int 1
+}
+
+vrrp_script chk_nginx {
+    script &quot;/etc/keepalived/nginx_check.sh&quot;  ## 检测 nginx 状态的脚本路径
+    router_id ts2
+}
+
+vrrp_script chk_nginx {
+    script &quot;/etc/keepalived/nginx_check.sh&quot;  ## 检测 nginx 状态的脚本路径
+    interval 2  ## 检测时间间隔
+    weight -20  ## 如果条件成立，权重-20
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 51
+    priority 90
+    advert_int 1
+
+    mcast_src_ip 192.168.150.132
+    track_script {
+    chk_nginx
+    }
+
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.150.138/24   dev  eth0  label  eth0:2
+    }
+}
+</code></pre><h3 id="状态检查脚本"><a href="#状态检查脚本" class="headerlink" title="状态检查脚本"></a>状态检查脚本</h3><p>编写nginx状态检查脚本/etc/keepalived/nginx_check.sh</p>
+<p>在Keepalived配置中已用。脚本要求：如果 nginx 停止运行，尝试启动，如果无法启动则杀死本机的 keepalived 进程， keepalied将虚拟 ip 绑定到 BACKUP 机器上。</p>
+<pre><code>vi /etc/keepalived/nginx_check.sh
+</code></pre><p>内容</p>
+<pre><code>#!/bin/bash 
+A=`ps -C nginx –no-header |wc -l` 
+if [ $A -eq 0 ];then 
+    /usr/local/nginx/sbin/nginx 
+    sleep 2 
+    if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then
+        killall keepalived 
+    fi 
+fi
+</code></pre><p>权限</p>
+<pre><code>chmod +x /etc/keepalived/nginx_check.sh
+</code></pre><p>启动</p>
+<pre><code>service keepalived start
+</code></pre><h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><pre><code>@RequestMapping(&quot;/down&quot;)
+@ResponseBody
+public ResponseEntity&lt;byte[]&gt; down(HttpServletResponse resp) {
+    DownloadByteArray cb = new DownloadByteArray();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+    headers.setContentDispositionFormData(&quot;attachment&quot;, &quot;aaa.xx&quot;);
+    byte[] bs = fc.downloadFile(&quot;group1&quot;, &quot;M00/00/00/wKiWDV0vAb-AcOaYABf1Yhcsfws9181.xx&quot;, cb);
+    return new ResponseEntity&lt;&gt;(bs,headers,HttpStatus.OK);
+}
+</code></pre>
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/16/Dubbo初识/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181328f906f.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Dubbo初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/16/FastDFS/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825182044293eb.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                FastDFS</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>
