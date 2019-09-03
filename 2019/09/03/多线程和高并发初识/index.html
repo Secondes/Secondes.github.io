@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">多线程和高并发初识 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/secondes/cdn/img/cover/(1).jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/twitter.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/facebook.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/qq.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/03/QQ201909031537213f4e5.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537213f4e5.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      多线程和高并发初识</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-3<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="多线程和高并发"><a href="#多线程和高并发" class="headerlink" title="多线程和高并发"></a>多线程和高并发</h1><h2 id="线程的概念"><a href="#线程的概念" class="headerlink" title="线程的概念"></a>线程的概念</h2><p>线程是一个程序内部的顺序控制流</p>
+<p>线程和进程的区别</p>
+<ul>
+<li>每个进程都有独立的代码和数据空间(进程上下文),进程间的切换会有较大的开销</li>
+<li>线程可以看成是轻量级的进程,同一类线程共享代码和数据空间,每个线程有独立的运行栈和程序计数器,线程切换的开销小</li>
+<li>多进程:在操作系统中能同时运行多个任务</li>
+<li>多线程:在同一个应用程序中有多个顺序流同时执行</li>
+</ul>
+<p>java的线程是通过java.lang.Thread类来实现的</p>
+<p>VM启动时会有一个主方法main所定义的线程</p>
+<p>可以通过创建Thread实例来创建新的线程</p>
+<p>每个线程都是通过某个特定Thread对象所对应的run方法来完成其操作的,方法run称之为线程体</p>
+<p>通过调用Thread类的start方法来启动一个线程</p>
+<p>启动一个线程的两种方法</p>
+<ul>
+<li>继承Thread类</li>
+<li>实现Runnable接口</li>
+</ul>
+<h3 id="start和run"><a href="#start和run" class="headerlink" title="start和run"></a>start和run</h3><p>调用run,main线程等run执行完再执行剩余代码</p>
+<p>调用start,main线程同时执行start和剩余代码</p>
+<h3 id="sleep方法"><a href="#sleep方法" class="headerlink" title="sleep方法"></a>sleep方法</h3><p>使线程休眠,暂停停止执行某某毫秒,时间到了之后自动复活,sleep完之后会回到就绪状态</p>
+<p>由于是静态方法,可以直接使用类名调用</p>
+<h3 id="yield方法"><a href="#yield方法" class="headerlink" title="yield方法"></a>yield方法</h3><p>进入等待队列中,相当于优雅的暂时退出,让出cpu,给其他线程执行的机会</p>
+<p>让出一下cpu,不过cpu会抢线程,也有可能把这个线程又抢回来执行,并不能保证其他线程一定会立刻执行</p>
+<h3 id="join方法"><a href="#join方法" class="headerlink" title="join方法"></a>join方法</h3><p>合并某个线程</p>
+<p>t1线程执行,t2线程执行调用t1的join方法,表示t2告诉t1麻烦去t1执行,t2在等着,等t1执行完之后t2再继续执行</p>
+<p>一般用法是等待另一个线程的执行结束</p>
+<h3 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h3><p>多个线程去访问同一个对象,必须给这个对象上锁</p>
+<p>锁方法相当于锁当前对象</p>
+<p>static方法由于没有this对象,如果加上synchronized关键字,代表synchronized T.class</p>
+<p>对某个对象加锁</p>
+<pre><code>private int count = 10;
+private Object o = new Object();
+
+public void m() {
+    synchronized(o) { 
+          //任何线程要执行下面的代码，必须先拿到o的锁
+        count--;
+        System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+    }
+}
+</code></pre><p>对某个对象加锁</p>
+<pre><code>private int count = 10;
+
+public void m() {
+    synchronized(this) { 
+        //任何线程要执行下面的代码，必须先拿到this的锁
+        count--;
+        System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+    }
+}
+</code></pre><p>对某个对象加锁</p>
+<pre><code>private int count = 10;
+
+public synchronized void m() {
+    //等同于在方法的代码执行时要synchronized(this)
+    count--;
+    System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+}
+</code></pre><p>对某个对象加锁</p>
+<pre><code>private int count = 10;
+
+public synchronized void m() { 
+    //等同于在方法的代码执行时要synchronized(this)
+    count--;
+    System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+}
+
+public void n() { 
+    //访问这个方法的时候不需要上锁
+    count++;
+}
+</code></pre><p>对某个对象加锁</p>
+<pre><code>public class T implements Runnable {
+
+    private /*volatile*/ int count = 100;
+
+    public /*synchronized*/ void run() { 
+        count--;
+        System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+        for(int i=0; i&lt;100; i++) {
+            new Thread(t, &quot;THREAD&quot; + i).start();
+        }
+    }
+
+}
+</code></pre><pre><code>private static int count = 10;
+
+public synchronized static void m() { 
+    //这里等同于synchronized(T.class)
+    count--;
+    System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+}
+
+public static void mm() {
+    synchronized(T.class) {
+        //考虑一下这里写synchronized(this)是否可以？
+        count --;
+    }
+}
+</code></pre><p>线程不安全</p>
+<pre><code>private /*volatile*/ int count = 100;
+
+public /*synchronized*/ void run() { 
+    count--;
+    System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+}
+
+public static void main(String[] args) {
+    T t = new T();
+    for(int i=0; i&lt;100; i++) {
+        new Thread(t, &quot;THREAD&quot; + i).start();
+    }
+}
+</code></pre><p>安全</p>
+<pre><code>private int count = 10;
+
+public synchronized void run() { 
+    count--;
+    System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+}
+
+public static void main(String[] args) {
+    for(int i=0; i&lt;5; i++) {
+        T t = new T();
+        new Thread(t, &quot;THREAD&quot; + i).start();
+    }
+}
+</code></pre><p>同步方法和非同步方法可以同时执行</p>
+<pre><code>public synchronized void m1() { 
+    System.out.println(Thread.currentThread().getName() + &quot; m1 start...&quot;);
+    try {
+        Thread.sleep(10000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    System.out.println(Thread.currentThread().getName() + &quot; m1 end&quot;);
+}
+
+public void m2() {
+    try {
+        Thread.sleep(5000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    System.out.println(Thread.currentThread().getName() + &quot; m2 &quot;);
+}
+
+public static void main(String[] args) {
+    T t = new T();
+
+    /*
+    new Thread(()-&gt;t.m1(), &quot;t1&quot;).start();
+    new Thread(()-&gt;t.m2(), &quot;t2&quot;).start();
+    */
+
+    new Thread(t::m1, &quot;t1&quot;).start();
+    new Thread(t::m2, &quot;t2&quot;).start();
+
+    /*
+    //1.8之前的写法
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            t.m1();
+        }
+    });
+    */
+}
+</code></pre><p>dirty read</p>
+<pre><code>public class Account {
+    String name;
+    double balance;
+
+    public synchronized void set(String name, double balance) {
+        this.name = name;
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        this.balance = balance;
+    }
+
+    public /*synchronized*/ double getBalance(String name) {
+        return this.balance;
+    }
+
+    public static void main(String[] args) {
+        Account a = new Account();
+        new Thread(()-&gt;a.set(&quot;zhangsan&quot;, 100.0)).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(a.getBalance(&quot;zhangsan&quot;));
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(a.getBalance(&quot;zhangsan&quot;));
+    }
+}
+</code></pre><p>把方法的注释synchronized打开就可以解决脏读问题,但是加锁的效率比不加锁低100倍,试实际情况而定</p>
+<p>一个同步方法可以调用另外一个同步方法，一个线程已经拥有某个对象的锁，再次申请的时候仍然会得到该对象的锁</p>
+<p>也就是说synchronized获得的锁是可重入的</p>
+<pre><code>synchronized void m1() {
+    System.out.println(&quot;m1 start&quot;);
+    try {
+        TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    m2();
+    System.out.println(&quot;m1 end&quot;);
+}
+
+synchronized void m2() {
+    try {
+        TimeUnit.SECONDS.sleep(2);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    System.out.println(&quot;m2&quot;);
+}
+
+public static void main(String[] args) {
+    new T().m1();
+}
+</code></pre><p>可重入锁示例,子类调用父类的同一把锁</p>
+<pre><code>public class T {
+    synchronized void m() {
+        System.out.println(&quot;m start&quot;);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(&quot;m end&quot;);
+    }
+
+    public static void main(String[] args) {
+        new TT().m();
+    }
+}
+
+class TT extends T {
+    @Override
+    synchronized void m() {
+        System.out.println(&quot;child m start&quot;);
+        super.m();
+        System.out.println(&quot;child m end&quot;);
+    }
+}
+</code></pre><p>程序在执行过程中，如果出现异常，默认情况锁会被释放</p>
+<p>所以，在并发处理的过程中，有异常要多加小心，不然可能会发生不一致的情况。</p>
+<p>比如，在一个web app处理过程中，多个servlet线程共同访问同一个资源，这时如果异常处理不合适，</p>
+<p>在第一个线程中抛出异常，其他线程就会进入同步代码区，有可能会访问到异常产生时的数据。</p>
+<p>因此要非常小心的处理同步业务逻辑中的异常</p>
+<pre><code>public class T {
+    int count = 0;
+    synchronized void m() {
+        System.out.println(Thread.currentThread().getName() + &quot; start&quot;);
+        while(true) {
+            count ++;
+            System.out.println(Thread.currentThread().getName() + &quot; count = &quot; + count);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if(count == 5) {
+                int i = 1/0; 
+                //此处抛出异常，锁将被释放，要想不被释放，可以在这里进行catch，然后让循环继续
+                System.out.println(i);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                t.m();
+            }
+
+        };
+        new Thread(r, &quot;t1&quot;).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        new Thread(r, &quot;t2&quot;).start();
+    }
+}
+</code></pre><p>volatile 关键字，使一个变量在多个线程间可见</p>
+<p>A B线程都用到一个变量，java默认是A线程中保留一份copy，这样如果B线程修改了该变量，则A线程未必知道</p>
+<p>使用volatile关键字，会让所有线程都会读到变量的修改值</p>
+<p>在下面的代码中，running是存在于堆内存的t对象中</p>
+<p>当线程t1开始运行的时候，会把running值从内存中读到t1线程的工作区，在运行过程中直接使用这个copy，并不会每次都去</p>
+<p>读取堆内存，这样，当主线程修改running的值之后，t1线程感知不到，所以不会停止运行</p>
+<p>使用volatile，将会强制所有线程都去堆内存中读取running的值</p>
+<p>可以阅读这篇文章进行更深入的理解</p>
+<p><a href="http://www.cnblogs.com/nexiyi/p/java_memory_model_and_thread.html" target="_blank" rel="noopener">http://www.cnblogs.com/nexiyi/p/java_memory_model_and_thread.html</a></p>
+<p>volatile并不能保证多个线程共同修改running变量时所带来的不一致问题，也就是说volatile不能替代synchronized</p>
+<pre><code>public class T {
+    /*volatile*/ boolean running = true; 
+    //对比一下有无volatile的情况下，整个程序运行结果的区别
+    void m() {
+        System.out.println(&quot;m start&quot;);
+        while(running) {
+            /*
+            try {
+                TimeUnit.MILLISECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+        }
+        System.out.println(&quot;m end!&quot;);
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+
+        new Thread(t::m, &quot;t1&quot;).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        t.running = false;
+
+    }
+
+}
+</code></pre><pre><code>public class TestVolatile {
+    private static boolean ready;
+    private static int number;
+
+    private static class ReaderThread extends  Thread {
+        @Override
+        public void run() {
+            while(!ready) {
+                Thread.yield();
+            }
+            System.out.println(number);
+        }
+    }
+
+    public static void main(String[] args) {
+        new ReaderThread().start();
+        number = 42;
+        ready = true;
+    }
+}
+</code></pre><p>volatile并不能保证多个线程共同修改running变量时所带来的不一致问题，也就是说volatile不能替代synchronized</p>
+<p>运行下面的程序，并分析结果</p>
+<pre><code>public class T {
+    volatile int count = 0; 
+    void m() {
+        for(int i=0; i&lt;10000; i++) count++;
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+
+        List&lt;Thread&gt; threads = new ArrayList&lt;Thread&gt;();
+
+        for(int i=0; i&lt;10; i++) {
+            threads.add(new Thread(t::m, &quot;thread-&quot;+i));
+        }
+
+        threads.forEach((o)-&gt;o.start());
+
+        threads.forEach((o)-&gt;{
+            try {
+                o.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println(t.count);
+
+    }
+
+}
+</code></pre><p>对比上一个程序，可以用synchronized解决，synchronized可以保证可见性和原子性，volatile只能保证可见性</p>
+<pre><code>public class T {
+    /*volatile*/ int count = 0;
+
+    synchronized void m() { 
+        for (int i = 0; i &lt; 10000; i++)
+            count++;
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+
+        List&lt;Thread&gt; threads = new ArrayList&lt;Thread&gt;();
+
+        for (int i = 0; i &lt; 10; i++) {
+            threads.add(new Thread(t::m, &quot;thread-&quot; + i));
+        }
+
+        threads.forEach((o) -&gt; o.start());
+
+        threads.forEach((o) -&gt; {
+            try {
+                o.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println(t.count);
+    }
+}
+</code></pre><p>解决同样的问题的更高效的方法，使用AtomXXX类</p>
+<p>AtomXXX类本身方法都是原子性的，但不能保证多个方法连续调用是原子性的</p>
+<pre><code>public class T {
+    /*volatile*/ //int count = 0;
+
+    AtomicInteger count = new AtomicInteger(0); 
+
+    /*synchronized*/ void m() { 
+        for (int i = 0; i &lt; 10000; i++)
+            //if count.get() &lt; 1000
+            count.incrementAndGet(); //count++
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+
+        List&lt;Thread&gt; threads = new ArrayList&lt;Thread&gt;();
+
+        for (int i = 0; i &lt; 10; i++) {
+            threads.add(new Thread(t::m, &quot;thread-&quot; + i));
+        }
+
+        threads.forEach((o) -&gt; o.start());
+
+        threads.forEach((o) -&gt; {
+            try {
+                o.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println(t.count);
+
+    }
+
+}
+public class AtomicVsSync {
+    static long count2 = 0L;
+    static AtomicLong count = new AtomicLong(0L);
+
+    public static void main(String[] args) throws Exception {
+        Thread[] threads = new Thread[500];
+
+        for(int i=0; i&lt;threads.length; i++) {
+            threads[i] =
+                    new Thread(()-&gt; {
+                        count.incrementAndGet();
+                    });
+        }
+
+        long start = System.currentTimeMillis();
+
+        for(Thread t : threads ) t.start();
+
+        for (Thread t : threads) t.join();
+
+        long end = System.currentTimeMillis();
+
+        TimeUnit.SECONDS.sleep(10);
+
+        System.out.println(&quot;Atomic: &quot; + count.get() + &quot; time &quot; + (end-start));
+        //-----------------------------------------------------------
+        Object lock = new Object();
+
+        for(int i=0; i&lt;threads.length; i++) {
+            threads[i] =
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        synchronized (lock) {
+                            count2++;
+                        }
+                    }
+                });
+        }
+
+        start = System.currentTimeMillis();
+
+        for(Thread t : threads ) t.start();
+
+        for (Thread t : threads) t.join();
+
+        end = System.currentTimeMillis();
+
+        System.out.println(&quot;Sync: &quot; + count2 + &quot; time &quot; + (end-start));
+
+    }
+
+    static void microSleep(int m) {
+        try {
+            TimeUnit.MICROSECONDS.sleep(m);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>synchronized优化</p>
+<p>同步代码块中的语句越少越好</p>
+<p>比较m1和m2</p>
+<pre><code>public class T {
+
+    int count = 0;
+
+    synchronized void m1() {
+        //do sth need not sync
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //业务逻辑中只有下面这句需要sync，这时不应该给整个方法上锁
+        count ++;
+
+        //do sth need not sync
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void m2() {
+        //do sth need not sync
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //业务逻辑中只有下面这句需要sync，这时不应该给整个方法上锁
+        //采用细粒度的锁，可以使线程争用时间变短，从而提高效率
+        synchronized(this) {
+            count ++;
+        }
+        //do sth need not sync
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>锁定某对象o，如果o的属性发生改变，不影响锁的使用</p>
+<p>但是如果o变成另外一个对象，则锁定的对象发生改变</p>
+<p>应该避免将锁定对象的引用变成另外的对象</p>
+<pre><code>public class T {
+
+    Object o = new Object();
+
+    void m() {
+        synchronized(o) {
+            while(true) {
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        T t = new T();
+        //启动第一个线程
+        new Thread(t::m, &quot;t1&quot;).start();
+
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //创建第二个线程
+        Thread t2 = new Thread(t::m, &quot;t2&quot;);
+
+        t.o = new Object(); //锁对象发生改变，所以t2线程得以执行，如果注释掉这句话，线程2将永远得不到执行机会
+
+        t2.start();    
+    }
+}
+</code></pre><p>不要以字符串常量作为锁定对象</p>
+<p>在下面的例子中，m1和m2其实锁定的是同一个对象</p>
+<p>这种情况还会发生比较诡异的现象，比如你用到了一个类库，在该类库中代码锁定了字符串“Hello”，</p>
+<p>但是你读不到源码，所以你在自己的代码中也锁定了”Hello”,这时候就有可能发生非常诡异的死锁阻塞，</p>
+<p>因为你的程序和你用到的类库不经意间使用了同一把锁</p>
+<pre><code>public class T {
+
+    String s1 = &quot;Hello&quot;;
+    String s2 = &quot;Hello&quot;;
+
+    void m1() {
+        synchronized(s1) {
+        }
+    }
+
+    void m2() {
+        synchronized(s2) {
+        }
+    }
+}
+</code></pre><p>ThreadLocal线程局部变量</p>
+<pre><code>public class ThreadLocal1 {
+    volatile static Person p = new Person();
+
+    public static void main(String[] args) {
+
+        new Thread(()-&gt;{
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(p.name);
+        }).start();
+
+        new Thread(()-&gt;{
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            p.name = &quot;lisi&quot;;
+        }).start();
+    }
+}
+</code></pre><p>ThreadLocal线程局部变量<br>ThreadLocal是使用空间换时间，synchronized是使用时间换空间</p>
+<p>比如在hibernate中session就存在与ThreadLocal中，避免synchronized的使用<br>运行下面的程序，理解ThreadLocal</p>
+<pre><code>public class ThreadLocal2 {
+    //volatile static Person p = new Person();
+    static ThreadLocal&lt;Person&gt; tl = new ThreadLocal&lt;&gt;();
+
+    public static void main(String[] args) {
+
+        new Thread(()-&gt;{
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(tl.get());
+        }).start();
+
+        new Thread(()-&gt;{
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            tl.set(new Person());
+        }).start(); 
+    }
+
+    static class Person {
+        String name = &quot;zhangsan&quot;;
+    }
+}
+</code></pre><p>线程安全的单例模式：</p>
+<p>阅读文章：<a href="http://www.cnblogs.com/xudong-bupt/p/3433643.html" target="_blank" rel="noopener">http://www.cnblogs.com/xudong-bupt/p/3433643.html</a></p>
+<p>更好的是采用下面的方式，既不用加锁，也能实现懒加载</p>
+<pre><code>public class Singleton {
+
+    private Singleton() {
+        System.out.println(&quot;single&quot;);
+    }
+
+    private static class Inner {
+        private static Singleton s = new Singleton();
+    }
+
+    public static Singleton getSingle() {
+        return Inner.s;
+    }
+
+    public static void main(String[] args) {
+        Thread[] ths = new Thread[200];
+        for(int i=0; i&lt;ths.length; i++) {
+            ths[i] = new Thread(()-&gt;{
+                System.out.println(Singleton.getSingle());
+            });
+        }
+
+        Arrays.asList(ths).forEach(o-&gt;o.start());
+    }
+
+}
+</code></pre><p>同步容器类</p>
+<ul>
+<li>1：Vector Hashtable ：早期使用synchronized实现 </li>
+<li>2：ArrayList HashSet ：未考虑多线程安全（未实现同步）</li>
+<li>3：HashSet vs Hashtable StringBuilder vs StringBuffer</li>
+<li>4：Collections.synchronized工厂方法使用的也是synchronized</li>
+</ul>
+<p>使用早期的同步容器以及Collections.synchronized方法的不足之处，请阅读：<br><a href="http://blog.csdn.net/itm_hadf/article/details/7506529" target="_blank" rel="noopener">http://blog.csdn.net/itm_hadf/article/details/7506529</a></p>
+<p>使用新的并发容器<br><a href="http://xuganggogo.iteye.com/blog/321630" target="_blank" rel="noopener">http://xuganggogo.iteye.com/blog/321630</a></p>
+<p>总结：<br>1：对于map/set的选择使用</p>
+<ul>
+<li>HashMap</li>
+<li>TreeMap</li>
+<li>LinkedHashMap</li>
+<li>Hashtable</li>
+<li>Collections.sychronizedXXX</li>
+<li>ConcurrentHashMap</li>
+<li>ConcurrentSkipListMap </li>
+</ul>
+<p>2：队列</p>
+<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Collections.synchronizedXXX</li>
+<li>CopyOnWriteList</li>
+<li>Queue<ul>
+<li>CocurrentLinkedQueue //concurrentArrayQueue</li>
+<li>BlockingQueue<ul>
+<li>LinkedBQ</li>
+<li>ArrayBQ</li>
+<li>TransferQueue</li>
+<li>SynchronusQueue</li>
+</ul>
+</li>
+<li>DelayQueue执行定时任务</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/09/03/网络和IO初识/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                网络和IO初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/09/03/Redis初识/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537356c6e2.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Redis初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/1878600225/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>

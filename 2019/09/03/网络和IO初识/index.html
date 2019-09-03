@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">小舞的个人主页</title>
+  <title itemprop="name">网络和IO初识 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -258,454 +258,156 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      网络和IO初识</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-3<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="关于网络和IO"><a href="#关于网络和IO" class="headerlink" title="关于网络和IO"></a>关于网络和IO</h1><p>鉴于最近课上已经有点开始懵,所以在这里普及一下关于网络和IO的基础知识</p>
+<h2 id="网络基础知识"><a href="#网络基础知识" class="headerlink" title="网络基础知识"></a>网络基础知识</h2><p>本来我写了感想,结果码成天书,故删除.推荐一个视频地址<a href="https://www.bilibili.com/video/av53978866/?p=28" target="_blank" rel="noopener">https://www.bilibili.com/video/av53978866/?p=28</a></p>
+<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><h3 id="BIO线程模型"><a href="#BIO线程模型" class="headerlink" title="BIO线程模型:"></a>BIO线程模型:</h3><p>传统BIO的阻塞点:</p>
+<ul>
+<li>socket.accept();</li>
+<li>inputstrean.read();</li>
+</ul>
+<p>缺点:单线程,同一时间只能处理一个客户端,如果同时连上两个客户端,只能处理第一个客户端,第二个客户端虽然能连上但是服务器端不做处理</p>
+<p>解决办法,拿到socket之后,把它交给另一个线程做单独处理</p>
+<p>但是服务器端的线程并不是无限的,如果来了很多客户端,服务端会因为起过多线程,资源耗尽</p>
+<p>解决方法,服务器端线程池,由线程池去拉起线程</p>
+<pre><code>Executors.newFixedThreadPool(100);
+</code></pre><p>本质依然是去new Thread,只不过对数量可以做一个限制,超过了就丢掉或者队列</p>
+<p>BIO模型总结</p>
+<p>优点:一个线程为一个客户端服务,服务的质量好</p>
+<p>缺点:需要为每一个客户端分配一个线程,并发连接的数量巨大时,县城所有用资源和cpu线程切换带来的开销巨大</p>
+<h3 id="NIO线程模型"><a href="#NIO线程模型" class="headerlink" title="NIO线程模型"></a>NIO线程模型</h3><p>服务器端只关心<em>socket</em>,客户端关心的是io事件</p>
+<p>由此,在服务器端抽象出一个<em>selector</em>,为<em>socket</em>管理者,意思是将大门交给<em>selector</em>看着,监听是否有<em>accpet</em>事件</p>
+<p><em>listenSelector</em>采用轮询的方式监听<em>selector</em>上是否由需要处理的事件</p>
+<p>nio模型中没有new任何线程的概念,只有一个线程在处理</p>
+<p><em>selector</em>按照事件来处理,就是事件驱动,也就是多路复用模型</p>
+<p>缺点:<em>selector</em>只有一个太忙,需要处理所有的<em>socket</em>,所以衍生出了netty框架</p>
+<h3 id="IO模型概念"><a href="#IO模型概念" class="headerlink" title="IO模型概念"></a>IO模型概念</h3><p>阻塞:客户端发来请求(在收到服务器请求之前必须等着,不能去干其他活)-&gt;服务器端收到请求-&gt;服务器端读取数据-&gt;服务器端读取完成-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
+<p>个人理解:除非svip,一般人没这待遇.</p>
+<p>非阻塞:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端读取数据-&gt;客户端不停的问:我要的数据准备好了吗?服务器:还没呢,等一会.客户端不停的问:我要的数据准备好了吗?服务器:还没呢,等一会.客户端不停的问:我要的数据准备好了吗?服务器:准备好了,你拿走吧-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
+<p>个人理解:服务器的内心独白:客户端你是sb么?问个没完你不累?</p>
+<p>复用模型<em>selector</em>:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端找个<em>selector</em>给你-&gt;客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>去服务器申请干活并回答:还没呢,等一会,客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>去服务器申请干活并回答:还没呢,等一会,客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>:准备好了,你拿走吧-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
+<p>个人理解:除了抽象出一个<em>selector</em>,剩下与非阻塞没什么区别,在非阻塞中是每次都新拉起一个线程去回答客户端,这次是由线程池管理服务器端的线程,仅此而已</p>
+<p>复用模型<em>epoll</em>:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端找个<em>epoll</em>给你-&gt;<em>epoll</em>说了:我懂你要干什么了客户端,你回家吧,请你闭嘴-&gt;服务器端开始读取数据-&gt;读取好了之后返回数据给客户端-</p>
+<p>个人理解:客户端不必非得一直问一直问,相当于减轻了客户端的压力,变相的提升了服务器端的压力</p>
+<p>对于一次IO访问，数据会先被拷贝到内核的缓冲区中，然后才会从内核的缓冲区拷贝到应用程序的地址空间。需要经历两个阶段：</p>
+<ul>
+<li>准备数据</li>
+<li>将数据从内核缓冲区拷贝到进程地址空间</li>
+</ul>
+<p>由于存在这两个阶段，Linux产生了下面五种IO模型（以socket为例）</p>
+<p>阻塞式IO:</p>
+<p>当用户进程调用了recvfrom等阻塞方法时，内核进入IO的第1个阶段：准备数据（内核需要等待足够的数据再拷贝）这个过程需要等待，用户进程会被阻塞，等内核将数据准备好，然后拷贝到用户地址空间，内核返回结果，用户进程才从阻塞态进入就绪态</p>
+<p>Linux中默认情况下所有的socket都是阻塞的</p>
+<p>非阻塞式IO:</p>
+<p>当用户进程发出read操作时，如果kernel中的数据还没有准备好，那么它并不会block用户进程，而是立刻返回一个error。</p>
+<p>用户进程判断结果是一个error时，它就知道数据还没有准备好，于是它可以再次发送read操作</p>
+<p>一旦kernel中的数据准备好了，并且又再次收到了用户进程的system call，那么它马上就将数据拷贝到了用户内存，然后返回</p>
+<p>非阻塞IO模式下用户进程需要不断地询问内核的数据准备好了没有</p>
+<p>IO多路复用:</p>
+<p>通过一种机制，一个进程可以监视多个文件描述符（套接字描述符）一旦某个文件描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作（这样就不需要每个用户进程不断的询问内核数据准备好了没）</p>
+<p>常用的IO多路复用方式有<em>select</em>、<em>poll</em>和<em>epoll</em></p>
+<p>信号驱动IO:</p>
+<p>内核文件描述符就绪后，通过信号通知用户进程，用户进程再通过系统调用读取数据。</p>
+<p>此方式属于同步IO（实际读取数据到用户进程缓存的工作仍然是由用户进程自己负责的）</p>
+<p>异步IO:</p>
+<p>用户进程发起read操作之后，立刻就可以开始去做其它的事。内核收到一个异步IO read之后，会立刻返回，不会阻塞用户进程。</p>
+<p>内核会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，内核会给用户进程发送一个signal告诉它read操作完成了</p>
+<p>拓展:为啥出现IO多路复用</p>
+<p>如果一个I/O流进来，我们就开启一个进程处理这个I/O流。那么假设现在有一百万个I/O流进来，那我们就需要开启一百万个进程一一对应处理这些I/O流（这就是传统意义下的<strong>多进程并发处理</strong>）。思考一下，一百万个进程，你的CPU占有率会多高，这个实现方式及其的不合理。所以人们提出了I/O多路复用这个模型，<strong>一个线程，通过记录I/O流的状态来同时管理多个I/O，可以提高服务器的吞吐能力</strong>。</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/Java基础之concurrent包/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ201908251813587a820.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/Java基础之concurrent包/" class="post-title">
-        <h3>Java基础之concurrent包</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>java concurrent包初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/Java基础之concurrent包/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/Dubbo初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181328f906f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/Dubbo初识/" class="post-title">
-        <h3>Dubbo初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre full next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>dubbo初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/Dubbo初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/FastDFS集群/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518215326cce.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/FastDFS集群/" class="post-title">
-        <h3>FastDFS集群</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/03/多线程和高并发初识/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537213f4e5.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                多线程和高并发初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>FastDNS集群初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/FastDFS集群/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/08/16/FastDFS/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825182044293eb.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/FastDFS/" class="post-title">
-        <h3>FastDFS</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>FastDNS初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/FastDFS/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/HiveJDBC/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer18.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/HiveJDBC/" class="post-title">
-        <h3>HiveJDBC</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>jdbc链接及linux指令</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/HiveJDBC/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/Hive优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer16.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/Hive优化/" class="post-title">
-        <h3>Hive优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hive优化,文件存储及压缩介绍</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/Hive优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/Hive函数/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer15.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/Hive函数/" class="post-title">
-        <h3>Hive函数</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hive函数,分区分桶,视图索引及权限管理介绍</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/Hive函数/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/HiveSQL操作/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer17.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/HiveSQL操作/" class="post-title">
-        <h3>HiveSQL操作</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hive的一些sql语法</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/HiveSQL操作/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/Hive基础知识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer14.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/Hive基础知识/" class="post-title">
-        <h3>Hive基础知识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hive初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/Hive基础知识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/10/Spring名词解释/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/blogtitle/qwer12.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-10 12:08</div>
-      <a href="/2019/08/10/Spring名词解释/" class="post-title">
-        <h3>Spring名词解释</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>spring解释,包含了一些注解和对象的解释及功能</p>
-        <div class="post-bottom">
-          <a href="/2019/08/10/Spring名词解释/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/3/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">
