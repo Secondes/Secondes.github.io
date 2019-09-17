@@ -294,7 +294,7 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="Hive函数"><a href="#Hive函数" class="headerlink" title="Hive函数"></a>Hive函数</h1><p>​Hive中提供了非常丰富的运算符和内置函数支撑，具体操作如下：</p>
+          <h1 id="Hive函数"><a href="#Hive函数" class="headerlink" title="Hive函数"></a>Hive函数</h1><p>Hive中提供了非常丰富的运算符和内置函数支撑，具体操作如下：</p>
 <h2 id="1-内置运算符"><a href="#1-内置运算符" class="headerlink" title="1.内置运算符"></a>1.内置运算符</h2><h3 id="1-1关系运算符"><a href="#1-1关系运算符" class="headerlink" title="1.1关系运算符"></a>1.1关系运算符</h3><table>
 <thead>
 <tr>
@@ -1067,16 +1067,16 @@
 </table>
 <h2 id="5-自定义函数"><a href="#5-自定义函数" class="headerlink" title="5.自定义函数"></a>5.自定义函数</h2><p>自定义函数包括三种UDF、UDAF、UDTF<br>UDF(User-Defined-Function) ：一进一出<br>UDAF(User- Defined Aggregation Funcation) ：聚集函数，多进一出。Count/max/min<br>UDTF(User-Defined Table-Generating Functions) :一进多出，如explore()</p>
 <h3 id="5-1-UDF-开发"><a href="#5-1-UDF-开发" class="headerlink" title="5.1 UDF 开发"></a><strong>5.1</strong> UDF 开发</h3><p>1、UDF函数可以直接应用于select语句，对查询结构做格式化处理后，再输出内容。<br>2、编写UDF函数的时候需要注意一下几点：<br>a）自定义UDF需要继承org.apache.hadoop.hive.ql.UDF。<br>b）需要实现evaluate函数，evaluate函数支持重载。<br>3、步骤<br>(1)将jar包上传到虚拟机中：<br>a）把程序打包放到目标机器上去；<br>b）进入hive客户端，添加jar包：hive&gt;add jar /run/jar/udf_test.jar;<br>c）创建临时函数：hive&gt;CREATE TEMPORARY FUNCTION add_example AS ‘hive.udf.Add’;<br>d）查询HQL语句：</p>
-<pre><code>​SELECT add_example(8, 9) FROM scores;
+<pre><code>SELECT add_example(8, 9) FROM scores;
 ​SELECT add_example(scores.math, scores.art) FROM scores;
 ​SELECT add_example(6, 7, 8, 6.8) FROM scores;
 </code></pre><p>e）销毁临时函数：hive&gt; DROP TEMPORARY FUNCTION add_example;<br>​注意：此种方式创建的函数属于临时函数，当关闭了当前会话之后，函数会无法使用，因为jar的引用没有了，无法找到对应的java文件进行处理，因此不推荐使用。<br>(2)将jar包上传到hdfs集群中：</p>
-<p>​a）把程序打包上传到hdfs的某个目录下<br>​b）创建函数：hive&gt;CREATE FUNCTION add_example AS ‘hive.udf.Add’ using jar “hdfs://mycluster/jar/udf_test.jar”;<br>d）查询HQL语句：</p>
-<pre><code>​SELECT add_example(8, 9) FROM scores;
+<p>a）把程序打包上传到hdfs的某个目录下<br>​b）创建函数：hive&gt;CREATE FUNCTION add_example AS ‘hive.udf.Add’ using jar “hdfs://mycluster/jar/udf_test.jar”;<br>d）查询HQL语句：</p>
+<pre><code>SELECT add_example(8, 9) FROM scores;
 ​SELECT add_example(scores.math, scores.art) FROM scores;
 ​SELECT add_example(6, 7, 8, 6.8) FROM scores;
-</code></pre><p>​<br>e）销毁临时函数：hive&gt; DROP  FUNCTION add_example;</p>
-<h1 id="Hive参数操作和运行方式"><a href="#Hive参数操作和运行方式" class="headerlink" title="Hive参数操作和运行方式"></a>Hive参数操作和运行方式</h1><h2 id="1、Hive参数操作"><a href="#1、Hive参数操作" class="headerlink" title="1、Hive参数操作"></a>1、Hive参数操作</h2><h3 id="1、hive参数介绍"><a href="#1、hive参数介绍" class="headerlink" title="1、hive参数介绍"></a>1、hive参数介绍</h3><p>​hive当中的参数、变量都是以命名空间开头的，详情如下表所示：</p>
+</code></pre><p>e）销毁临时函数：hive&gt; DROP  FUNCTION add_example;</p>
+<h1 id="Hive参数操作和运行方式"><a href="#Hive参数操作和运行方式" class="headerlink" title="Hive参数操作和运行方式"></a>Hive参数操作和运行方式</h1><h2 id="1、Hive参数操作"><a href="#1、Hive参数操作" class="headerlink" title="1、Hive参数操作"></a>1、Hive参数操作</h2><h3 id="1、hive参数介绍"><a href="#1、hive参数介绍" class="headerlink" title="1、hive参数介绍"></a>1、hive参数介绍</h3><p>hive当中的参数、变量都是以命名空间开头的，详情如下表所示：</p>
 <table>
 <thead>
 <tr>
@@ -1108,8 +1108,8 @@
 </tr>
 </tbody>
 </table>
-<p>​hive的变量可以通过${}方式进行引用，其中system、env下的变量必须以前缀开头</p>
-<h3 id="2、hive参数的设置方式"><a href="#2、hive参数的设置方式" class="headerlink" title="2、hive参数的设置方式"></a>2、hive参数的设置方式</h3><p>​1、在${HIVE_HOME}/conf/hive-site.xml文件中添加参数设置<br>​<strong>注意：永久生效，所有的hive会话都会加载对应的配置</strong><br>​2、在启动hive cli时，通过–hiveconf key=value的方式进行设置<br>​例如：hive –hiveconf hive.cli.print.header=true<br>​<strong>注意：只在当前会话有效，退出会话之后参数失效</strong><br>​3、在进入到cli之后，通过set命令设置<br>​例如：set hive.cli.print.header=true;</p>
+<p>hive的变量可以通过${}方式进行引用，其中system、env下的变量必须以前缀开头</p>
+<h3 id="2、hive参数的设置方式"><a href="#2、hive参数的设置方式" class="headerlink" title="2、hive参数的设置方式"></a>2、hive参数的设置方式</h3><p>1、在${HIVE_HOME}/conf/hive-site.xml文件中添加参数设置<br>​<strong>注意：永久生效，所有的hive会话都会加载对应的配置</strong><br>​2、在启动hive cli时，通过–hiveconf key=value的方式进行设置<br>​例如：hive –hiveconf hive.cli.print.header=true<br>​<strong>注意：只在当前会话有效，退出会话之后参数失效</strong><br>​3、在进入到cli之后，通过set命令设置<br>​例如：set hive.cli.print.header=true;</p>
 <pre><code class="sql">--在hive cli控制台可以通过set对hive中的参数进行查询设置
 --set设置
 set hive.cli.print.header=true;
@@ -1118,9 +1118,9 @@ set hive.cli.print.header
 --set查看全部属性
 set
 </code></pre>
-<p>​4、hive参数初始化设置<br>​在当前用户的家目录下创建<strong>.hiverc</strong>文件，在当前文件中设置hive参数的命令，每次进入hive cli的时候，都会加载.hiverc的文件，执行文件中的命令。<br>​<strong>注意：在当前用户的家目录下还会存在.hivehistory文件，此文件中保存了hive cli中执行的所有命令</strong></p>
-<h2 id="2、hive运行方式"><a href="#2、hive运行方式" class="headerlink" title="2、hive运行方式"></a>2、hive运行方式</h2><h3 id="1、hive运行方式分类"><a href="#1、hive运行方式分类" class="headerlink" title="1、hive运行方式分类"></a>1、hive运行方式分类</h3><p>​（1）命令行方式或者控制台模式<br>​（2）脚本运行方式（实际生产环境中用最多）<br>（3）JDBC方式：hiveserver2<br>​（4）web GUI接口（hwi、hue等）</p>
-<h3 id="2、hive命令行模式详解"><a href="#2、hive命令行模式详解" class="headerlink" title="2、hive命令行模式详解"></a>2、hive命令行模式详解</h3><p>​（1）在命令行中可以直接输入SQL语句，例如：select * from table_name<br>​（2）在命令行中可以与HDFS交互，例如：dfs ls /<br>​（3）在命令行中可以与linux交互，例如：! pwd或者! ls /<br>​<strong>注意：与linux交互的时候必须要加!</strong></p>
+<p>4、hive参数初始化设置<br>​在当前用户的家目录下创建<strong>.hiverc</strong>文件，在当前文件中设置hive参数的命令，每次进入hive cli的时候，都会加载.hiverc的文件，执行文件中的命令。<br>​<strong>注意：在当前用户的家目录下还会存在.hivehistory文件，此文件中保存了hive cli中执行的所有命令</strong></p>
+<h2 id="2、hive运行方式"><a href="#2、hive运行方式" class="headerlink" title="2、hive运行方式"></a>2、hive运行方式</h2><h3 id="1、hive运行方式分类"><a href="#1、hive运行方式分类" class="headerlink" title="1、hive运行方式分类"></a>1、hive运行方式分类</h3><p>（1）命令行方式或者控制台模式<br>​（2）脚本运行方式（实际生产环境中用最多）<br>（3）JDBC方式：hiveserver2<br>​（4）web GUI接口（hwi、hue等）</p>
+<h3 id="2、hive命令行模式详解"><a href="#2、hive命令行模式详解" class="headerlink" title="2、hive命令行模式详解"></a>2、hive命令行模式详解</h3><p>（1）在命令行中可以直接输入SQL语句，例如：select * from table_name<br>​（2）在命令行中可以与HDFS交互，例如：dfs ls /<br>​（3）在命令行中可以与linux交互，例如：! pwd或者! ls /<br>​<strong>注意：与linux交互的时候必须要加!</strong></p>
 <h3 id="3、hive脚本运行方式"><a href="#3、hive脚本运行方式" class="headerlink" title="3、hive脚本运行方式"></a>3、hive脚本运行方式</h3><pre><code class="sql">--hive直接执行sql命令，可以写一个sql语句，也可以使用;分割写多个sql语句
 hive -e &quot;&quot;
 --hive执行sql命令，将sql语句执行的结果重定向到某一个文件中
@@ -1134,8 +1134,8 @@ hive -i /home/my/hive-init.sql
 --在hive的命令行中也可以执行外部文件中的命令
 hive&gt; source file (在hive cli中运行)
 </code></pre>
-<p>​4、hive JDBC访问方式，之前讲过，不再赘述<br>5、Hive GUI方式<br>​<img src="https://www.yremp.live/images/2019/09/03/hive3edf1.png" alt></p>
-<h1 id="Hive动态分区和分桶"><a href="#Hive动态分区和分桶" class="headerlink" title="Hive动态分区和分桶"></a>Hive动态分区和分桶</h1><h2 id="1、Hive动态分区"><a href="#1、Hive动态分区" class="headerlink" title="1、Hive动态分区"></a>1、Hive动态分区</h2><h3 id="1、hive的动态分区介绍"><a href="#1、hive的动态分区介绍" class="headerlink" title="1、hive的动态分区介绍"></a>1、hive的动态分区介绍</h3><p>​hive的静态分区需要用户在插入数据的时候必须手动指定hive的分区字段值，但是这样的话会导致用户的操作复杂度提高，而且在使用的时候会导致数据只能插入到某一个指定分区，无法让数据散列分布，因此更好的方式是当数据在进行插入的时候，根据数据的某一个字段或某几个字段值动态的将数据插入到不同的目录中，此时，引入动态分区。</p>
+<p>4、hive JDBC访问方式，之前讲过，不再赘述<br>5、Hive GUI方式<br>​<img src="https://www.yremp.live/images/2019/09/03/hive3edf1.png" alt></p>
+<h1 id="Hive动态分区和分桶"><a href="#Hive动态分区和分桶" class="headerlink" title="Hive动态分区和分桶"></a>Hive动态分区和分桶</h1><h2 id="1、Hive动态分区"><a href="#1、Hive动态分区" class="headerlink" title="1、Hive动态分区"></a>1、Hive动态分区</h2><h3 id="1、hive的动态分区介绍"><a href="#1、hive的动态分区介绍" class="headerlink" title="1、hive的动态分区介绍"></a>1、hive的动态分区介绍</h3><p>hive的静态分区需要用户在插入数据的时候必须手动指定hive的分区字段值，但是这样的话会导致用户的操作复杂度提高，而且在使用的时候会导致数据只能插入到某一个指定分区，无法让数据散列分布，因此更好的方式是当数据在进行插入的时候，根据数据的某一个字段或某几个字段值动态的将数据插入到不同的目录中，此时，引入动态分区。</p>
 <h3 id="2、hive的动态分区配置"><a href="#2、hive的动态分区配置" class="headerlink" title="2、hive的动态分区配置"></a>2、hive的动态分区配置</h3><pre><code class="sql">--hive设置hive动态分区开启
 set hive.exec.dynamic.partition=true;
 默认：true
@@ -1156,7 +1156,7 @@ INSERT INTO TABLE tablename PARTITION (partcol1[=val1], partcol2[=val2] ...)    
 <h2 id="2、Hive分桶"><a href="#2、Hive分桶" class="headerlink" title="2、Hive分桶"></a>2、Hive分桶</h2><h3 id="1、Hive分桶的介绍"><a href="#1、Hive分桶的介绍" class="headerlink" title="1、Hive分桶的介绍"></a>1、Hive分桶的介绍</h3><pre><code class="sql">Bucketed tables are fantastic in that they allow much more efficient sampling than do non-bucketed tables, and they may later allow for time saving operations such as mapside joins. However, the bucketing specified at table creation is not enforced when the table is written to, and so it is possible for the table&#39;s metadata to advertise properties which are not upheld by the table&#39;s actual layout. This should obviously be avoided. Here is how to do it right.
 
 </code></pre>
-<p>​注意：<br>​   1、Hive分桶表是对列值取hash值得方式，将不同数据放到不同文件中存储<br>​    2、对于hive中每一个表、分区都可以进一步进行分桶<br>​    3、由列的hash值除以桶的个数来决定每条数据划分在哪个桶中</p>
+<p>注意：<br>​   1、Hive分桶表是对列值取hash值得方式，将不同数据放到不同文件中存储<br>​    2、对于hive中每一个表、分区都可以进一步进行分桶<br>​    3、由列的hash值除以桶的个数来决定每条数据划分在哪个桶中</p>
 <h3 id="2、Hive分桶的配置"><a href="#2、Hive分桶的配置" class="headerlink" title="2、Hive分桶的配置"></a>2、Hive分桶的配置</h3><pre><code class="sql">--设置hive支持分桶
 set hive.enforce.bucketing=true;
 </code></pre>
@@ -1167,13 +1167,13 @@ TABLESAMPLE(BUCKET x OUT OF y)
     x：表示从哪个bucket开始抽取数据
     y：必须为该表总bucket数的倍数或因子
 </code></pre>
-<h1 id="Hive的视图和索引"><a href="#Hive的视图和索引" class="headerlink" title="Hive的视图和索引"></a>Hive的视图和索引</h1><h2 id="1、Hive-Lateral-View"><a href="#1、Hive-Lateral-View" class="headerlink" title="1、Hive Lateral View"></a>1、Hive Lateral View</h2><h3 id="1、基本介绍"><a href="#1、基本介绍" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h3><p>​Lateral View用于和UDTF函数（explode、split）结合来使用。<br>​首先通过UDTF函数拆分成多行，再将多行结果组合成一个支持别名的虚拟表。主要解决在select使用UDTF做查询过程中，查询只能包含单个UDTF，不能包含其他字段、以及多个UDTF的问题。<br>​语法：<br>​   LATERAL VIEW udtf(expression) tableAlias AS columnAlias (‘,’ columnAlias)</p>
+<h1 id="Hive的视图和索引"><a href="#Hive的视图和索引" class="headerlink" title="Hive的视图和索引"></a>Hive的视图和索引</h1><h2 id="1、Hive-Lateral-View"><a href="#1、Hive-Lateral-View" class="headerlink" title="1、Hive Lateral View"></a>1、Hive Lateral View</h2><h3 id="1、基本介绍"><a href="#1、基本介绍" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h3><p>Lateral View用于和UDTF函数（explode、split）结合来使用。<br>​首先通过UDTF函数拆分成多行，再将多行结果组合成一个支持别名的虚拟表。主要解决在select使用UDTF做查询过程中，查询只能包含单个UDTF，不能包含其他字段、以及多个UDTF的问题。<br>​语法：<br>​   LATERAL VIEW udtf(expression) tableAlias AS columnAlias (‘,’ columnAlias)</p>
 <h3 id="2、案例"><a href="#2、案例" class="headerlink" title="2、案例"></a>2、案例</h3><pre><code class="sql">select count(distinct(myCol1)), count(distinct(myCol2)) from psn2
 LATERAL VIEW explode(likes) myTable1 AS myCol1
 LATERAL VIEW explode(address) myTable2 AS myCol2, myCol3;
 </code></pre>
-<h2 id="2、Hive视图"><a href="#2、Hive视图" class="headerlink" title="2、Hive视图"></a>2、Hive视图</h2><h3 id="1、Hive视图基本介绍"><a href="#1、Hive视图基本介绍" class="headerlink" title="1、Hive视图基本介绍"></a>1、Hive视图基本介绍</h3><p>​Hive 中的视图和RDBMS中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条SELECT语句的结果集。视图是纯粹的逻辑对象，没有关联的存储(Hive 3.0.0引入的物化视图除外)，当查询引用视图时，Hive可以将视图的定义与查询结合起来，例如将查询中的过滤器推送到视图中。</p>
-<h3 id="2、Hive视图特点"><a href="#2、Hive视图特点" class="headerlink" title="2、Hive视图特点"></a>2、Hive视图特点</h3><p>​1、不支持物化视图<br>​2、只能查询，不能做加载数据操作<br>​3、视图的创建，只是保存一份元数据，查询视图时才执行对应的子查询<br>​4、view定义中若包含了ORDER BY/LIMIT语句，当查询视图时也进行ORDER BY/LIMIT语句操作，view当中              定义的优先级更高<br>5、view支持迭代视图</p>
+<h2 id="2、Hive视图"><a href="#2、Hive视图" class="headerlink" title="2、Hive视图"></a>2、Hive视图</h2><h3 id="1、Hive视图基本介绍"><a href="#1、Hive视图基本介绍" class="headerlink" title="1、Hive视图基本介绍"></a>1、Hive视图基本介绍</h3><p>Hive 中的视图和RDBMS中视图的概念一致，都是一组数据的逻辑表示，本质上就是一条SELECT语句的结果集。视图是纯粹的逻辑对象，没有关联的存储(Hive 3.0.0引入的物化视图除外)，当查询引用视图时，Hive可以将视图的定义与查询结合起来，例如将查询中的过滤器推送到视图中。</p>
+<h3 id="2、Hive视图特点"><a href="#2、Hive视图特点" class="headerlink" title="2、Hive视图特点"></a>2、Hive视图特点</h3><p>1、不支持物化视图<br>​2、只能查询，不能做加载数据操作<br>​3、视图的创建，只是保存一份元数据，查询视图时才执行对应的子查询<br>​4、view定义中若包含了ORDER BY/LIMIT语句，当查询视图时也进行ORDER BY/LIMIT语句操作，view当中              定义的优先级更高<br>5、view支持迭代视图</p>
 <h3 id="3、Hive视图语法"><a href="#3、Hive视图语法" class="headerlink" title="3、Hive视图语法"></a>3、Hive视图语法</h3><pre><code class="sql">--创建视图：
 CREATE VIEW [IF NOT EXISTS] [db_name.]view_name
   [(column_name [COMMENT column_comment], ...) ]

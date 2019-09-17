@@ -294,46 +294,46 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="Hive优化"><a href="#Hive优化" class="headerlink" title="Hive优化"></a>Hive优化</h1><p>​Hive的存储层依托于HDFS，Hive的计算层依托于MapReduce，一般Hive的执行效率主要取决于SQL语句的执行效率，因此，Hive的优化的核心思想是MapReduce的优化。</p>
-<h2 id="1、查看Hive执行计划（小白慎用）"><a href="#1、查看Hive执行计划（小白慎用）" class="headerlink" title="1、查看Hive执行计划（小白慎用）"></a>1、查看Hive执行计划（小白慎用）</h2><p>​Hive的SQL语句在执行之前需要将SQL语句转换成MapReduce任务，因此需要了解具体的转换过程，可以在SQL语句中输入如下命令查看具体的执行计划。</p>
+          <h1 id="Hive优化"><a href="#Hive优化" class="headerlink" title="Hive优化"></a>Hive优化</h1><p>Hive的存储层依托于HDFS，Hive的计算层依托于MapReduce，一般Hive的执行效率主要取决于SQL语句的执行效率，因此，Hive的优化的核心思想是MapReduce的优化。</p>
+<h2 id="1、查看Hive执行计划（小白慎用）"><a href="#1、查看Hive执行计划（小白慎用）" class="headerlink" title="1、查看Hive执行计划（小白慎用）"></a>1、查看Hive执行计划（小白慎用）</h2><p>Hive的SQL语句在执行之前需要将SQL语句转换成MapReduce任务，因此需要了解具体的转换过程，可以在SQL语句中输入如下命令查看具体的执行计划。</p>
 <pre><code class="sql">--查看执行计划，添加extended关键字可以查看更加详细的执行计划
 explain [extended] query
 </code></pre>
-<h2 id="2、Hive的抓取策略"><a href="#2、Hive的抓取策略" class="headerlink" title="2、Hive的抓取策略"></a>2、Hive的抓取策略</h2><p>​Hive的某些SQL语句需要转换成MapReduce的操作，某些SQL语句就不需要转换成MapReduce操作，但是同学们需要注意，理论上来说，所有的SQL语句都需要转换成MapReduce操作，只不过Hive在转换SQL语句的过程中会做部分优化，使某些简单的操作不再需要转换成MapReduce，例如：</p>
-<p>​（1）select 仅支持本表字段<br>​（2）where仅对本表字段做条件过滤</p>
+<h2 id="2、Hive的抓取策略"><a href="#2、Hive的抓取策略" class="headerlink" title="2、Hive的抓取策略"></a>2、Hive的抓取策略</h2><p>Hive的某些SQL语句需要转换成MapReduce的操作，某些SQL语句就不需要转换成MapReduce操作，但是同学们需要注意，理论上来说，所有的SQL语句都需要转换成MapReduce操作，只不过Hive在转换SQL语句的过程中会做部分优化，使某些简单的操作不再需要转换成MapReduce，例如：</p>
+<p>（1）select 仅支持本表字段<br>​（2）where仅对本表字段做条件过滤</p>
 <pre><code class="sql">--查看Hive的数据抓取策略
 Set hive.fetch.task.conversion=none/more;
 </code></pre>
-<h2 id="3、Hive本地模式"><a href="#3、Hive本地模式" class="headerlink" title="3、Hive本地模式"></a>3、Hive本地模式</h2><p>​类似于MapReduce的操作，Hive的运行也分为本地模式和集群模式，在开发阶段可以选择使用本地执行，提高SQL语句的执行效率，验证SQL语句是否正确。</p>
+<h2 id="3、Hive本地模式"><a href="#3、Hive本地模式" class="headerlink" title="3、Hive本地模式"></a>3、Hive本地模式</h2><p>类似于MapReduce的操作，Hive的运行也分为本地模式和集群模式，在开发阶段可以选择使用本地执行，提高SQL语句的执行效率，验证SQL语句是否正确。</p>
 <pre><code class="sql">--设置本地模式
 set hive.exec.mode.local.auto=true;
 </code></pre>
-<p>​注意：要想使用Hive的本地模式，加载数据文件大小不能超过128M,如果超过128M,就算设置了本地模式，也会按照集群模式运行。</p>
+<p>注意：要想使用Hive的本地模式，加载数据文件大小不能超过128M,如果超过128M,就算设置了本地模式，也会按照集群模式运行。</p>
 <pre><code class="sql">--设置读取数据量的大小限制
 set hive.exec.mode.local.auto.inputbytes.max=128M
 </code></pre>
-<h2 id="4、Hive并行模式"><a href="#4、Hive并行模式" class="headerlink" title="4、Hive并行模式"></a>4、Hive并行模式</h2><p>​在SQL语句足够复杂的情况下，可能在一个SQL语句中包含多个子查询语句，且多个子查询语句之间没有任何依赖关系，此时，可以Hive运行的并行度</p>
+<h2 id="4、Hive并行模式"><a href="#4、Hive并行模式" class="headerlink" title="4、Hive并行模式"></a>4、Hive并行模式</h2><p>在SQL语句足够复杂的情况下，可能在一个SQL语句中包含多个子查询语句，且多个子查询语句之间没有任何依赖关系，此时，可以Hive运行的并行度</p>
 <pre><code class="sql">--设置Hive SQL的并行度
 set hive.exec.parallel=true;
 </code></pre>
-<p>​注意：Hive的并行度并不是无限增加的，在一次SQL计算中，可以通过以下参数来设置并行的job的个数</p>
+<p>注意：Hive的并行度并不是无限增加的，在一次SQL计算中，可以通过以下参数来设置并行的job的个数</p>
 <pre><code class="sql">--设置一次SQL计算允许并行执行的job个数的最大值
 set hive.exec.parallel.thread.number
 </code></pre>
-<h2 id="5、Hive严格模式"><a href="#5、Hive严格模式" class="headerlink" title="5、Hive严格模式"></a>5、Hive严格模式</h2><p>​Hive中为了提高SQL语句的执行效率，可以设置严格模式，充分利用Hive的某些特点。</p>
+<h2 id="5、Hive严格模式"><a href="#5、Hive严格模式" class="headerlink" title="5、Hive严格模式"></a>5、Hive严格模式</h2><p>Hive中为了提高SQL语句的执行效率，可以设置严格模式，充分利用Hive的某些特点。</p>
 <pre><code class="sql">-- 设置Hive的严格模式
 set hive.mapred.mode=strict;
 </code></pre>
 <p>注意：当设置严格模式之后，会有如下限制：<br>（1）对于分区表，必须添加where对于分区字段的条件过滤<br>（2）order by语句必须包含limit输出限制<br>​（3）限制执行笛卡尔积的查询</p>
-<h2 id="6、Hive排序"><a href="#6、Hive排序" class="headerlink" title="6、Hive排序"></a>6、Hive排序</h2><p>​在编写SQL语句的过程中，很多情况下需要对数据进行排序操作，Hive中支持多种排序操作适合不同的应用场景。</p>
-<p>​1、Order By - 对于查询结果做全排序，只允许有一个reduce处理<br>​（当数据量较大时，应慎用。严格模式下，必须结合limit来使用）<br>​2、Sort By - 对于单个reduce的数据进行排序<br>​3、Distribute By - 分区排序，经常和Sort By结合使用<br>​4、Cluster By - 相当于 Sort By + Distribute By（Cluster By不能通过asc、desc的方式指定排序规则；可通过 distribute by column sort by column asc|desc 的方式）</p>
-<h2 id="7、Hive-join"><a href="#7、Hive-join" class="headerlink" title="7、Hive join"></a>7、Hive join</h2><p>​1、Hive 在多个表的join操作时尽可能多的使用相同的连接键，这样在转换MR任务时会转换成少的MR的任务。</p>
-<p>​2、手动Map join:在map端完成join操作</p>
+<h2 id="6、Hive排序"><a href="#6、Hive排序" class="headerlink" title="6、Hive排序"></a>6、Hive排序</h2><p>在编写SQL语句的过程中，很多情况下需要对数据进行排序操作，Hive中支持多种排序操作适合不同的应用场景。</p>
+<p>1、Order By - 对于查询结果做全排序，只允许有一个reduce处理<br>​（当数据量较大时，应慎用。严格模式下，必须结合limit来使用）<br>​2、Sort By - 对于单个reduce的数据进行排序<br>​3、Distribute By - 分区排序，经常和Sort By结合使用<br>​4、Cluster By - 相当于 Sort By + Distribute By（Cluster By不能通过asc、desc的方式指定排序规则；可通过 distribute by column sort by column asc|desc 的方式）</p>
+<h2 id="7、Hive-join"><a href="#7、Hive-join" class="headerlink" title="7、Hive join"></a>7、Hive join</h2><p>1、Hive 在多个表的join操作时尽可能多的使用相同的连接键，这样在转换MR任务时会转换成少的MR的任务。</p>
+<p>2、手动Map join:在map端完成join操作</p>
 <pre><code class="sql">--SQL方式，在SQL语句中添加MapJoin标记（mapjoin hint）
 SELECT  /*+ MAPJOIN(smallTable) */  smallTable.key,  bigTable.value
 FROM  smallTable  JOIN  bigTable  ON  smallTable.key  =  bigTable.key;
 </code></pre>
-<p>​3、开启自动的Map Join</p>
+<p>3、开启自动的Map Join</p>
 <pre><code class="sql">--通过修改以下配置启用自动的mapjoin：
 set hive.auto.convert.join = true;
 --（该参数为true时，Hive自动对左边的表统计量，如果是小表就加入内存，即对小表使用Map join）
@@ -343,8 +343,8 @@ hive.mapjoin.smalltable.filesize;
 hive.ignore.mapjoin.hint；
 --（默认值：true；是否忽略mapjoin hint 即mapjoin标记）
 </code></pre>
-<p>​4、大表join大表<br>​（1）空key过滤：有时join超时是因为某些key对应的数据太多，而相同key对应的数据都会发送到相同的reducer上，从而导致内存不够。此时我们应该仔细分析这些异常的key，很多情况下，这些key对应的数据是异常数据，我们需要在SQL语句中进行过滤。<br>​（2）空key转换：有时虽然某个key为空对应的数据很多，但是相应的数据不是异常数据，必须要包含在join的结果中，此时我们可以表a中key为空的字段赋一个随机的值，使得数据随机均匀地分不到不同的reducer上</p>
-<h2 id="8、Map-Side聚合"><a href="#8、Map-Side聚合" class="headerlink" title="8、Map-Side聚合"></a>8、Map-Side聚合</h2><p>​Hive的某些SQL操作可以实现map端的聚合，类似于MR的combine操作</p>
+<p>4、大表join大表<br>​（1）空key过滤：有时join超时是因为某些key对应的数据太多，而相同key对应的数据都会发送到相同的reducer上，从而导致内存不够。此时我们应该仔细分析这些异常的key，很多情况下，这些key对应的数据是异常数据，我们需要在SQL语句中进行过滤。<br>​（2）空key转换：有时虽然某个key为空对应的数据很多，但是相应的数据不是异常数据，必须要包含在join的结果中，此时我们可以表a中key为空的字段赋一个随机的值，使得数据随机均匀地分不到不同的reducer上</p>
+<h2 id="8、Map-Side聚合"><a href="#8、Map-Side聚合" class="headerlink" title="8、Map-Side聚合"></a>8、Map-Side聚合</h2><p>Hive的某些SQL操作可以实现map端的聚合，类似于MR的combine操作</p>
 <pre><code class="sql">--通过设置以下参数开启在Map端的聚合：
 set hive.map.aggr=true;
 --相关配置参数：
@@ -357,7 +357,7 @@ hive.map.aggr.hash.percentmemory：
 --是否对GroupBy产生的数据倾斜做优化，默认为false
 hive.groupby.skewindata
 </code></pre>
-<h2 id="9、合并小文件"><a href="#9、合并小文件" class="headerlink" title="9、合并小文件"></a>9、合并小文件</h2><p>​Hive在操作的时候，如果文件数目小，容易在文件存储端造成压力，给hdfs造成压力，影响效率</p>
+<h2 id="9、合并小文件"><a href="#9、合并小文件" class="headerlink" title="9、合并小文件"></a>9、合并小文件</h2><p>Hive在操作的时候，如果文件数目小，容易在文件存储端造成压力，给hdfs造成压力，影响效率</p>
 <pre><code class="sql">--设置合并属性
 --是否合并map输出文件：
 set hive.merge.mapfiles=true
@@ -529,7 +529,7 @@ set mapred.job.reuse.jvm.num.tasks=n;--（n为task插槽个数）
 </tr>
 </tbody>
 </table>
-<h3 id="3-开启Map输出阶段压缩"><a href="#3-开启Map输出阶段压缩" class="headerlink" title="3) 开启Map输出阶段压缩"></a><strong>3)</strong> 开启Map输出阶段压缩</h3><p>​开启map输出阶段压缩可以减少job中map和Reduce task间数据传输量。具体配置如下：<br>案例实操：</p>
+<h3 id="3-开启Map输出阶段压缩"><a href="#3-开启Map输出阶段压缩" class="headerlink" title="3) 开启Map输出阶段压缩"></a><strong>3)</strong> 开启Map输出阶段压缩</h3><p>开启map输出阶段压缩可以减少job中map和Reduce task间数据传输量。具体配置如下：<br>案例实操：</p>
 <pre><code class="sql">--1）开启hive中间传输数据压缩功能
 hive (default)&gt;set hive.exec.compress.intermediate=true;
 --2）开启mapreduce中map输出压缩功能
@@ -539,7 +539,7 @@ hive (default)&gt;set mapreduce.map.output.compress.codec= org.apache.hadoop.io.
 --4）执行查询语句
 hive (default)&gt; select count(*) from aaaa;
 </code></pre>
-<h3 id="4-开启Reduce输出阶段压缩"><a href="#4-开启Reduce输出阶段压缩" class="headerlink" title="4) 开启Reduce输出阶段压缩"></a><strong>4)</strong> 开启Reduce输出阶段压缩</h3><p>​当Hive将输出写入到表中时，输出内容同样可以进行压缩。属性hive.exec.compress.output控制着这个功能。用户可能需要保持默认设置文件中的默认值false，这样默认的输出就是非压缩的纯文本文件了。用户可以通过在查询语句或执行脚本中设置这个值为true，来开启输出结果压缩功能。</p>
+<h3 id="4-开启Reduce输出阶段压缩"><a href="#4-开启Reduce输出阶段压缩" class="headerlink" title="4) 开启Reduce输出阶段压缩"></a><strong>4)</strong> 开启Reduce输出阶段压缩</h3><p>当Hive将输出写入到表中时，输出内容同样可以进行压缩。属性hive.exec.compress.output控制着这个功能。用户可能需要保持默认设置文件中的默认值false，这样默认的输出就是非压缩的纯文本文件了。用户可以通过在查询语句或执行脚本中设置这个值为true，来开启输出结果压缩功能。</p>
 <p>案例实操：</p>
 <pre><code class="sql">--1）开启hive最终输出数据压缩功能
 hive (default)&gt;set hive.exec.compress.output=true;
@@ -552,7 +552,7 @@ hive (default)&gt; set mapreduce.output.fileoutputformat.compress.type=BLOCK;
 --5）测试一下输出结果是否是压缩文件
 hive (default)&gt; insert overwrite local directory &#39;/root/data&#39; select * from aaaa;
 </code></pre>
-<h2 id="2、文件存储格式"><a href="#2、文件存储格式" class="headerlink" title="2、文件存储格式"></a>2、文件存储格式</h2><p>​Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
+<h2 id="2、文件存储格式"><a href="#2、文件存储格式" class="headerlink" title="2、文件存储格式"></a>2、文件存储格式</h2><p>Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
 <h3 id="1-列式存储和行式存储"><a href="#1-列式存储和行式存储" class="headerlink" title="1) 列式存储和行式存储"></a>1) 列式存储和行式存储</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/%E8%A1%8C%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%8E%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8.png" alt="行式存储与列式存储"></p>
 <p>上图左边为逻辑表，右边第一个为行式存储，第二个为列式存储。</p>
 <p><strong>行存储的特点：</strong> 查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
@@ -560,17 +560,17 @@ hive (default)&gt; insert overwrite local directory &#39;/root/data&#39; select 
 <p>TEXTFILE和SEQUENCEFILE的存储格式都是基于行存储的；</p>
 <p>ORC和PARQUET是基于列式存储的。</p>
 <h3 id="2-TEXTFILE格式"><a href="#2-TEXTFILE格式" class="headerlink" title="2) TEXTFILE格式"></a><strong>2)</strong> <strong>TEXTFILE格式</strong></h3><p>默认格式，数据不做压缩，磁盘开销大，数据解析开销大。可结合Gzip、Bzip2使用(系统自动检查，执行查询时自动解压)，但使用这种方式，hive不会对数据进行切分，从而无法对数据进行并行操作。</p>
-<h3 id="3-ORC格式"><a href="#3-ORC格式" class="headerlink" title="3) ORC格式"></a><strong>3)</strong> ORC格式</h3><p>​Orc (Optimized Row Columnar)是hive 0.11版里引入的新的存储格式。</p>
-<p>​可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data,Row Data,Stripe Footer：</p>
+<h3 id="3-ORC格式"><a href="#3-ORC格式" class="headerlink" title="3) ORC格式"></a><strong>3)</strong> ORC格式</h3><p>Orc (Optimized Row Columnar)是hive 0.11版里引入的新的存储格式。</p>
+<p>可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data,Row Data,Stripe Footer：</p>
 <p><img src="https://github.com/msbbigdata/hive/blob/master/images/orc%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="orc文件格式"></p>
 <p>1）Index Data：一个轻量级的index，默认是每隔1W行做一个索引。这里做的索引应该只是记录某行的各字段在Row Data中的offset。<br>2）Row Data：存的是具体的数据，先取部分行，然后对这些行按列进行存储。对每个列进行了编码，分成多个Stream来存储。<br>3）Stripe Footer：存的是各个Stream的类型，长度等信息。</p>
-<p>​每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
-<h3 id="4-PARQUET格式"><a href="#4-PARQUET格式" class="headerlink" title="4) PARQUET格式"></a><strong>4)</strong> PARQUET格式</h3><p>​Parquet是面向分析型业务的列式存储格式，由Twitter和Cloudera合作开发，2015年5月从Apache的孵化器里毕业成为Apache顶级项目。</p>
-<p>​Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
-<p>​通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如下图所示。</p>
+<p>每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
+<h3 id="4-PARQUET格式"><a href="#4-PARQUET格式" class="headerlink" title="4) PARQUET格式"></a><strong>4)</strong> PARQUET格式</h3><p>Parquet是面向分析型业务的列式存储格式，由Twitter和Cloudera合作开发，2015年5月从Apache的孵化器里毕业成为Apache顶级项目。</p>
+<p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
+<p>通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如下图所示。</p>
 <p><img src="https://github.com/msbbigdata/hive/blob/master/images/parquet%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="parquet文件格式"></p>
-<p>​上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
-<h3 id="5-主流文件存储格式对比实验"><a href="#5-主流文件存储格式对比实验" class="headerlink" title="5) 主流文件存储格式对比实验"></a><strong>5)</strong> 主流文件存储格式对比实验</h3><p>​从存储文件的压缩比和查询速度两个角度对比。<br>​存储文件的压缩比测试：</p>
+<p>上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
+<h3 id="5-主流文件存储格式对比实验"><a href="#5-主流文件存储格式对比实验" class="headerlink" title="5) 主流文件存储格式对比实验"></a><strong>5)</strong> 主流文件存储格式对比实验</h3><p>从存储文件的压缩比和查询速度两个角度对比。<br>​存储文件的压缩比测试：</p>
 <pre><code class="sql">--1）TextFile
 --（1）创建表，存储数据格式为TEXTFILE
 create table log_text (track_time string,url string,session_id string,referer string,ip string,end_user_id string,city_id string)row format delimited fields terminated by &#39;\t&#39;stored as textfile ;
@@ -598,7 +598,7 @@ dfs -du -h /user/hive/warehouse/log_parquet/ ;
 --存储文件的压缩比总结：
 ORC &gt;  Parquet &gt;  textFile
 </code></pre>
-<h2 id="3、存储和压缩结合"><a href="#3、存储和压缩结合" class="headerlink" title="3、存储和压缩结合"></a>3、存储和压缩结合</h2><p>​官网：<a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC</a><br>​ORC存储方式的压缩：</p>
+<h2 id="3、存储和压缩结合"><a href="#3、存储和压缩结合" class="headerlink" title="3、存储和压缩结合"></a>3、存储和压缩结合</h2><p>官网：<a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC</a><br>​ORC存储方式的压缩：</p>
 <table>
 <thead>
 <tr>
@@ -669,10 +669,10 @@ dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;
 <p>hive—high Avaliable</p>
 <p>hive的搭建方式有三种，分别是</p>
 <p>1、Local/Embedded Metastore Database (Derby)<br>​2、Remote Metastore Database<br>​3、Remote Metastore Server</p>
-<p>​一般情况下，我们在学习的时候直接使用hive –service metastore的方式启动服务端，使用hive的方式直接访问登录客户端，除了这种方式之外，hive提供了hiveserver2的服务端启动方式，提供了beeline和jdbc的支持，并且官网也提出，一般在生产环境中，使用hiveserver2的方式比较多，如图：</p>
+<p>一般情况下，我们在学习的时候直接使用hive –service metastore的方式启动服务端，使用hive的方式直接访问登录客户端，除了这种方式之外，hive提供了hiveserver2的服务端启动方式，提供了beeline和jdbc的支持，并且官网也提出，一般在生产环境中，使用hiveserver2的方式比较多，如图：</p>
 <p><img src="https://github.com/msbbigdata/hive/blob/master/images/hiveserver2.png" alt="hiveserver2"></p>
 <p>使用hiveserver2的优点如下：</p>
-<p>​1、在应用端不需要部署hadoop和hive的客户端<br>​2、hiveserver2不用直接将hdfs和metastore暴露给用户<br>​3、有HA机制，解决应用端的并发和负载问题<br>​4、jdbc的连接方式，可以使用任何语言，方便与应用进行数据交互<br>本文档主要介绍如何进行hive的HA的搭建：<br>如何进行搭建，参照之前hadoop的HA，使用zookeeper完成HA</p>
+<p>1、在应用端不需要部署hadoop和hive的客户端<br>​2、hiveserver2不用直接将hdfs和metastore暴露给用户<br>​3、有HA机制，解决应用端的并发和负载问题<br>​4、jdbc的连接方式，可以使用任何语言，方便与应用进行数据交互<br>本文档主要介绍如何进行hive的HA的搭建：<br>如何进行搭建，参照之前hadoop的HA，使用zookeeper完成HA</p>
 <p><img src="https://github.com/msbbigdata/hive/blob/master/images/hive%20HA.png" alt="hive HA"></p>
 <p><strong>1、环境如下:</strong></p>
 <table>
@@ -868,7 +868,6 @@ dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;
     }
 }
 </code></pre>
-<p>​</p>
 
         </div>
         <!-- .entry-content -->
