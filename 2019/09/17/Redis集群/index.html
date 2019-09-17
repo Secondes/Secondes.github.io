@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">网络和IO初识 | 小舞的个人主页</title>
+  <title itemprop="name">Redis集群 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -264,15 +264,15 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      网络和IO初识</h1>
+      Redis集群</h1>
       <p class="entry-census">
         <span>
           <a href="www.secondaries.cn">
-            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -280,7 +280,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2019-9-3<span class="bull">
+        2019-9-17<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -294,62 +294,416 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="关于网络和IO"><a href="#关于网络和IO" class="headerlink" title="关于网络和IO"></a>关于网络和IO</h1><p>鉴于最近课上已经有点开始懵,所以在这里普及一下关于网络和IO的基础知识</p>
-<h2 id="网络基础知识"><a href="#网络基础知识" class="headerlink" title="网络基础知识"></a>网络基础知识</h2><p>本来我写了感想,结果码成天书,故删除.推荐一个视频地址<a href="https://www.bilibili.com/video/av53978866/?p=28" target="_blank" rel="noopener">https://www.bilibili.com/video/av53978866/?p=28</a></p>
-<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><h3 id="BIO线程模型"><a href="#BIO线程模型" class="headerlink" title="BIO线程模型:"></a>BIO线程模型:</h3><p>传统BIO的阻塞点:</p>
-<ul>
-<li>socket.accept();</li>
-<li>inputstrean.read();</li>
-</ul>
-<p>缺点:单线程,同一时间只能处理一个客户端,如果同时连上两个客户端,只能处理第一个客户端,第二个客户端虽然能连上但是服务器端不做处理</p>
-<p>解决办法,拿到socket之后,把它交给另一个线程做单独处理</p>
-<p>但是服务器端的线程并不是无限的,如果来了很多客户端,服务端会因为起过多线程,资源耗尽</p>
-<p>解决方法,服务器端线程池,由线程池去拉起线程</p>
-<pre><code>Executors.newFixedThreadPool(100);
-</code></pre><p>本质依然是去new Thread,只不过对数量可以做一个限制,超过了就丢掉或者队列</p>
-<p>BIO模型总结</p>
-<p>优点:一个线程为一个客户端服务,服务的质量好</p>
-<p>缺点:需要为每一个客户端分配一个线程,并发连接的数量巨大时,县城所有用资源和cpu线程切换带来的开销巨大</p>
-<h3 id="NIO线程模型"><a href="#NIO线程模型" class="headerlink" title="NIO线程模型"></a>NIO线程模型</h3><p>服务器端只关心<em>socket</em>,客户端关心的是io事件</p>
-<p>由此,在服务器端抽象出一个<em>selector</em>,为<em>socket</em>管理者,意思是将大门交给<em>selector</em>看着,监听是否有<em>accpet</em>事件</p>
-<p><em>listenSelector</em>采用轮询的方式监听<em>selector</em>上是否由需要处理的事件</p>
-<p>nio模型中没有new任何线程的概念,只有一个线程在处理</p>
-<p><em>selector</em>按照事件来处理,就是事件驱动,也就是多路复用模型</p>
-<p>缺点:<em>selector</em>只有一个太忙,需要处理所有的<em>socket</em>,所以衍生出了netty框架</p>
-<h3 id="IO模型概念"><a href="#IO模型概念" class="headerlink" title="IO模型概念"></a>IO模型概念</h3><p>阻塞:客户端发来请求(在收到服务器请求之前必须等着,不能去干其他活)-&gt;服务器端收到请求-&gt;服务器端读取数据-&gt;服务器端读取完成-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
-<p>个人理解:除非svip,一般人没这待遇.</p>
-<p>非阻塞:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端读取数据-&gt;客户端不停的问:我要的数据准备好了吗?服务器:还没呢,等一会.客户端不停的问:我要的数据准备好了吗?服务器:还没呢,等一会.客户端不停的问:我要的数据准备好了吗?服务器:准备好了,你拿走吧-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
-<p>个人理解:服务器的内心独白:客户端你是sb么?问个没完你不累?</p>
-<p>复用模型<em>selector</em>:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端找个<em>selector</em>给你-&gt;客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>去服务器申请干活并回答:还没呢,等一会,客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>去服务器申请干活并回答:还没呢,等一会,客户端不停的问<em>selector</em>:我要的数据准备好了吗?<em>selector</em>:准备好了,你拿走吧-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务-&gt;返回给客户端-&gt;客户端拿到数据去继续自己的任务</p>
-<p>个人理解:除了抽象出一个<em>selector</em>,剩下与非阻塞没什么区别,在非阻塞中是每次都新拉起一个线程去回答客户端,这次是由线程池管理服务器端的线程,仅此而已</p>
-<p>复用模型<em>epoll</em>:客户端发来请求(在收到服务器请求之前没必要非得等着,可以去干其他活)-&gt;服务器端收到请求-&gt;服务器端找个<em>epoll</em>给你-&gt;<em>epoll</em>说了:我懂你要干什么了客户端,你回家吧,请你闭嘴-&gt;服务器端开始读取数据-&gt;读取好了之后返回数据给客户端-</p>
-<p>个人理解:客户端不必非得一直问一直问,相当于减轻了客户端的压力,变相的提升了服务器端的压力</p>
-<p>对于一次IO访问，数据会先被拷贝到内核的缓冲区中，然后才会从内核的缓冲区拷贝到应用程序的地址空间。需要经历两个阶段：</p>
-<ul>
-<li>准备数据</li>
-<li>将数据从内核缓冲区拷贝到进程地址空间</li>
-</ul>
-<p>由于存在这两个阶段，Linux产生了下面五种IO模型（以socket为例）</p>
-<p>阻塞式IO:</p>
-<p>当用户进程调用了recvfrom等阻塞方法时，内核进入IO的第1个阶段：准备数据（内核需要等待足够的数据再拷贝）这个过程需要等待，用户进程会被阻塞，等内核将数据准备好，然后拷贝到用户地址空间，内核返回结果，用户进程才从阻塞态进入就绪态</p>
-<p>Linux中默认情况下所有的socket都是阻塞的</p>
-<p>非阻塞式IO:</p>
-<p>当用户进程发出read操作时，如果kernel中的数据还没有准备好，那么它并不会block用户进程，而是立刻返回一个error。</p>
-<p>用户进程判断结果是一个error时，它就知道数据还没有准备好，于是它可以再次发送read操作</p>
-<p>一旦kernel中的数据准备好了，并且又再次收到了用户进程的system call，那么它马上就将数据拷贝到了用户内存，然后返回</p>
-<p>非阻塞IO模式下用户进程需要不断地询问内核的数据准备好了没有</p>
-<p>IO多路复用:</p>
-<p>通过一种机制，一个进程可以监视多个文件描述符（套接字描述符）一旦某个文件描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作（这样就不需要每个用户进程不断的询问内核数据准备好了没）</p>
-<p>常用的IO多路复用方式有<em>select</em>、<em>poll</em>和<em>epoll</em></p>
-<p>信号驱动IO:</p>
-<p>内核文件描述符就绪后，通过信号通知用户进程，用户进程再通过系统调用读取数据。</p>
-<p>此方式属于同步IO（实际读取数据到用户进程缓存的工作仍然是由用户进程自己负责的）</p>
-<p>异步IO:</p>
-<p>用户进程发起read操作之后，立刻就可以开始去做其它的事。内核收到一个异步IO read之后，会立刻返回，不会阻塞用户进程。</p>
-<p>内核会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，内核会给用户进程发送一个signal告诉它read操作完成了</p>
-<p>拓展:为啥出现IO多路复用</p>
-<p>如果一个I/O流进来，我们就开启一个进程处理这个I/O流。那么假设现在有一百万个I/O流进来，那我们就需要开启一百万个进程一一对应处理这些I/O流（这就是传统意义下的<strong>多进程并发处理</strong>）。思考一下，一百万个进程，你的CPU占有率会多高，这个实现方式及其的不合理。所以人们提出了I/O多路复用这个模型，<strong>一个线程，通过记录I/O流的状态来同时管理多个I/O，可以提高服务器的吞吐能力</strong>。</p>
+          <h1 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h1><pre><code>#老版用法
+help slaveof
 
+#新版用法
+help replicaof
+
+replicaof 127.0.0.1 6379
+</code></pre><h2 id="redis集群搭建流程"><a href="#redis集群搭建流程" class="headerlink" title="redis集群搭建流程"></a>redis集群搭建流程</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">aqua</th>
+<th style="text-align:center">mea</th>
+<th style="text-align:center">cierra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">主</td>
+<td style="text-align:center">两个</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">从</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">两个</td>
+<td style="text-align:center">两个</td>
+</tr>
+<tr>
+<td style="text-align:center">哨兵</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redis单节点容量问题解决方案"><a href="#redis单节点容量问题解决方案" class="headerlink" title="redis单节点容量问题解决方案"></a>redis单节点容量问题解决方案</h2><h3 id="代理模型"><a href="#代理模型" class="headerlink" title="代理模型"></a>代理模型</h3><p>1.哈希取模(弊端:模数固定,也就是说节点的拓展比较麻烦,新增一台机器必须重新取模)</p>
+<p>2.随机(弊端:取回数据的时候比较麻烦,需要遍历)</p>
+<p>3.一致性哈希算法(优点:的确可以分担其他节点的压力,也不会造成全局洗牌.弊端:新增节点会造成一小部分数据无法命中)</p>
+<p>没有取模,client的key和node都需要进行计算,规划成一个哈希环</p>
+<p>导致的问题:</p>
+<p>1.可能造成击穿</p>
+<p>2.增加复杂度,每次取离数据最近的2个物理节点</p>
+<p>哈希环上的节点数尽可能多,可以解决数据倾斜的问题,也就是虚拟节点技术.</p>
+<h3 id="代理方案"><a href="#代理方案" class="headerlink" title="代理方案"></a>代理方案</h3><p>3种代理方式</p>
+<p><a href="https://github.com/twitter/twemproxy" target="_blank" rel="noopener">twemproxy</a></p>
+<p><a href="https://github.com/joyieldInc/predixy" target="_blank" rel="noopener">predixy</a></p>
+<p>cluster</p>
+<p>预分区概念+槽位</p>
+<p>数据分治,聚合操作很难实现,事物,由此产生hash tag,也就是相当于redis分区</p>
+<p>redis集群有16384个哈希槽位</p>
+<h3 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h3><blockquote>
+<p>请同学们学习的时候不要无脑ctrl+c,一定要尝试理解每步的具体含义,如果按照本教程ctrl+c的话,未必能跑的通,因为有一些选项是需要根据你的实际情况更改的,我仅仅是贴出适合我环境的指令,并不提供语法模板.</p>
+</blockquote>
+<h4 id="twemproxy"><a href="#twemproxy" class="headerlink" title="twemproxy"></a>twemproxy</h4><p>准备三台机器,我的分别是aqua,mea,cierra,请不要在意名字</p>
+<pre><code>yum install automake libtool
+autoreconf -fvi
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ2019091210224789a5e.png" alt></p>
+<p>发现报错</p>
+<p>原因:autoreconf版本低了,不受支持,去<a href="https://opsx.alibaba.com/mirror" target="_blank" rel="noopener">阿里镜像</a>找更高版本的autoreconf,本人linux版本centos6.6</p>
+<pre><code>cd /etc/yum.repos.d/
+</code></pre><p>外网环境使用这种指令</p>
+<pre><code>wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190912102935f7ac6.png" alt></p>
+<p>外网情况请执行如下指令</p>
+<pre><code>yum search autoconf
+yum install autoconf268
+</code></pre><p>我是内网服务器,只能手工操作,不过这都是小事,内网环境可以这样做,去朋友那里找一台外网机器</p>
+<pre><code>yum install yum-plugin-downloadonly
+yum install --downloadonly --downloaddir=. autoconf268
+ll
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190912133204794b7.png" alt></p>
+<p>可以看到rpm包已经下载好了,我们便可以把这个包拷到内网环境上</p>
+<pre><code>rpm -ivh autoconf-2.63-5.1.el6.noarch.rpm
+rpm -ivh autoconf268-2.68-2.el6.noarch.rpm
+</code></pre><p>可以看到已经有autoconf268的命令了,代表成功!撒花庆祝</p>
+<pre><code>autoconf268
+</code></pre><p>在twemproxy目录下执行</p>
+<pre><code>autoconf268 -fvi
+./configure
+make
+cd scripts
+cp nutcracker.init /etc/init.d/twemproxy
+cd twemproxy/conf
+</code></pre><p>把配置文件全都拷过去</p>
+<pre><code>cp * /etc/nutcracker/
+</code></pre><p>这样做可以在任何路径下都能直接使用命令</p>
+<pre><code>cp nutcracker /usr/bin/
+</code></pre><p>进入redis目录</p>
+<pre><code>make
+</code></pre><p>redis的清除cache命令</p>
+<pre><code>make distclean
+</code></pre><p>开始安装redis</p>
+<pre><code>make install PREFIX=/opt/yupsoftware/redis-5.0.5/
+cd /opt/yupsoftware/redis-5.0.5/utils
+./install_server.sh
+</code></pre><p>输入你自己配置的参数,然后检查一下服务是否正常</p>
+<pre><code>service redis_6379 status
+</code></pre><p>搞定之后去搞其他的机器,等到三台机器全部搞好之后回主机,看看代理是否正常</p>
+<pre><code>service twemproxy start
+service twemproxy status
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ2019091217342233a1d.png" alt></p>
+<p>日,查找资料得修改redis的配置文件,这里应该能有找到报错的地方,不过现在我不知道,有时间应该查一下资料</p>
+<pre><code>#bind 127.0.0.1
+protected-mode no
+
+redis-cli -h mea
+redis-cli -h cierra
+</code></pre><p>继续</p>
+<pre><code>redis-cli -p 22121
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ201909160925421712a.png" alt></p>
+<p>卧槽?什么情况?<br>查询资料得知,正常情况,不要担心,继续<br>不支持keys *,事物,watch,flushall等等,详情请参照<a href="https://github.com/twitter/twemproxy" target="_blank" rel="noopener">twemproxy官方文档</a></p>
+<pre><code># 不支持
+keys *
+</code></pre><p>其实这里已经大功告成,可以新开client去连redis-server,直接就能找到key了</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ201909160951333f938.png" alt></p>
+<p>不过个人搭建期间还是遇到了不少问题,同学们一定要多多注意,我贴一下我遇到的一个小问题</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ201909121806525adcc.png" alt></p>
+<p>解决方法也很简单,改配置文件就行了,注意缩进</p>
+<h4 id="predixy"><a href="#predixy" class="headerlink" title="predixy"></a>predixy</h4><p>首先去<a href="https://github.com/joyieldInc/predixy" target="_blank" rel="noopener">predixy</a>下载,然后解压,进入配置文件目录,打开predixy.conf文件,进行如下修改</p>
+<p><img src="https://www.yremp.live/images/2019/09/16/QQ20190916104545cbb6d.png" alt></p>
+<pre><code>Bind 127.0.0.1:7617
+Include sentinel.conf
+# Include try.conf
+</code></pre><p>保存,退出,打开sentinel.conf,参照example里面进行你自己的修改,使用vim的命令行工具</p>
+<pre><code>#光标放置SentinelServerPool这一行
+.,$y
+#粘贴命令,p
+p
+.,$s/#//
+</code></pre><p>普及一个小小的vim快捷键指令</p>
+<pre><code>gg 跳转到文档开头
+G 跳转到文档末尾
+</code></pre><p>继续修改配置文件</p>
+<pre><code>#Sentinels里面改成你的哨兵的端口号,group改成你的哨兵名
+Sentinels {
+        + aqua:26379
+        + mea:26379
+        + cierra:26379
+}
+Group nakiri {
+}
+Group nemu {
+}
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/16/QQ20190916110529a24f0.png" alt></p>
+<p>新建哨兵的配置文件26379.conf</p>
+<pre><code># 哨兵的启动端口
+port 26379
+# 哨兵监控的第一个master的端口
+sentinel monitor nakiri aqua 36379 2
+# 哨兵监控的第二个master的端口
+sentinel monitor nemu aqua 46379 2
+</code></pre><p>启动哨兵</p>
+<pre><code>redis-server 26379.conf --sentinel --bind aqua --protected-mode no
+redis-server 26379.conf --sentinel --bind mea --protected-mode no
+redis-server 26379.conf --sentinel --bind cierra --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ201909161818384b18e.png" alt></p>
+<p>启动主(aqua)</p>
+<pre><code># redis-server --port 36379
+# redis-server --port 46379
+redis-server --port 36379 --bind aqua --protected-mode no
+redis-server --port 46379 --bind aqua --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091618184619433.png" alt></p>
+<p>启动从(mea,cierra)</p>
+<pre><code>redis-server --port 36380 --replicaof aqua 36379 --bind mea --protected-mode no
+redis-server --port 36380 --replicaof aqua 36379 --bind cierra --protected-mode no
+redis-server --port 46380 --replicaof aqua 46379 --bind mea --protected-mode no
+redis-server --port 46380 --replicaof aqua 46379 --bind cierra --protected-mode no
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ201909161640011bf41.png" alt></p>
+<p>启动predixy</p>
+<pre><code>./predixy ../conf/predixy.conf
+</code></pre><p>启动client</p>
+<pre><code>redis-cli -p 7617
+set hololive minatoaqua
+get hololive
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ20190916181855c9fea.png" alt></p>
+<p>可以看到结果,代表成功,然后新开cli去找一下数据在哪看看,可以看到数据已经打散分布到各个机器上</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917093101389b7.png" alt></p>
+<p>继续测试控制存储,插入数据</p>
+<pre><code>set {aqua}aqua mea
+set {aqua}mea aqua
+</code></pre><p>可以看到,可以由你自己控制存在哪里</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709355054997.png" alt></p>
+<pre><code>watch {aqua}aqua
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709364550fe5.png" alt></p>
+<p>不支持,因为有两套主从,想要事物,只能存在一个group</p>
+<p>所以修改配置文件,删除一个group</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091709381692821.png" alt></p>
+<pre><code>set aqua mea
+set mea aqua
+keys *
+watch aqua
+multi
+get aqua
+set aqua
+exec
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917094055fae78.png" alt></p>
+<p>可以发现已经支持事物了</p>
+<p>继续测试,可以发现组二的已经全部查不到了,但是组一的还在,可以正常查</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ20190917094348229b6.png" alt></p>
+<p>info看一下信息</p>
+<pre><code># Proxy
+Version:1.0.5
+Name:PredixyExample
+Bind:127.0.0.1:7617
+RedisMode:proxy
+SingleThread:false
+WorkerThreads:1
+Uptime:1568684273
+UptimeSince:2019-09-17 09:37:53
+
+# SystemResource
+UsedMemory:66776
+MaxMemory:0
+MaxRSS:4296704
+UsedCpuSys:0.510
+UsedCpuUser:0.025
+
+# Stats
+Accept:2
+ClientConnections:1
+TotalRequests:2096
+TotalResponses:2097
+TotalRecvClientBytes:718
+TotalSendServerBytes:101957
+TotalRecvServerBytes:1146244
+TotalSendClientBytes:307
+
+# Servers
+Server:192.168.3.72:36380
+Role:master
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:2
+Connect:2
+Requests:21
+Responses:21
+SendBytes:590
+RecvBytes:140
+
+Server:192.168.3.70:36379
+Role:slave
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:0
+Connect:0
+Requests:0
+Responses:0
+SendBytes:0
+RecvBytes:0
+
+
+# LatencyMonitor
+LatencyMonitorName:all
+&lt;=          100                   59                6 24.00%
+&lt;=          400                 1407                4 40.00%
+&lt;=          500                 2652                6 64.00%
+&lt;=          700                 1953                3 76.00%
+&lt;=          800                  782                1 80.00%
+&lt;=          900                 1635                2 88.00%
+&lt;=         1000                 1896                2 96.00%
+&lt;=         1200                 1060                1 100.00%
+T           457                11444               25
+
+LatencyMonitorName:get
+&lt;=          400                 1407                4 26.67%
+&lt;=          500                 2236                5 60.00%
+&lt;=          700                 1953                3 80.00%
+&lt;=          900                  815                1 86.67%
+&lt;=         1000                  946                1 93.33%
+&gt;          1000                 1060                1 100.00%
+T           561                 8417               15
+
+LatencyMonitorName:set
+&lt;=          800                  782                1 50.00%
+&lt;=          900                  820                1 100.00%
+T           801                 1602                2
+
+LatencyMonitorName:blist
+</code></pre><p>可以看到现在server是cierra的36380</p>
+<p>ctrl+c取消cierra的主服务</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ201909171008205963e.png" alt></p>
+<p>过一会,哨兵自动更换主</p>
+<p><img src="https://www.yremp.live/images/2019/09/17/QQ2019091710094964e31.png" alt></p>
+<p>这时再回去info看一下</p>
+<pre><code># Proxy
+Version:1.0.5
+Name:PredixyExample
+Bind:127.0.0.1:7617
+RedisMode:proxy
+SingleThread:false
+WorkerThreads:1
+Uptime:1568684273
+UptimeSince:2019-09-17 09:37:53
+
+# SystemResource
+UsedMemory:70872
+MaxMemory:0
+MaxRSS:4354048
+UsedCpuSys:1.189
+UsedCpuUser:0.058
+
+# Stats
+Accept:2
+ClientConnections:1
+TotalRequests:5649
+TotalResponses:5657
+TotalRecvClientBytes:1172
+TotalSendServerBytes:275554
+TotalRecvServerBytes:3118933
+TotalSendClientBytes:13785
+
+# Servers
+Server:192.168.3.72:36380
+Role:slave
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:2
+Connect:2
+Requests:31
+Responses:31
+SendBytes:874
+RecvBytes:202
+
+Server:192.168.3.70:36379
+Role:master
+Group:nakiri
+DC:
+CurrentIsFail:0
+Connections:0
+Connect:0
+Requests:0
+Responses:0
+SendBytes:0
+RecvBytes:0
+
+
+# LatencyMonitor
+LatencyMonitorName:all
+&lt;=          100                  459               15 33.33%
+&lt;=          300                  854                3 40.00%
+&lt;=          400                 3658               11 64.44%
+&lt;=          500                 2652                6 77.78%
+&lt;=          600                  513                1 80.00%
+&lt;=          700                 1953                3 86.67%
+&lt;=          800                  782                1 88.89%
+&lt;=          900                 1635                2 93.33%
+&lt;=         1000                 1896                2 97.78%
+&lt;=         1200                 1060                1 100.00%
+T           343                15462               45
+
+LatencyMonitorName:get
+&lt;=          300                  854                3 12.00%
+&lt;=          400                 3312               10 52.00%
+&lt;=          500                 2236                5 72.00%
+&lt;=          600                  513                1 76.00%
+&lt;=          700                 1953                3 88.00%
+&lt;=          900                  815                1 92.00%
+&lt;=         1000                  946                1 96.00%
+&gt;          1000                 1060                1 100.00%
+T           467                11689               25
+
+LatencyMonitorName:set
+&lt;=          800                  782                1 50.00%
+&lt;=          900                  820                1 100.00%
+T           801                 1602                2
+
+LatencyMonitorName:blist
+</code></pre><p>可以发现,主已经被更换,服务还能正常使用,并且对于7617的用户来说,并没有任何的感知,该怎么用还是怎么用</p>
+<h4 id="cluster"><a href="#cluster" class="headerlink" title="cluster"></a>cluster</h4><p>(这地方挺简单的,就不贴图了)</p>
+<p>不需要代理,redis自行实现,无主模型</p>
+<pre><code>cd utils/create-cluster
+vim create-cluster
+</code></pre><p>直接启动</p>
+<pre><code>./create-cluster start
+</code></pre><p>进行分赃</p>
+<pre><code>./create-cluster create
+</code></pre><p>进去看看</p>
+<pre><code># 自动跳转
+redis-cli -c -p 30001
+set aqua minatoaqua
+</code></pre><p>尝试一下事物</p>
+<pre><code>multi
+set mea kaguramea
+get mea
+exec
+</code></pre><p>不可以,更换</p>
+<pre><code>watch {aqua}aqua minatoaqua
+multi
+set {aqua}aqua minatoaqua
+get {aqua}aqua
+exec
+</code></pre><p>成功</p>
+<p>关闭集群</p>
+<pre><code>./create-cluster stop
+./create-cluster clean
+</code></pre><p>这个脚本实际相当于</p>
+<pre><code>redis-cli --cluster help
+</code></pre><p>手动实现</p>
+<pre><code>redis-cli --cluster create 127.0.0.1:40001 127.0.0.1:40002 127.0.0.1:40003 127.0.0.1:40004 127.0.0.1:40005 127.0.0.1:40006 --cluster-replicas 1
+</code></pre><p>新开一个客户端</p>
+<pre><code>redis-cli -c -p 40001
+redis-cli --cluster reshard 127.0.0.1:40001
+redis-cli --cluster info 127.0.0.1:40001
+redis-cli --cluster check 127.0.0.1:40001
+</code></pre>
         </div>
         <!-- .entry-content -->
         </article></main></div>
@@ -371,15 +725,15 @@
           
             <div class="post-nepre half previous">
           
-            <a href="/2019/09/17/Redis集群/" rel="prev">
+            <a href="/2019/09/17/Redis的RDB和AOF/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                Redis集群</h3>
+                Redis的RDB和AOF</h3>
                 <hr>
               </div>
             </a>
@@ -389,15 +743,15 @@
           
             <div class="post-nepre half next">
           
-            <a href="/2019/09/03/多线程和高并发初识/" rel="next">
+            <a href="/2019/09/03/网络和IO初识/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537213f4e5.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                多线程和高并发初识</h3>
+                网络和IO初识</h3>
                 <hr>
               </div>
             </a>
