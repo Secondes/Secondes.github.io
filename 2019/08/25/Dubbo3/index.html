@@ -299,25 +299,25 @@
 <h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>http://</p>
 <h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>v1</p>
 <p>可以直接写在URL上，或者写在header中传递“Accept-Version: v2”</p>
-<pre><code> @RequestMapping(headers = &quot;Accept-Version=v2&quot;,value = &quot;models&quot;,method = RequestMethod.GET)
+<pre><code>@RequestMapping(headers = &quot;Accept-Version=v2&quot;,value = &quot;models&quot;,method = RequestMethod.GET)
 </code></pre><h3 id="用HTTP协议里的动词来实现资源的增删改查"><a href="#用HTTP协议里的动词来实现资源的增删改查" class="headerlink" title="用HTTP协议里的动词来实现资源的增删改查"></a>用HTTP协议里的动词来实现资源的增删改查</h3><pre><code>GET 用来获取资源，
 POST 用来新建资源（也可以用于更新资源）。
 DELETE 用来删除资源。 
 UPDATE http://api.chesxs.com/v1/fence 更新围栏信息 
 </code></pre><h3 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h3><h4 id="单个资源"><a href="#单个资源" class="headerlink" title="单个资源"></a>单个资源</h4><p><a href="http://mashibing.com/api/v1/Users/1" target="_blank" rel="noopener">http://mashibing.com/api/v1/Users/1</a>   使用Get方法获取id是1的用户数据</p>
-<pre><code>         正确：GET /model/models/{id}        #获取单个资源
-         正确：POST /model/models            #创建单个资源
-         正确：PUT /model/models/{id}        #更新单个资源
-         正确：DELETE /model/models/{id}   #删除单个资源
-         正确：PATCH /model/models/{id}   #更新单个资源（只传差异）
-         正确：GET /model/configRuleFile    #获取单个资源（如果仅有一个值时，应采用单数方式）
+<pre><code>正确：GET /model/models/{id}        #获取单个资源
+正确：POST /model/models            #创建单个资源
+正确：PUT /model/models/{id}        #更新单个资源
+正确：DELETE /model/models/{id}   #删除单个资源
+正确：PATCH /model/models/{id}   #更新单个资源（只传差异）
+正确：GET /model/configRuleFile    #获取单个资源（如果仅有一个值时，应采用单数方式）
 </code></pre><p>返回结果：</p>
 <p>如果指定的资源并不存在，那么应该返回404 Not Found状态，否则应该返回200 OK状态码</p>
 <h4 id="资源集合"><a href="#资源集合" class="headerlink" title="资源集合"></a>资源集合</h4><p>对于资源集合，支持以下URL</p>
-<pre><code>   正确： GET /model/models                             #获取资源列表
-   正确： GET /model/models?ids={ids}             #批量获取资源列表
-   正确： DELETE /model/models?ids={ids}       #批量删除资源列表
-   返回结果：
+<pre><code>正确： GET /model/models                             #获取资源列表
+正确： GET /model/models?ids={ids}             #批量获取资源列表
+正确： DELETE /model/models?ids={ids}       #批量删除资源列表
+返回结果：
 </code></pre><p>如果列表为空，则应该空数组</p>
 <h4 id="响应结果"><a href="#响应结果" class="headerlink" title="响应结果"></a>响应结果</h4><table>
 <thead>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">小舞的个人主页</title>
+  <title itemprop="name">Zookeeper初识 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -258,452 +258,159 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/09/18/QQ20190918120230ad965.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/18/QQ20190918120230ad965.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Zookeeper初识</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Zoopeeker初识"><a href="#Zoopeeker初识" class="headerlink" title="Zoopeeker初识"></a>Zoopeeker初识</h1><h2 id="分布式协调服务"><a href="#分布式协调服务" class="headerlink" title="分布式协调服务"></a>分布式协调服务</h2><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p><img src="https://zookeeper.apache.org/doc/current/images/zkservice.jpg" alt></p>
+<p>具有两种运行状态,可用(leader存在)及不可用(leader不存在),不可用状态需要及时恢复到可用状态的时间需要越快越好,官方压测时间可以维持在200毫秒以内.</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>zookeeper在”读取主导”工作负载中特别快,运行在数千台计算机上并且读取写入比大约为10:1的时候性能最佳.</p>
+<p>官方给出的读写占比及计算机数量性能图</p>
+<p><img src="https://zookeeper.apache.org/doc/current/images/zkperfRW-3.2.jpg" alt></p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>目录树结构,node可以存储数据,单个节点存储的最大数据为1mb,节点可以分为几种,持久节点,临时节点(依赖session),序列节点(概念)</p>
+<h3 id="保证"><a href="#保证" class="headerlink" title="保证"></a>保证</h3><p>提供了一系列保证</p>
+<ul>
+<li>顺序一致性 客户端的更新将按发送顺序应用</li>
+<li>原子性  更新成功或失败,没有中间结果(最终一致性而并非强一致性,过半通过就可以)</li>
+<li>单系统镜像 无论服务器连接到哪个服务器,客户端都将看到相同的服务视图</li>
+<li>可靠性 一旦应用了更新,它将从那时起持续到客户端覆盖更新</li>
+<li>及时性 系统的客户视图保证在特定时间范围内是最新的(最终一致性,有可能会在很短的时间内不能访问即时的数据)</li>
+</ul>
+<h2 id="安装及实践"><a href="#安装及实践" class="headerlink" title="安装及实践"></a>安装及实践</h2><p>server.1=aqua:2888:3888</p>
+<pre><code>#常用指令
+help
+ls /
+create
+get
+rmr
+stat
+</code></pre><blockquote>
+<p>创建节点时,一定要给数据,哪怕是不要数据,也一定要给一个””,否则会创建失败</p>
+</blockquote>
+<p>zookeeper存储是二进制安全的.只关心二进制化的字符串,不关心字符串的具体格式,里面有啥字符,只会严格的按照二进制的数据存取,不会以某种特殊格式解析字符串,即使用字节数组存储.</p>
+<p>zookeeper的顺序执行体现在id上,leader维护了一个id的递增.</p>
+<h3 id="id格式详解"><a href="#id格式详解" class="headerlink" title="id格式详解:"></a>id格式详解:</h3><p><img src="https://www.yremp.live/images/2019/09/18/QQ2019091809420623a1b.png" alt></p>
+<p>zookeeper 的每个节点都有三个 zxid 值：cZxid、mZxid 和 pZxid,分别代表的时间戳对应为:</p>
+<p>c(create,新增):对应为该节点的创建时间</p>
+<p>m(mofify,修改):对应该节点的最近一次的修改时间</p>
+<p>p(子节点):该节点或该节点的子节点最近一次创建/删除的时间,有本节点/子节点有关,与孙子节点无关</p>
+<p>0x:代表16进制,每一个位代表四个二进制位,共有32位,也就是低32位,<strong>16进制数必须以 0x开头</strong></p>
+<p>x后面的2代表纪元,也就是说每次更换leader就会递增这个纪元</p>
+<h3 id="常见zookeeper指令"><a href="#常见zookeeper指令" class="headerlink" title="常见zookeeper指令"></a>常见zookeeper指令</h3><p>每一个客户端有一个session连接的时候,都会创建一个sessionid.</p>
+<p>临时节点会伴随着session的消失而消失.</p>
+<p>当一个client连接一个server的时候,这个session会被所有的server知道,这就是所谓的统一视图.</p>
+<pre><code>create -s (创建队列,防止多个客户端创建产生冲突)
+netstat -natp| egrep &#39;(2888|3888)&#39;
+</code></pre><p><img src="https://www.yremp.live/images/2019/09/18/QQ2019091811032899941.png" alt></p>
+<p><img src="https://www.yremp.live/images/2019/09/18/QQ2019091811044907e07.png" alt></p>
+<p><img src="https://www.yremp.live/images/2019/09/18/QQ201909181105335d527.png" alt></p>
+<p>查资料得知</p>
+<p>2181：对cline端提供服务</p>
+<p>2888：集群内机器通讯使用（Leader监听此端口）</p>
+<p>3888：选举leader使用</p>
+<p>端口状态</p>
+<p><strong>LISTEN</strong>：(Listening for a connection.)侦听来自远方的TCP端口的连接请求</p>
+<p><strong>SYN-SENT</strong>：(Active; sent SYN. Waiting for a matching connection request after having sent a connection request.)再发送连接请求后等待匹配的连接请求</p>
+<p><strong>SYN-RECEIVED</strong>：(Sent and received SYN. Waiting for a confirming connection request acknowledgment after having both received and sent connection requests.)再收到和发送一个连接请求后等待对方对连接请求的确认</p>
+<p><strong>ESTABLISHED</strong>：(Connection established.)代表一个打开的连接</p>
+<p><strong>FIN-WAIT-1</strong>：(Closed; sent FIN.)等待远程TCP连接中断请求，或先前的连接中断请求的确认</p>
+<p><strong>FIN-WAIT-2</strong>：(Closed; FIN is acknowledged; awaiting FIN.)从远程TCP等待连接中断请求</p>
+<p><strong>CLOSE-WAIT</strong>：(Received FIN; waiting to receive CLOSE.)等待从本地用户发来的连接中断请求</p>
+<p><strong>CLOSING</strong>：(Closed; exchanged FIN; waiting for FIN.)等待远程TCP对连接中断的确认</p>
+<p><strong>LAST-ACK</strong>：(Received FIN and CLOSE; waiting for FIN ACK.)等待原来的发向远程TCP的连接中断请求的确认</p>
+<p><strong>TIME-WAIT</strong>：(In 2 MSL (twice the maximum segment length) quiet wait after close. )等待足够的时间以确保远程TCP接收到连接中断请求的确认</p>
+<p><strong>CLOSED</strong>：(Connection is closed.)没有任何连接状态</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/09/18/Zookeeper初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/18/QQ20190918120230ad965.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-18 11:09</div>
-      <a href="/2019/09/18/Zookeeper初识/" class="post-title">
-        <h3>Zookeeper初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/hadoop/">hadoop<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>zookeeper初步学习</p>
-        <div class="post-bottom">
-          <a href="/2019/09/18/Zookeeper初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/09/17/Redis的RDB和AOF/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-17 11:09</div>
-      <a href="/2019/09/17/Redis的RDB和AOF/" class="post-title">
-        <h3>Redis的RDB和AOF</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/hadoop/">hadoop<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre full next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>redis持久化方案</p>
-        <div class="post-bottom">
-          <a href="/2019/09/17/Redis的RDB和AOF/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/09/17/Redis集群/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171051590012d.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-17 10:09</div>
-      <a href="/2019/09/17/Redis集群/" class="post-title">
-        <h3>Redis集群</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/17/Redis的RDB和AOF/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171056070c163.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Redis的RDB和AOF</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/hadoop/">hadoop<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>redis集群搭建及代理模型</p>
-        <div class="post-bottom">
-          <a href="/2019/09/17/Redis集群/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/09/03/网络和IO初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031536305a3b1.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-3 15:09</div>
-      <a href="/2019/09/03/网络和IO初识/" class="post-title">
-        <h3>网络和IO初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>java中网络和IO初识</p>
-        <div class="post-bottom">
-          <a href="/2019/09/03/网络和IO初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/09/03/多线程和高并发初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537213f4e5.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-3 15:09</div>
-      <a href="/2019/09/03/多线程和高并发初识/" class="post-title">
-        <h3>多线程和高并发初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>多线程和高并发初识</p>
-        <div class="post-bottom">
-          <a href="/2019/09/03/多线程和高并发初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/09/03/Redis初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/QQ201909031537356c6e2.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-9-3 15:09</div>
-      <a href="/2019/09/03/Redis初识/" class="post-title">
-        <h3>Redis初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hadoop/">hadoop<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>redis初步认识</p>
-        <div class="post-bottom">
-          <a href="/2019/09/03/Redis初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/关于流年大佬/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825182010dd031.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 18:08</div>
-      <a href="/2019/08/25/关于流年大佬/" class="post-title">
-        <h3>关于流年大佬</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/生活/">生活</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p></p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/关于流年大佬/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Tengine补充/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ201908251819465c68f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 17:08</div>
-      <a href="/2019/08/25/Tengine补充/" class="post-title">
-        <h3>Tengine补充</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>tengine学习</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Tengine补充/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Tengine/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ201908251817541a359.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 17:08</div>
-      <a href="/2019/08/25/Tengine/" class="post-title">
-        <h3>Tengine</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>tengine学习</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Tengine/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Lua教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181714d2567.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 16:08</div>
-      <a href="/2019/08/25/Lua教程/" class="post-title">
-        <h3>Lua教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>lua初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Lua教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/2/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">
