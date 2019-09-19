@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">小舞的个人主页</title>
+  <title itemprop="name">leecode刷题记录-数据库 | 小舞的个人主页</title>
   
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
@@ -258,454 +258,198 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://yremp.live/wp-content/uploads/2019/09/cover-e1567666534201.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://yremp.live/wp-content/uploads/2019/09/cover-e1567666534201.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      leecode刷题记录-数据库</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-19<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="leecode刷题记录"><a href="#leecode刷题记录" class="headerlink" title="leecode刷题记录"></a>leecode刷题记录</h1><h2 id="类别-简单"><a href="#类别-简单" class="headerlink" title="类别:简单"></a>类别:简单</h2><p>菜逼的leecode刷题记录开始</p>
+<h2 id="1-去重"><a href="#1-去重" class="headerlink" title="1.去重"></a>1.去重</h2><pre><code class="mysql">select distinct a.Email from Person a, Person b 
+where a.Email = b.Email and a.Id != b.Id;
+
+select email from person GROUP BY email HAVING count(email) &gt; 1;
+</code></pre>
+<h2 id="2-看起来简单的索引机制"><a href="#2-看起来简单的索引机制" class="headerlink" title="2.看起来简单的索引机制"></a>2.看起来简单的索引机制</h2><pre><code class="mysql">select name,population,area from world 
+where population &gt; 25000000 or area &gt; 3000000;
+
+select name,population,area from World 
+where area &gt; 3000000 
+union select name,population,area from World 
+where population &gt; 25000000;
+</code></pre>
+<p>对于索引列来最好使用union all，因复杂的查询【包含运算等】将使or、in放弃索引而全表扫描，除非你能确定or、in会使用索引。 对于只有非索引字段来说你就老老实实的用or 或者in，因为 非索引字段本来要全表扫描而union all 只成倍增加表扫描的次数</p>
+<h2 id="3-一个判断奇偶你至于搞出这么多方法嘛-lll￢ω￢"><a href="#3-一个判断奇偶你至于搞出这么多方法嘛-lll￢ω￢" class="headerlink" title="3.一个判断奇偶你至于搞出这么多方法嘛?(lll￢ω￢)"></a>3.一个判断奇偶你至于搞出这么多方法嘛?(lll￢ω￢)</h2><pre><code class="mysql">select * from cinema where id &amp; 1 and description != &quot;boring&quot; order by rating desc;
+
+select * from cinema where id % 2 = 1 and description &lt;&gt; &#39;boring&#39; 
+order by rating desc;
+
+select * from cinema where mod(id, 2) = 1 and description != &#39;boring&#39; 
+order by rating desc;
+</code></pre>
+<h2 id="4-同时做交换"><a href="#4-同时做交换" class="headerlink" title="4.同时做交换"></a>4.同时做交换</h2><pre><code class="mysql">update salary set sex = if(sex = &#39;m&#39;,&#39;f&#39;,&#39;m&#39;);
+
+update salary set sex = (case when sex = &#39;m&#39; then &#39;f&#39; when sex = &#39;f&#39; then &#39;m&#39; end);
+</code></pre>
+<p>IF(expr1,expr2,expr3)<br>如果 expr1 是TRUE (expr1 &lt;&gt; 0 and expr1 &lt;&gt; NULL)，则 IF()的返回值为expr2; 否则返回值则为 expr3。IF() 的返回值为数字值或字符串值，具体情况视其所在语境而定。</p>
+<blockquote>
+<p>CASE WHEN的两种写法:<br>Type 1: CASE value WHEN [compare-value] THEN result [WHEN [compare-value] THEN result …] [ELSE result] END<br>Type 2: CASE WHEN [condition] THEN result [WHEN [condition] THEN result …] [ELSE result] END</p>
+</blockquote>
+<h2 id="5-join"><a href="#5-join" class="headerlink" title="5.join"></a>5.join</h2><pre><code class="mysql">select t1.firstname,t1.lastname,t2.city,t2.state from person t1 
+left join address t2 on t1.personid = t2.personid; 
+</code></pre>
+<p>数据库在通过连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。 在使用left jion时，on和where条件的区别如下：</p>
+<ol>
+<li>on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。</li>
+<li>where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。</li>
+</ol>
+<h2 id="6-笛卡尔积"><a href="#6-笛卡尔积" class="headerlink" title="6.笛卡尔积"></a>6.笛卡尔积</h2><pre><code class="mysql">select e1.Name as Employee from Employee as e1 ,Employee as e2 
+where e1.ManagerId=e2.Id AND e1.Salary&gt;e2.Salary;
+
+select name as employee from employee as a 
+where salary &gt; (select salary from employee where id = a.managerid);
+
+select e.Name as Employee from Employee as e 
+inner join Employee as f on e.ManagerId=f.Id where e.salary&gt;f.salary;
+</code></pre>
+<h2 id="7-offset关键字-这个真的不知道"><a href="#7-offset关键字-这个真的不知道" class="headerlink" title="7.offset关键字,这个真的不知道"></a>7.offset关键字,这个真的不知道</h2><pre><code class="mysql">select distinct salary as SecondHighestSalary from employee 
+order by salary desc limit 1 offset 1;
+</code></pre>
+<h2 id="8-not-in关键字"><a href="#8-not-in关键字" class="headerlink" title="8.not in关键字"></a>8.not in关键字</h2><pre><code class="mysql">select name Customers from Customers where Id not in (select CustomerId from Orders);
+</code></pre>
+<h2 id="9-这题卡住了-哎"><a href="#9-这题卡住了-哎" class="headerlink" title="9.这题卡住了,哎"></a>9.这题卡住了,哎</h2><pre><code class="mysql">SELECT
+    Department.name AS &#39;Department&#39;,
+    Employee.name AS &#39;Employee&#39;,
+    Salary
+FROM
+    Employee
+        JOIN
+    Department ON Employee.DepartmentId = Department.Id
+WHERE
+    (Employee.DepartmentId , Salary) IN
+    (   SELECT
+            DepartmentId, MAX(Salary)
+        FROM
+            Employee
+        GROUP BY DepartmentId
+    )
+;
+</code></pre>
+<h2 id="10-group-by-having的用法"><a href="#10-group-by-having的用法" class="headerlink" title="10.group by having的用法"></a>10.group by having的用法</h2><p>如果要用到group by 一般用到的就是“每”这个字 例如说明现在有一个这样的表：每个部门有多少人 就要用到分组的技术</p>
+<p>having是分组（group by）后的筛选条件，分组后的数据组内再筛选,而where则是在分组前筛选</p>
+<p>where子句中不能使用聚集函数，而having子句中可以，所以在集合函数中加上了HAVING来起到测试查询结果是否符合条件的作用<br>即having子句的适用场景是可以使用聚合函数</p>
+<p>having 子句限制的是组，而不是行<br>having 子句中的每一个元素也必须出现在select列表中。有些数据库例外，如oracle<br>当同时含有 where 子句、group by 子句 、having 子句及聚集函数时，执行顺序如下：<br>执行where子句查找符合条件的数据；使用group by 子句对数据进行分组；对group by 子句形成的组运行聚集函数计算每一组的值；最后用having 子句去掉不符合条件的组</p>
+<h2 id="11-删除重复记录"><a href="#11-删除重复记录" class="headerlink" title="11.删除重复记录"></a>11.删除重复记录</h2><pre><code class="mysql">SELECT p1.*
+FROM Person p1,
+    Person p2
+WHERE
+    p1.Email = p2.Email
+;
+
+SELECT p1.*
+FROM Person p1,
+    Person p2
+WHERE
+    p1.Email = p2.Email AND p1.Id &gt; p2.Id
+;
+
+DELETE p1 FROM Person p1,
+    Person p2
+WHERE
+    p1.Email = p2.Email AND p1.Id &gt; p2.Id
+</code></pre>
+<h2 id="12-datediff函数-日期相差天数"><a href="#12-datediff函数-日期相差天数" class="headerlink" title="12.datediff函数(日期相差天数)"></a>12.datediff函数(日期相差天数)</h2><pre><code class="mysql">select w1.id from weather w1,weather w2 
+where w1.temperature &gt; w2.temperature and DATEDIFF(w1.recorddate,w2.recorddate) = 1
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Lua教程/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181714d2567.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 16:08</div>
-      <a href="/2019/08/25/Lua教程/" class="post-title">
-        <h3>Lua教程</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>lua初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Lua教程/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Dubbo4/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518170237bfc.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 16:08</div>
-      <a href="/2019/08/25/Dubbo4/" class="post-title">
-        <h3>Dubbo4</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre full next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>dubbo学习</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Dubbo4/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/25/Dubbo3/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181558b01d9.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 16:08</div>
-      <a href="/2019/08/25/Dubbo3/" class="post-title">
-        <h3>Dubbo3</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/09/18/Zookeeper初识/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/18/QQ20190918120230ad965.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Zookeeper初识</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>dubbo学习</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Dubbo3/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/08/25/Dubbo2/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181542cbc29.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-25 16:08</div>
-      <a href="/2019/08/25/Dubbo2/" class="post-title">
-        <h3>Dubbo2</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>dubbo学习</p>
-        <div class="post-bottom">
-          <a href="/2019/08/25/Dubbo2/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/Java基础之concurrent包/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ201908251813587a820.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/Java基础之concurrent包/" class="post-title">
-        <h3>Java基础之concurrent包</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/java/">java<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>java concurrent包初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/Java基础之concurrent包/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/Dubbo初识/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825181328f906f.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/Dubbo初识/" class="post-title">
-        <h3>Dubbo初识</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>dubbo初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/Dubbo初识/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/FastDFS集群/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ2019082518215326cce.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/FastDFS集群/" class="post-title">
-        <h3>FastDFS集群</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>FastDNS集群初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/FastDFS集群/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/16/FastDFS/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/08/25/QQ20190825182044293eb.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-16 16:08</div>
-      <a href="/2019/08/16/FastDFS/" class="post-title">
-        <h3>FastDFS</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>FastDNS初识</p>
-        <div class="post-bottom">
-          <a href="/2019/08/16/FastDFS/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/HiveJDBC/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title18a2d0a.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/HiveJDBC/" class="post-title">
-        <h3>HiveJDBC</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>jdbc链接及linux指令</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/HiveJDBC/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/08/12/Hive优化/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ20190917105603453d4.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-8-12 17:08</div>
-      <a href="/2019/08/12/Hive优化/" class="post-title">
-        <h3>Hive优化</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/hive/">hive<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hive优化,文件存储及压缩介绍</p>
-        <div class="post-bottom">
-          <a href="/2019/08/12/Hive优化/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-right"></i></a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/3/" class>Previous</a></div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">
