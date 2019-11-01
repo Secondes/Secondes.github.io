@@ -504,7 +504,7 @@ $(document).ready(function () {
   changeBG('#pixiv-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/star.png')
   changeBG('#KAdots-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/point.png')
   changeBG('#totem-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/themebg/little-monster.png')
-  changeBGnoTrans('#bing-bg', 'https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/background_aqua_white.jpg')
+  changeBGnoTrans('#bing-bg', 'https://www.yremp.live/images/2019/11/01/74048551_p0fa266.jpg')
   $('.skin-menu #white-bg').click(function () {
     mashiro_global.variables.skinSecter = false
     mashiro_global.variables.isNight = false
