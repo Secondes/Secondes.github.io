@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">JDBC简明教程 | 小舞的个人主页</title>
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://www.yremp.live/images/2019/11/01/76135950_p0248c3.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=640">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://www.yremp.live/images/2019/09/03/github2cfca.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://www.yremp.live/images/2019/09/03/twitter68cc0.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://www.yremp.live/images/2019/09/03/facebook73baf.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://www.yremp.live/images/2019/09/03/qqdfdb4.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://www.yremp.live/images/2019/09/03/wechat28a70.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/11/12/QQ201911121757279340b.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      JDBC简明教程</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-11-12<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="简单的JDBC教程"><a href="#简单的JDBC教程" class="headerlink" title="简单的JDBC教程"></a>简单的JDBC教程</h1><p>首先去到这个路径,把Oracle的JDBC包搞出来</p>
+<p><img src="https://www.yremp.live/images/2019/11/12/QQ20191112175208e8a0e.png" alt></p>
+<p>打开IDE,把这个包加到依赖里面</p>
+<p><img src="https://www.yremp.live/images/2019/11/12/QQ20191112175315f9e3c.png" alt></p>
+<p>点开依赖,看到这个就代表成功了</p>
+<p><img src="https://www.yremp.live/images/2019/11/12/QQ2019111217535835f08.png" alt></p>
+<p>下面是一个最基础的JDBC链接代码</p>
+<pre><code class="java">/**
+ * please @mio
+ * @Author OkamiMio
+ * @Date: 2019/11/11 18:10
+ */
+public class YozoraMel {
+    public static void main(String[] args) throws Exception {
+        // Class.forName(String className)的作用有两个，第一是CLASSPATH下指定名字的.class文件加载到Java虚拟机内存中， 第二是初始化这个类
+        // 点开OracleDriver这个类看,详情请见下个代码块
+        Class.forName(&quot;oracle.jdbc.driver.OracleDriver&quot;);
+        Connection connection = DriverManager.getConnection(&quot;jdbc:oracle:thin:@192.168.3.71:1521:orcl&quot;, &quot;scott&quot;, &quot;12345678&quot;);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(&quot;select * from tab&quot;);
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString(1) + &quot;,&quot; + resultSet.getString(2));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+}
+</code></pre>
+<p>点开OracleDriver类,可以发现如下静态代码块,这就是为什么需要Class.forName的原因,它需要对一些静态属性和静态代码块做一些初始化和赋值操作</p>
+<p>但是会有同学问为什么不需要new出来,因为这个Driver中我们并没有调用任何方法,我们需要做的是拿到Connection来调用Driver中的各种方法去连接数据库,开发者已经帮我们做好了,至于实际的实现无需关心</p>
+<pre><code class="java">static {
+    try {
+        if (defaultDriver == null) {
+            defaultDriver = new oracle.jdbc.OracleDriver();
+            DriverManager.registerDriver(defaultDriver);
+        }
+
+        AccessController.doPrivileged(new PrivilegedAction() {
+            public Object run() {
+                OracleDriver.registerMBeans();
+                return null;
+            }
+        });
+        Timestamp var0 = Timestamp.valueOf(&quot;2000-01-01 00:00:00.0&quot;);
+    } catch (SQLException var5) {
+        Logger.getLogger(&quot;oracle.jdbc.driver&quot;).log(Level.SEVERE, &quot;SQLException in static block.&quot;, var5);
+    } catch (RuntimeException var6) {
+        Logger.getLogger(&quot;oracle.jdbc.driver&quot;).log(Level.SEVERE, &quot;RuntimeException in static block.&quot;, var6);
+    }
+
+    try {
+        ClassRef var7 = ClassRef.newInstance(&quot;oracle.security.pki.OraclePKIProvider&quot;);
+        Object var1 = var7.get().newInstance();
+    } catch (Throwable var4) {
+    }
+
+    systemTypeMap = new Hashtable(3);
+
+    try {
+        systemTypeMap.put(&quot;SYS.XMLTYPE&quot;, ClassRef.newInstance(&quot;oracle.xdb.XMLTypeFactory&quot;));
+    } catch (ClassNotFoundException var3) {
+    }
+
+    try {
+        systemTypeMap.put(&quot;SYS.ANYDATA&quot;, ClassRef.newInstance(&quot;oracle.sql.AnyDataFactory&quot;));
+        systemTypeMap.put(&quot;SYS.ANYTYPE&quot;, ClassRef.newInstance(&quot;oracle.sql.TypeDescriptorFactory&quot;));
+    } catch (ClassNotFoundException var2) {
+    }
+
+    _Copyright_2007_Oracle_All_Rights_Reserved_ = null;
+}
+</code></pre>
+<p>可以发现,如果有很多连接的话,那么代码会变得非常臃肿.于是可以将这些公共的连接代码抽出来一个工具类,将来统一使用这个工具类进行连接</p>
+<pre><code class="java">/**
+ * please @mio
+ *
+ * @Author OkamiMio
+ * @Date: 2019/11/11 18:30
+ */
+public class DBUtil {
+    public static final String URL = &quot;jdbc:oracle:thin:@192.168.3.71:1521:orcl&quot;;
+    public static final String USERNAME = &quot;scott&quot;;
+    public static final String PASSWORD = &quot;12345678&quot;;
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(Connection connection, Statement statement) {
+        if (connection != null &amp;&amp; statement != null) {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(Connection connection, Statement statement, ResultSet resultSet) {
+        if (connection != null &amp;&amp; statement != null &amp;&amp; resultSet != null) {
+            try {
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre>
+<p>创建和oracle表中对应的实体类,这里我居然卡在了toString方法上,使用快捷键ctrl+o生成的toString只能默认super,如果想使用idea帮你生成的toString请使用快捷键alt+insert里面的toString</p>
+<pre><code class="java">/**
+ * please @mio
+ *
+ * @Author OkamiMio
+ */
+public class Emp {
+    private Integer empno;
+    private String ename;
+    private String job;
+    private Integer mrg;
+    private String hiredate;
+    private Double sal;
+    private Double comm;
+    private Integer deptno;
+
+    @Override
+    public String toString() {
+        return &quot;Emp{&quot; +
+                &quot;empno=&quot; + empno +
+                &quot;, ename=&#39;&quot; + ename + &#39;\&#39;&#39; +
+                &quot;, job=&#39;&quot; + job + &#39;\&#39;&#39; +
+                &quot;, mrg=&quot; + mrg +
+                &quot;, hiredate=&#39;&quot; + hiredate + &#39;\&#39;&#39; +
+                &quot;, sal=&quot; + sal +
+                &quot;, comm=&quot; + comm +
+                &quot;, deptno=&quot; + deptno +
+                &#39;}&#39;;
+    }
+
+    public Emp(Integer empno, String ename, String job, Integer mrg, String hiredate, Double sal, Double comm, Integer deptno) {
+        this.empno = empno;
+        this.ename = ename;
+        this.job = job;
+        this.mrg = mrg;
+        this.hiredate = hiredate;
+        this.sal = sal;
+        this.comm = comm;
+        this.deptno = deptno;
+    }
+
+    public Emp() {
+    }
+
+    public Integer getEmpno() {
+        return empno;
+    }
+
+    public void setEmpno(Integer empno) {
+        this.empno = empno;
+    }
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public Integer getMrg() {
+        return mrg;
+    }
+
+    public void setMrg(Integer mrg) {
+        this.mrg = mrg;
+    }
+
+    public String getHiredate() {
+        return hiredate;
+    }
+
+    public void setHiredate(String hiredate) {
+        this.hiredate = hiredate;
+    }
+
+    public Double getSal() {
+        return sal;
+    }
+
+    public void setSal(Double sal) {
+        this.sal = sal;
+    }
+
+    public Double getComm() {
+        return comm;
+    }
+
+    public void setComm(Double comm) {
+        this.comm = comm;
+    }
+
+    public Integer getDeptno() {
+        return deptno;
+    }
+
+    public void setDeptno(Integer deptno) {
+        this.deptno = deptno;
+    }
+}
+</code></pre>
+<pre><code class="java">/**
+ * please @mio
+ *
+ * @Author OkamiMio
+ * @Date: 2019/11/12 10:15
+ */
+public class Dept {
+    private int deptno;
+    private String dname;
+    private String loc;
+
+    public Dept() {
+    }
+
+    public Dept(int deptno, String dname, String loc) {
+        this.deptno = deptno;
+        this.dname = dname;
+        this.loc = loc;
+    }
+
+    public int getDeptno() {
+        return deptno;
+    }
+
+    public void setDeptno(int deptno) {
+        this.deptno = deptno;
+    }
+
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Dept{&quot; +
+                &quot;deptno=&quot; + deptno +
+                &quot;, dname=&#39;&quot; + dname + &#39;\&#39;&#39; +
+                &quot;, loc=&#39;&quot; + loc + &#39;\&#39;&#39; +
+                &#39;}&#39;;
+    }
+}
+</code></pre>
+<p>CRUD</p>
+<pre><code class="java">/**
+ * 四大种类合起来就是传说中的CRUD接口
+ * @Author: OkamiMio
+ * @Date: 2019/11/11 10:35
+ */
+public interface EmpDao {
+    /**
+     * Create,俗称C
+     * @param emp
+     */
+    void insert(Emp emp);
+
+    /**
+     * Delete,俗称D
+     * @param emp
+     */
+    void delete(Emp emp);
+
+    /**
+     * Update,俗称U
+     * @param emp
+     */
+    void update(Emp emp);
+
+    /**
+     * Read,俗称R
+     * @param empNo
+     * @return
+     */
+    Emp select(Integer empNo);
+
+    /**
+     * 防止SQL注入攻击
+     * @param name
+     * @return
+     */
+    Emp selectByName(String name);
+}
+</code></pre>
+<p>静态处理Statement</p>
+<pre><code class="java">/**
+ * 传统的Statement实现,用于执行静态 SQL 语句并返回它所生成结果的对象
+ * please @mio
+ * @author OkamiMio
+ */
+public class StatementEmpDaoImpl implements EmpDao {
+    @Override
+    public void insert(Emp emp) {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.executeQuery(&quot;insert into emp values(&quot; + emp.getEmpno() + &quot;,&#39;&quot; + emp.getEname() + &quot;&#39;,&#39;&quot; + emp.getJob() + &quot;&#39;,&quot;
+                    + emp.getMrg() + &quot;,to_date(&#39;&quot; + emp.getHiredate() + &quot;&#39;,&#39;YYYY-MM-DD&#39;),&quot; + emp.getSal() + &quot;,&quot;
+                    + emp.getComm() + &quot;,&quot; + emp.getDeptno() + &quot;)&quot;);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, statement);
+        }
+    }
+
+    @Override
+    public void delete(Emp emp) {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            int result = statement.executeUpdate(&quot;delete from EMP where EMPNO = &quot; + emp.getEmpno());
+            System.out.println(&quot;受影响的行数是&quot; + result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, statement);
+        }
+    }
+
+    @Override
+    public void update(Emp emp) {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            int result = statement.executeUpdate(&quot;update EMP set ENAME = &#39;&quot; + emp.getEname() + &quot;&#39; where EMPNO = &quot; + emp.getEmpno());
+            System.out.println(&quot;受影响的行数是&quot; + result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, statement);
+        }
+
+    }
+
+    @Override
+    public Emp select(Integer empNo) {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Emp emp = null;
+        try {
+            connection.setAutoCommit(true);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(&quot;select * from EMP where EMPNO = &quot; + empNo);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+            while (resultSet.next()) {
+                emp = new Emp(resultSet.getInt(&quot;empno&quot;), resultSet.getString(&quot;ename&quot;), resultSet.getString(&quot;job&quot;), resultSet.getInt(&quot;mgr&quot;), simpleDateFormat.format(resultSet.getDate(&quot;hiredate&quot;)), resultSet.getDouble(&quot;sal&quot;), resultSet.getDouble(&quot;comm&quot;), resultSet.getInt(&quot;deptno&quot;));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, statement, resultSet);
+        }
+        return emp;
+    }
+
+    @Override
+    public Emp selectByName(String name) {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Emp emp = null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+        try {
+            statement = connection.createStatement();
+            String sql = &quot;select * from EMP where ENAME = &quot; + name;
+            System.out.println(sql);
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                emp = new Emp(resultSet.getInt(&quot;empno&quot;), resultSet.getString(&quot;ename&quot;), resultSet.getString(&quot;job&quot;), resultSet.getInt(&quot;mgr&quot;), simpleDateFormat.format(resultSet.getDate(&quot;hiredate&quot;)), resultSet.getDouble(&quot;sal&quot;), resultSet.getDouble(&quot;comm&quot;), resultSet.getInt(&quot;deptno&quot;));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, statement, resultSet);
+        }
+        return emp;
+    }
+
+    public static void main(String[] args) {
+        EmpDao empDao = new StatementEmpDaoImpl();
+//        Emp mio = new Emp(1, &quot;okamimio&quot;, &quot;vtuber&quot;, 1, &quot;2018-08-20&quot;, 1000.00, 1000.00, 1);
+//        empDao.insert(emp);
+//        empDao.delete(emp);
+//        Emp aqua = new Emp(1, &quot;minatoaqua&quot;, &quot;vtuber&quot;, 1, &quot;2018-08-20&quot;, 1000.00, 1000.00, 1);
+//        empDao.insert(mio);
+//        empDao.update(aqua);
+//        System.out.println(empDao.select(1));
+
+//        SQL注入攻击场景复现,由此产生PreparedStatement来避免这一现象产生
+        System.out.println(empDao.selectByName(&quot;&#39;minatoaqua&#39; or 1 = 1&quot;));
+    }
+}
+</code></pre>
+<p>占位符预处理的PreparedStatement,可以有效防止SQL攻击</p>
+<pre><code class="java">/**
+ * please @mio
+ * 使用PreparedStatement防止SQL注入攻击
+ *
+ * @Author OkamiMio
+ * @Date: 2019/11/12 10:23
+ */
+public class PreparedStatementEmpDaoImpl implements EmpDao {
+
+    private static Connection connection = DBUtil.getConnection();
+    private static PreparedStatement preparedStatement = null;
+    private static ResultSet resultSet = null;
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+    private static Emp emp = null;
+
+    @Override
+    public void insert(Emp emp) {
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;insert into emp values(?,?,?,?,?,?,?,?)&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, emp.getEmpno());
+            preparedStatement.setString(2, emp.getEname());
+            preparedStatement.setString(3, emp.getJob());
+            preparedStatement.setInt(4, emp.getMrg());
+            preparedStatement.setDate(5, new java.sql.Date(new SimpleDateFormat(&quot;yyyy-MM-DD&quot;).parse(emp.getHiredate()).getTime()));
+            preparedStatement.setDouble(6, emp.getSal());
+            preparedStatement.setDouble(7, emp.getComm());
+            preparedStatement.setInt(8, emp.getDeptno());
+            int result = preparedStatement.executeUpdate();
+            System.out.println(&quot;受影响的行数是&quot; + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void delete(Emp emp) {
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;delete from EMP where EMPNO = ?&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, emp.getEmpno());
+            int result = preparedStatement.executeUpdate();
+            System.out.println(&quot;受影响的行数是&quot; + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void update(Emp emp) {
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;update EMP set ENAME = ? where EMPNO = ?&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(2, emp.getEmpno());
+            preparedStatement.setString(1, emp.getEname());
+            int result = preparedStatement.executeUpdate();
+            System.out.println(&quot;受影响的行数是&quot; + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public Emp select(Integer empNo) {
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;select * from emp where EMPNO = ?&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, empNo);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                emp = new Emp(resultSet.getInt(&quot;empno&quot;), resultSet.getString(&quot;ename&quot;), resultSet.getString(&quot;job&quot;), resultSet.getInt(&quot;mgr&quot;), simpleDateFormat.format(resultSet.getDate(&quot;hiredate&quot;)), resultSet.getDouble(&quot;sal&quot;), resultSet.getDouble(&quot;comm&quot;), resultSet.getInt(&quot;deptno&quot;));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+        return emp;
+    }
+
+    @Override
+    public Emp selectByName(String name) {
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;select * from EMP where ENAME = ?&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,name);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                emp = new Emp(resultSet.getInt(&quot;empno&quot;), resultSet.getString(&quot;ename&quot;), resultSet.getString(&quot;job&quot;), resultSet.getInt(&quot;mgr&quot;), simpleDateFormat.format(resultSet.getDate(&quot;hiredate&quot;)), resultSet.getDouble(&quot;sal&quot;), resultSet.getDouble(&quot;comm&quot;), resultSet.getInt(&quot;deptno&quot;));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emp;
+    }
+
+    public static void main(String[] args) {
+        EmpDao empDao = new PreparedStatementEmpDaoImpl();
+//        Emp mio = new Emp(2, &quot;okamimio&quot;, &quot;vtuber&quot;, 1, &quot;2018-08-20&quot;, 1000.00, 1000.00, 1);
+//        empDao.insert(mio);
+//        empDao.delete(mio);
+//        Emp mio = new Emp(1, &quot;okamimio&quot;, &quot;vtuber&quot;, 1, &quot;2018-08-20&quot;, 1000.00, 1000.00, 1);
+//        empDao.update(mio);
+//        System.out.println(empDao.select(1));
+        System.out.println(empDao.selectByName(&quot;okamimio&quot;));
+    }
+}
+</code></pre>
+<p>预处理及单处理性能对比测试,可以看出来建立连接是非常耗时耗资源的</p>
+<pre><code class="java">/**
+ * please @mio
+ * 测试批处理性能
+ *
+ * @Author OkamiMio
+ * @Date: 2019/11/12 11:48
+ */
+public class BatchDaoImpl {
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        insertBatch();
+        long endTime = System.currentTimeMillis();
+        System.out.println(&quot;批处理时间:&quot; + (endTime - startTime));
+
+        System.out.println(&quot;-------&quot;);
+
+        startTime = System.currentTimeMillis();
+        for (int i = 201; i &lt; 300; i++) {
+            notInsertBatch(i);
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println(&quot;非批处理时间:&quot; + (endTime - startTime));
+    }
+
+    private static void notInsertBatch(int i) {
+        Connection connection = DBUtil.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            connection.setAutoCommit(true);
+            String sql = &quot;insert into EMP (empno, ename) values (?,?)&quot;;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, i);
+            preparedStatement.setString(2, &quot;aqua&quot; + i);
+            int update = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    private static void insertBatch() {
+        Connection connection = DBUtil.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            String sql = &quot;insert into EMP (empno, ename) values (?,?)&quot;;
+            connection.setAutoCommit(true);
+            preparedStatement = connection.prepareStatement(sql);
+            for (int i = 101; i &lt; 200; i++) {
+                preparedStatement.setInt(1, i);
+                preparedStatement.setString(2, &quot;mio&quot; + i);
+                preparedStatement.addBatch();
+            }
+            int[] results = preparedStatement.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement);
+        }
+    }
+}
+</code></pre>
+<p>100条SQL性能对比</p>
+<p><img src="https://www.yremp.live/images/2019/11/12/QQ201911121740573b316.png" alt></p>
+<p>利用反射进行统一的查询</p>
+<pre><code class="java">/**
+ * please @mio
+ *
+ * @Author OkamiMio
+ * @Date: 2019/11/12 13:34
+ */
+public class BaseDaoImpl {
+    /**
+     * 统一查询表的方法
+     *
+     * @param sql    sql语句
+     * @param params sql语句的参数
+     * @param clazz  sql语句返回的对象
+     * @return list
+     */
+    public List getRows(String sql, Object[] params, Class clazz) {
+        List list = new ArrayList();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            if (params != null) {
+                for (int i = 0; i &lt; params.length; i++) {
+                    preparedStatement.setObject(i, params[i]);
+                }
+            }
+            resultSet = preparedStatement.executeQuery();
+            // 取出结果集的元数据对象
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            // 查询到每一行的记录中包含多少个列
+            int columnCount = resultSetMetaData.getColumnCount();
+            while (resultSet.next()) {
+                Object clazzInstance = clazz.newInstance();
+                for (int i = 0; i &lt; columnCount; i++) {
+                    // resultSet下标从1开始
+                    Object objectValue = resultSet.getObject(i + 1);
+                    // 从元数据中获取列名并转化为大写
+                    String columnName = resultSetMetaData.getColumnName(i + 1).toLowerCase();
+                    // 获取所有属性
+                    Field declaredField = clazz.getDeclaredField(columnName);
+                    // 获取所有方法
+                    Method method = clazz.getMethod(getSetName(columnName), declaredField.getType());
+                    if (objectValue instanceof Number) {
+                        Number number = (Number) objectValue;
+                        String fname = declaredField.getType().getName();
+                        if (&quot;int&quot;.equals(fname) || &quot;java.lang.Integer&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.intValue());
+                        } else if (&quot;byte&quot;.equals(fname) || &quot;java.lang.Byte&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.byteValue());
+                        } else if (&quot;short&quot;.equals(fname) || &quot;java.lang.Short&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.shortValue());
+                        } else if (&quot;long&quot;.equals(fname) || &quot;java.lang.Long&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.longValue());
+                        } else if (&quot;float&quot;.equals(fname) || &quot;java.lang.Float&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.floatValue());
+                        } else if (&quot;double&quot;.equals(fname) || &quot;java.lang.Double&quot;.equals(fname)) {
+                            method.invoke(clazzInstance, number.doubleValue());
+                        }
+                    } else {
+                        method.invoke(clazzInstance, objectValue);
+                    }
+                }
+                list.add(clazzInstance);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(connection, preparedStatement, resultSet);
+        }
+        return list;
+    }
+
+    private String getSetName(String columnName) {
+        return &quot;set&quot; + columnName.substring(0, 1).toUpperCase() + columnName.substring(1);
+    }
+
+    public static void main(String[] args) {
+        BaseDaoImpl baseDao = new BaseDaoImpl();
+        List rows = baseDao.getRows(&quot;select deptno,dname,loc from dept&quot;, new Object[]{}, Dept.class);
+        for (Iterator it = rows.iterator(); it.hasNext(); ) {
+            Dept dept = (Dept) it.next();
+            System.out.println(dept);
+        }
+    }
+}
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2019/10/17/Scala初识04/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/10/17/QQ201910171703253a291.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Scala初识04</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=640">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/sakura.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>
