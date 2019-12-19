@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">spring: hdfs | 小舞的个人主页</title>
+  <title itemprop="name">Mysql索引总结 | 小舞的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -260,64 +260,200 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="hdfs.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/60a50cf572dc00fe92059431a756bd65.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Mysql索引总结</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-12-19<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">hdfs</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/08/10/HDFS名词解释/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="Mysql索引总结"><a href="#Mysql索引总结" class="headerlink" title="Mysql索引总结"></a>Mysql索引总结</h1><h2 id="需要掌握的前提"><a href="#需要掌握的前提" class="headerlink" title="需要掌握的前提"></a>需要掌握的前提</h2><p>索引是帮助 MySQL 高效获取数据的数据结构</p>
+<p>索引存储在文件系统中</p>
+<p>索引的文件存储形式与存储引擎有关</p>
+<h2 id="索引文件的结构"><a href="#索引文件的结构" class="headerlink" title="索引文件的结构"></a>索引文件的结构</h2><ul>
+<li>hash</li>
+<li>二叉树</li>
+<li>B树</li>
+<li>B+树 </li>
+</ul>
+<h2 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h2><p>mysql索引的五种类型:<code>主键索引</code>,<code>唯一索引</code>,<code>普通索引</code>,<code>全文索引</code>和<code>组合索引</code>.通过给字段添加索引 可以提高数据的读取速度,提高项目的并发能力和抗压能力.</p>
+<ul>
+<li><p><code>主键索引</code>:主键是一种唯一性索引,但它必须指定为PRIMARY KEY,每个表只能有一个主键. </p>
+</li>
+<li><p><code>唯一索引</code>:索引列的所有值都只能出现一次,即必须唯一,值可以为空.</p>
+</li>
+<li><p><code>普通索引</code>:基本的索引类型,值可以为空,没有唯一性的限制.(覆盖索引)</p>
+</li>
+<li><p><code>全文索引</code>,MyISAM支持,Innodb在5.6之后支持:全文索引的索引类型为FULLTEXT.全文索引可以在varchar,char,text类型的列上创建</p>
+</li>
+<li><p><code>组合索引</code>:多列值组成一个索引,专门用于组合搜索(最左匹配原则) </p>
+</li>
+</ul>
+<h2 id="存储引擎对比"><a href="#存储引擎对比" class="headerlink" title="存储引擎对比"></a>存储引擎对比</h2><p><img src="http://file.mycookies.cn/201805211208_429.jpg?imageView1/JannLee/md/01" alt></p>
+<p>在mysql命令行查看当前使用的存储引擎</p>
+<pre><code class="sql">show variables like &#39;storage_engine&#39;; --5版本使用此命令
+show engines; --8版本以上使用此命令
+</code></pre>
+<p><img src="https://www.yremp.live/images/2019/12/19/QQ201912191434078e4a3.png" alt></p>
+<p>可以发现默认的存储引擎是InnoDB,当然,5.1默认是MyISAM(<code>没事别瞎看红框,出问题我可不负责</code>)</p>
+<h2 id="面试灾区"><a href="#面试灾区" class="headerlink" title="面试灾区"></a>面试灾区</h2><h3 id="回表"><a href="#回表" class="headerlink" title="回表"></a>回表</h3><p>先定位主键值,再定位行记录,它的性能较扫一遍索引树更低.样例sql:</p>
+<pre><code class="sql">select * from hololive where name = &#39;minatoaqua&#39;;
+</code></pre>
+<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>包含查询所检索的所有列的<strong>索引</strong>.该查询不使用索引值作为查找完整表行的指针,而是从索引结构返回值,从而节省了磁盘I/O. InnoDB可以将这种优化技术应用于比MyISAM更多的索引,因为InnoDB<strong>辅助索引</strong>还包括<strong>主键</strong>列.InnoDB在事务结束之前,不能将这种技术应用于对事务修改的表的查询.样例sql:</p>
+<pre><code class="sql">select id,name from hololive where name = &#39;minatoaqua&#39;;
+</code></pre>
+<h3 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h3><p>多列索引最左优先,以最左边的为起点任何连续的索引都能匹配上.同时遇到范围查询(<code>&gt;</code>,<code>&lt;</code>,<code>between</code>,<code>like</code>)就会停止匹配. 样例sql:</p>
+<pre><code class="sql">select * from hololive where name = &#39;minatoaqua&#39; and age = 14; -- explain type:simple,符合最左匹配
+select * from hololive where age = 14; -- explain type:index,不符合最左匹配
+</code></pre>
+<h3 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h3><p>索引下推只适用于<code>二级索引</code>列,一般查询场景用于所查询的字段(select列)不全是<code>联合索引</code>的字段,查询条件为多条件并且查询子句(where)字段全是<code>联合索引</code>.在<code>联合索引</code>中,有两种执行的可能性.</p>
+<p>第一种:联合索引查询所有包含”aqua”的索引,然后回表查询出相应的全行数据,再筛选出age&lt;14的用户数据</p>
+<p>第二种:联合索引查询所有包含”aqua”的索引,然后直接筛选出age&lt;14的所有索引,之后再回表查询全行数据</p>
+<p>样例sql:</p>
+<pre><code class="sql">select * from hololive where like = &#39;%aqua&#39; and age &lt; 14; -- 默认开启索引下推,age和name为联合索引
+</code></pre>
+<h2 id="索引维护"><a href="#索引维护" class="headerlink" title="索引维护"></a>索引维护</h2><p>索引在插入新的值的时候,为了维护索引的有序性,必须要维护, 在维护索引的时候需要需要分以下集中情况:</p>
+<ul>
+<li>如果插入一个比较大的值,直接插入即可,几乎没有成本</li>
+<li>如果插入的是中间的某一个值,需要逻辑上移动后续的元素,空出位置</li>
+<li>如果需要插入的数据页满了,就需要单独申请一个新的数据页,然后移动部分数据过去,叫做<strong>页分裂</strong>,此时性能会受影响同时空间的使用率也会降低,除了<strong>页分裂</strong>之外还包含<strong>页合并</strong></li>
+<li>尽量使用自增主键作为索引 </li>
+</ul>
+<h2 id="组合索引"><a href="#组合索引" class="headerlink" title="组合索引"></a>组合索引</h2><p>下图为组合索引的查询参考示例图:其中a,b,c三列为组合索引</p>
+<p><img src="https://www.yremp.live/images/2019/12/19/QQ201912191557405b2a2.png" alt></p>
+<h2 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h2><h3 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h3><p>不是单独的索引类型,而是一种数据存储方式,指的是数据行跟相邻的键值紧凑的存储在一起</p>
+<p>优点:</p>
+<ul>
+<li>可以把相关数据保存在一起</li>
+<li>数据访问更快,因为索引和数据保存在同一个树中</li>
+<li>使用覆盖索引扫描的查询可以直接使用页节点中的主键值</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>聚簇数据最大限度地提高了IO密集型应用的性能,如果数据全部在内存,那么聚簇索引就没有什么优势</li>
+<li>插入速度严重依赖于插入排序,按照主键的顺序插入是最快的方式</li>
+<li>更新聚簇索引列的代价很高,因为会强制将每个被更新的行移动到新的位置</li>
+<li>基于聚簇索引的表在插入新行,或者主键被更新导致需要移动行的时候,可能面临页分裂的问题</li>
+<li>聚簇索引可能导致全表扫描变慢,尤其是行比较稀疏,或者由于页分裂导致数据存储不连续的时候</li>
+</ul>
+<h3 id="非聚簇索引"><a href="#非聚簇索引" class="headerlink" title="非聚簇索引"></a>非聚簇索引</h3><ul>
+<li>数据文件跟索引文件分开存放</li>
+</ul>
+<h2 id="其他关于索引的一些意见"><a href="#其他关于索引的一些意见" class="headerlink" title="其他关于索引的一些意见"></a>其他关于索引的一些意见</h2><ul>
+<li>使用索引列进行查询的时候不要使用<code>表达式</code>,把计算放到业务层而不是数据库层</li>
+<li>尽量使用<code>主键查询</code>,而不是其他索引,因为<code>主键查询</code>不会触发回表查询</li>
+<li><code>union all</code>,<code>in</code>,<code>or</code>都能使用索引,但是推荐使用<code>in</code></li>
+<li>范围列可以用到索引,如<code>&lt;</code>,<code>&lt;=</code>,<code>&gt;</code>,<code>&gt;=</code>,<code>between</code>,但是范围列后面的列无法使用索引,索引最多用于<code>一个</code>范围列</li>
+<li><code>强制类型转换</code>会导致全表扫描</li>
+<li>更新频繁的字段上<code>不宜建立索引</code></li>
+<li>创建索引的列,不允许为<code>null</code>,可能会得到不符合预期的结果</li>
+<li>当需要进行表连接的时候,不要超过三张表</li>
+<li>尽量使用<code>limit</code></li>
+<li>单表索引数量控制在<code>5个以内</code></li>
+<li>索引并非<code>越多越好</code></li>
+<li>在不了解系统的情况下进行优化</li>
+</ul>
+<h2 id="索引监控"><a href="#索引监控" class="headerlink" title="索引监控"></a>索引监控</h2><pre><code class="sql">show status like &#39;Handler_read%&#39;;
+</code></pre>
+<p>参数解释</p>
+<ul>
+<li>Handler_read_first:读取索引第一个条目的次数</li>
+<li>Handler_read_key:通过index获取数据的次数</li>
+<li>Handler_read_last:读取索引最后一个条目的次数</li>
+<li>Handler_read_next:通过索引读取下一条数据的次数</li>
+<li>Handler_read_prev:通过索引读取上一条数据的次数</li>
+<li>Handler_read_rnd:从固定位置读取数据的次数</li>
+<li>Handler_read_rnd_next:从数据节点读取下一条数据的次数</li>
+</ul>
+
         </div>
-        <img width="150" height="150" src="https://www.yremp.live/images/2019/09/03/title1036745.gif" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/08/10/HDFS名词解释/">
-    HDFS名词解释</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-8-10</div>
-    <p>
-    hdfs中的对象的一些解释</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/08/10/HDFS名词解释/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2019/12/19/Http协议学习/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2019/08/10/130ef0a857389caae79d71ad7b3e91ce.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Http协议学习</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
-</div>
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
