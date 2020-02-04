@@ -48,7 +48,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://www.yremp.live/images/2019/11/01/76135950_p0248c3.jpg".split(",");
+  var bg = "http://www.yremp.live/images/2019/12/25/72140975_p051b13.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -403,7 +403,8 @@
 <p>join_buffer_size的默认值是256K,join_buffer_size的最大值在MySQL 5.1.22版本前是4G-1,而之后的版本才能在64位操作系统下申请大于4G的Join Buffer空间.</p>
 <p>使用Block Nested-Loop Join算法需要开启优化器管理配置的optimizer_switch的设置block_nested_loop为on,默认为开启.</p>
 </blockquote>
-<pre><code class="sql">show variables like &#39;%optimizer_switch%&#39;
+<pre><code class="sql">show variables like &#39;%optimizer_switch%&#39;;
+show variables like &#39;%join_buffer%;&#39;
 </code></pre>
 <h5 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h5><p>查看不同的顺序执行方式对查询性能的影响：</p>
 <pre><code class="sql">explain select film.film_id,film.title,film.release_year,actor.actor_id,actor.first_name,actor.last_name from film inner join film_actor using(film_id) inner join actor using(actor_id);
@@ -415,8 +416,9 @@
 <pre><code class="sql">explain select straight_join film.film_id,film.title,film.release_year,actor.actor_id,actor.first_name,actor.last_name from film inner join film_actor using(film_id) inner join actor using(actor_id);
 </code></pre>
 <p>查看执行的成本：</p>
-<pre><code>show status like &#39;last_query_cost&#39;;
-</code></pre><h5 id="排序优化"><a href="#排序优化" class="headerlink" title="排序优化"></a>排序优化</h5><p>排序的算法</p>
+<pre><code class="sql">show status like &#39;last_query_cost&#39;;
+</code></pre>
+<h5 id="排序优化"><a href="#排序优化" class="headerlink" title="排序优化"></a>排序优化</h5><p>排序的算法</p>
 <ul>
 <li><p>两次传输排序</p>
 <p>第一次数据读取是将需要排序的字段读取出来,然后进行排序,第二次是将排好序的结果按照需要去读取数据行.</p>
@@ -520,7 +522,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 小舞<br>
+      &copy; 2020 小舞<br>
       powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
