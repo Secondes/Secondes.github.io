@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">小舞的个人主页</title>
+  <title itemprop="name">docker | 小舞的个人主页</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -260,288 +260,191 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
-<div id="content" class="site-content">
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Welcome to xiaowu&#39;s blog</div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/7783c569da16e2baa2363.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      docker</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-3-24<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <div class="top-feature-row" style="display:none">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-</div>
+
+<div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true">
-      </i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="docker练习"><a href="#docker练习" class="headerlink" title="docker练习"></a>docker练习</h1><hr>
+<blockquote>
+<p>之前我认为docker其实并没有什么用,软件还是手动部署来得实在</p>
+<p>现在我只能说,没有人能逃得过真香定论</p>
+</blockquote>
+<hr>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><h3 id="step-1-安装必要的一些系统工具"><a href="#step-1-安装必要的一些系统工具" class="headerlink" title="step 1: 安装必要的一些系统工具"></a>step 1: 安装必要的一些系统工具</h3><pre><code class="shell">sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+</code></pre>
+<h3 id="Step-2-添加软件源信息"><a href="#Step-2-添加软件源信息" class="headerlink" title="Step 2: 添加软件源信息"></a>Step 2: 添加软件源信息</h3><pre><code class="shell">sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</code></pre>
+<h3 id="Step-3-更新并安装Docker-CE"><a href="#Step-3-更新并安装Docker-CE" class="headerlink" title="Step 3: 更新并安装Docker-CE"></a>Step 3: 更新并安装Docker-CE</h3><pre><code class="shell">sudo yum makecache fast
+sudo yum -y install docker-ce
+</code></pre>
+<h3 id="Step-4-开启Docker服务"><a href="#Step-4-开启Docker服务" class="headerlink" title="Step 4: 开启Docker服务"></a>Step 4: 开启Docker服务</h3><pre><code class="shell">sudo service docker start
+</code></pre>
+<blockquote>
+<p>注意：官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，您可以通过以下方式开启。同理可以开启各种测试版本等。</p>
+<p>vim /etc/yum.repos.d/docker-ee.repo</p>
+<p>将[docker-ce-test]下方的enabled=0修改为enabled=1</p>
+</blockquote>
+<h2 id="安装指定版本的Docker-CE"><a href="#安装指定版本的Docker-CE" class="headerlink" title="安装指定版本的Docker-CE:"></a>安装指定版本的Docker-CE:</h2><h3 id="Step-1-查找Docker-CE的版本"><a href="#Step-1-查找Docker-CE的版本" class="headerlink" title="Step 1: 查找Docker-CE的版本:"></a>Step 1: 查找Docker-CE的版本:</h3><pre><code class="shell">yum list docker-ce.x86_64 --showduplicates | sort -r
+</code></pre>
+<p>Loading mirror speeds from cached hostfile<br>Loaded plugins: branch, fastestmirror, langpacks<br>docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable<br>docker-ce.x86_64            17.03.1.ce-1.el7.centos            @docker-ce-stable<br>docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable<br>Available Packages</p>
+<h3 id="Step2-安装指定版本的Docker-CE"><a href="#Step2-安装指定版本的Docker-CE" class="headerlink" title="Step2: 安装指定版本的Docker-CE:"></a>Step2: 安装指定版本的Docker-CE:</h3><p>(VERSION例如上面的17.03.0.ce.1-1.el7.centos)</p>
+<pre><code class="shell">sudo yum -y install docker-ce-[VERSION]
+
+docker pull hello-world
+docker run hello-world
+</code></pre>
+<h3 id="指定版本-默认最新版"><a href="#指定版本-默认最新版" class="headerlink" title="指定版本,默认最新版"></a>指定版本,默认最新版</h3><pre><code class="shell">docker pull tomcat &lt;:tags&gt;
+</code></pre>
+<h3 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h3><pre><code class="shell">docker images
+</code></pre>
+<h3 id="创建容器-启动应用"><a href="#创建容器-启动应用" class="headerlink" title="创建容器,启动应用"></a>创建容器,启动应用</h3><pre><code class="shell">docker run 镜像名 &lt;:tags&gt;
+</code></pre>
+<h3 id="查看正在运行中的镜像"><a href="#查看正在运行中的镜像" class="headerlink" title="查看正在运行中的镜像"></a>查看正在运行中的镜像</h3><pre><code class="shell">docker ps
+</code></pre>
+<h3 id="删除-参数代表强制删除"><a href="#删除-参数代表强制删除" class="headerlink" title="删除,参数代表强制删除"></a>删除,参数代表强制删除</h3><pre><code class="shell">docker rm &lt;-f&gt; 容器id
+</code></pre>
+<blockquote>
+<p>docker的中央仓库,存放着所有镜像</p>
+<p><a href="http://www.hub.docker.com" target="_blank" rel="noopener">www.hub.docker.com</a></p>
+</blockquote>
+<h3 id="容器-程序"><a href="#容器-程序" class="headerlink" title="容器:程序"></a>容器:程序</h3><pre><code class="shell">docker run -p 8000:8080 
+</code></pre>
+<h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><pre><code class="shell">docker exec -it 容器id /bin/bash
+</code></pre>
+<blockquote>
+<p>埋坑点</p>
+<p>docker安装的tomcat默认的webapps目录为空,需要进入容器删除这个目录并把webapps.dist目录替换成webapps</p>
+</blockquote>
+<h3 id="关于构建镜像"><a href="#关于构建镜像" class="headerlink" title="关于构建镜像"></a>关于构建镜像</h3><pre><code class="shell">docker build -t &lt;组织机构名&gt;/&lt;镜像名&gt;:&lt;版本号&gt; 路径
+</code></pre>
+<p><code>RUN</code> 构建镜像时运行</p>
+<p><code>CMD</code> 容器启动时执行(默认命令,不一定必须为完整指令,也可以为指令的一部分;如 <code>docker run centos ls</code>,表示构建镜像时直接执行命令,此时dockerfile中如果存在cmd命令,则文件中的命令失效)</p>
+<p><code>ENTRYPOINT</code> 容器启动时一定会执行,如果存在多行,则只有最后一行会被执行;如果和CMD组合使用,会产生很多变化,见如下案例</p>
+<h3 id="dockerfile文件"><a href="#dockerfile文件" class="headerlink" title="dockerfile文件"></a>dockerfile文件</h3><pre><code class="shell">FROM centos
+RUN [&quot;echo&quot;,&quot;ookamimio!&quot;]
+ENTRYPOINT [&quot;ps&quot;]
+CMD [&quot;-ef&quot;]
+</code></pre>
+<p>此时会联合使用,相当于ps -ef,联合使用的优点,可以随时替换参数,如使用ENTRYPOINT指定命令,CMD更换参数</p>
+<pre><code class="shell">docker run ookamimio -aux
+</code></pre>
+<h3 id="对外暴露端口"><a href="#对外暴露端口" class="headerlink" title="对外暴露端口"></a>对外暴露端口</h3><pre><code class="shell">EXPOSE &lt;端口号&gt;
+</code></pre>
+<h3 id="关于挂载镜像"><a href="#关于挂载镜像" class="headerlink" title="关于挂载镜像"></a>关于挂载镜像</h3><p>相当于将tomcat镜像中的文件指向到本地路径,以此做到多个tomcat指向同一个本地路径</p>
+<pre><code class="shell">docker run --name t1 -p 8000:8080 -d -v /usr/webapps:/usr/local/tomcat/webapps tomcat
+</code></pre>
+<p>配置略显麻烦,产生共享容器概念(true为占位符,无实际意义)</p>
+<pre><code class="shell">docker create --name webpage -v /usr/webapps:/usr/local/tomcat/webapps tomcat /bin/true
+docker run -p 8002:8080 --volumes-from webpage --name -t3 -d tomcat
+</code></pre>
+<p>docker compose,官方提供的容器编排工具</p>
+<pre><code class="shell">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose -version
+</code></pre>
+<h3 id="安装mysql-5-7"><a href="#安装mysql-5-7" class="headerlink" title="安装mysql 5.7"></a>安装mysql 5.7</h3><pre><code class="shell">docker run -d -p 3306:3306 --name mysql -v $PWD/mysql5.7/conf:/etc/mysql/mysql.conf.d -v $PWD/mysql5.7/logs:/logs -v $PWD/mysql5.7/data:/mysql_data -e MYSQL_ROOT_PASSWORD=xiaoguaishouxiaowu mysql:5.7
+docker exec -it 62349aa31687 /bin/bash
+mysql -uroot -p
+mysql&gt; GRANT ALL ON *.* TO &#39;root&#39;@&#39;%&#39;;
+mysql&gt; flush privileges;
+mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39; PASSWORD EXPIRE NEVER;
+mysql&gt; ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;123456&#39;;
+mysql&gt; flush privileges;
+</code></pre>
+<h3 id="安装oracle11g"><a href="#安装oracle11g" class="headerlink" title="安装oracle11g"></a>安装oracle11g</h3><pre><code class="shell">docker run -d -p 1521:1521 --name oracle11g -e ORACLE_PWD=xiaoguaishouxiaowu registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g
+</code></pre>
+<p>下次抽时间学习k8s</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/07/05/Hadoop初级1/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title37e0fc.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-7-5 13:07</div>
-      <a href="/2019/07/05/Hadoop初级1/" class="post-title">
-        <h3>Hadoop初级1</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
         
-            <a href="/tags/hadoop/">hadoop<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>hadoop初级教程</p>
-        <div class="post-bottom">
-          <a href="/2019/07/05/Hadoop初级1/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/06/28/Spring初级2/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title23c974.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-6-28 17:06</div>
-      <a href="/2019/06/28/Spring初级2/" class="post-title">
-        <h3>Spring初级2</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
           
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
+            <div class="post-nepre full next">
           
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>spring简单教程2</p>
-        <div class="post-bottom">
-          <a href="/2019/06/28/Spring初级2/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/06/26/Spring初级1/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title1f86b2.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-6-26 08:06</div>
-      <a href="/2019/06/26/Spring初级1/" class="post-title">
-        <h3>Spring初级1</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
+            <a href="/2019/12/20/Mysql查询优化/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://fp1.fghrsh.net/2017/10/05/7fb6f4f53141155bb7d2437a93535269.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Mysql查询优化</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
         
-            <a href="/tags/spring/">spring<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>spring简单教程1</p>
-        <div class="post-bottom">
-          <a href="/2019/06/26/Spring初级1/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2019/06/04/资源/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171055596565d.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-6-4 11:06</div>
-      <a href="/2019/06/04/资源/" class="post-title">
-        <h3>资源</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/resource/">resource<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/资源/">资源</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>没啥好说的233</p>
-        <div class="post-bottom">
-          <a href="/2019/06/04/资源/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb post-list-thumb-left" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/06/04/生活/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/03/title50af84.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-6-4 10:06</div>
-      <a href="/2019/06/04/生活/" class="post-title">
-        <h3>生活</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/life/">life<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/生活/">生活</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>没啥好说的233</p>
-        <div class="post-bottom">
-          <a href="/2019/06/04/生活/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article class="post post-list-thumb" itemscope itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2019/05/30/aboutme/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/09/17/QQ201909171052036e79d.gif">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2019-5-30 14:05</div>
-      <a href="/2019/05/30/aboutme/" class="post-title">
-        <h3>aboutme</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/aboutme/">aboutme<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/技术/">技术</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>自我介绍</p>
-        <div class="post-bottom">
-          <a href="/2019/05/30/aboutme/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
+      
+    <!-- #main -->
+  </div><!-- #primary -->
 
 
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
-      </nav>
-     -->
-  </div>
-  
-</div>
+
 
     </div>    
     <div class="ins-search">
