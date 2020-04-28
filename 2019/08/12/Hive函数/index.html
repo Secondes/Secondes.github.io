@@ -48,7 +48,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://www.yremp.live/images/2020/03/18/79565511_p07587a.jpg".split(",");
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -1122,6 +1122,7 @@ set
 </code></pre>
 <p>4、hive参数初始化设置<br>​在当前用户的家目录下创建<strong>.hiverc</strong>文件，在当前文件中设置hive参数的命令，每次进入hive cli的时候，都会加载.hiverc的文件，执行文件中的命令。<br>​<strong>注意：在当前用户的家目录下还会存在.hivehistory文件，此文件中保存了hive cli中执行的所有命令</strong></p>
 <h2 id="2、hive运行方式"><a href="#2、hive运行方式" class="headerlink" title="2、hive运行方式"></a>2、hive运行方式</h2><h3 id="1、hive运行方式分类"><a href="#1、hive运行方式分类" class="headerlink" title="1、hive运行方式分类"></a>1、hive运行方式分类</h3><p>（1）命令行方式或者控制台模式<br>​（2）脚本运行方式（实际生产环境中用最多）<br>（3）JDBC方式：hiveserver2<br>​（4）web GUI接口（hwi、hue等）</p>
+<p><img src="https://www.yremp.live/images/2020/04/22/hivehwib7da8.png" alt></p>
 <h3 id="2、hive命令行模式详解"><a href="#2、hive命令行模式详解" class="headerlink" title="2、hive命令行模式详解"></a>2、hive命令行模式详解</h3><p>（1）在命令行中可以直接输入SQL语句，例如：select * from table_name<br>​（2）在命令行中可以与HDFS交互，例如：dfs ls /<br>​（3）在命令行中可以与linux交互，例如：! pwd或者! ls /<br>​<strong>注意：与linux交互的时候必须要加!</strong></p>
 <h3 id="3、hive脚本运行方式"><a href="#3、hive脚本运行方式" class="headerlink" title="3、hive脚本运行方式"></a>3、hive脚本运行方式</h3><pre><code class="sql">--hive直接执行sql命令，可以写一个sql语句，也可以使用;分割写多个sql语句
 hive -e &quot;&quot;

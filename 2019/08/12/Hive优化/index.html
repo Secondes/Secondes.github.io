@@ -48,7 +48,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://www.yremp.live/images/2020/03/18/79565511_p07587a.jpg".split(",");
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -555,7 +555,7 @@ hive (default)&gt; set mapreduce.output.fileoutputformat.compress.type=BLOCK;
 hive (default)&gt; insert overwrite local directory &#39;/root/data&#39; select * from aaaa;
 </code></pre>
 <h2 id="2、文件存储格式"><a href="#2、文件存储格式" class="headerlink" title="2、文件存储格式"></a>2、文件存储格式</h2><p>Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
-<h3 id="1-列式存储和行式存储"><a href="#1-列式存储和行式存储" class="headerlink" title="1) 列式存储和行式存储"></a>1) 列式存储和行式存储</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/%E8%A1%8C%E5%BC%8F%E5%AD%98%E5%82%A8%E4%B8%8E%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8.png" alt="行式存储与列式存储"></p>
+<h3 id="1-列式存储和行式存储"><a href="#1-列式存储和行式存储" class="headerlink" title="1) 列式存储和行式存储"></a>1) 列式存储和行式存储</h3><p><img src="https://www.yremp.live/images/2020/04/22/7218a82e648a3d2a6d4e6.png" alt="行式存储与列式存储"></p>
 <p>上图左边为逻辑表，右边第一个为行式存储，第二个为列式存储。</p>
 <p><strong>行存储的特点：</strong> 查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
 <p><strong>列存储的特点：</strong> 因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p>
@@ -564,13 +564,13 @@ hive (default)&gt; insert overwrite local directory &#39;/root/data&#39; select 
 <h3 id="2-TEXTFILE格式"><a href="#2-TEXTFILE格式" class="headerlink" title="2) TEXTFILE格式"></a><strong>2)</strong> <strong>TEXTFILE格式</strong></h3><p>默认格式，数据不做压缩，磁盘开销大，数据解析开销大。可结合Gzip、Bzip2使用(系统自动检查，执行查询时自动解压)，但使用这种方式，hive不会对数据进行切分，从而无法对数据进行并行操作。</p>
 <h3 id="3-ORC格式"><a href="#3-ORC格式" class="headerlink" title="3) ORC格式"></a><strong>3)</strong> ORC格式</h3><p>Orc (Optimized Row Columnar)是hive 0.11版里引入的新的存储格式。</p>
 <p>可以看到每个Orc文件由1个或多个stripe组成，每个stripe250MB大小，这个Stripe实际相当于RowGroup概念，不过大小由4MB-&gt;250MB，这样应该能提升顺序读的吞吐率。每个Stripe里有三部分组成，分别是Index Data,Row Data,Stripe Footer：</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/orc%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="orc文件格式"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/orc080fb.png" alt="orc文件格式"></p>
 <p>1）Index Data：一个轻量级的index，默认是每隔1W行做一个索引。这里做的索引应该只是记录某行的各字段在Row Data中的offset。<br>2）Row Data：存的是具体的数据，先取部分行，然后对这些行按列进行存储。对每个列进行了编码，分成多个Stream来存储。<br>3）Stripe Footer：存的是各个Stream的类型，长度等信息。</p>
 <p>每个文件有一个File Footer，这里面存的是每个Stripe的行数，每个Column的数据类型信息等；每个文件的尾部是一个PostScript，这里面记录了整个文件的压缩类型以及FileFooter的长度信息等。在读取文件时，会seek到文件尾部读PostScript，从里面解析到File Footer长度，再读FileFooter，从里面解析到各个Stripe信息，再读各个Stripe，即从后往前读。</p>
 <h3 id="4-PARQUET格式"><a href="#4-PARQUET格式" class="headerlink" title="4) PARQUET格式"></a><strong>4)</strong> PARQUET格式</h3><p>Parquet是面向分析型业务的列式存储格式，由Twitter和Cloudera合作开发，2015年5月从Apache的孵化器里毕业成为Apache顶级项目。</p>
 <p>Parquet文件是以二进制方式存储的，所以是不可以直接读取的，文件中包括该文件的数据和元数据，因此Parquet格式文件是自解析的。</p>
 <p>通常情况下，在存储Parquet数据的时候会按照Block大小设置行组的大小，由于一般情况下每一个Mapper任务处理数据的最小单位是一个Block，这样可以把每一个行组由一个Mapper任务处理，增大任务执行并行度。Parquet文件的格式如下图所示。</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/parquet%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F.png" alt="parquet文件格式"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/parquet579e2.png" alt="parquet文件格式"></p>
 <p>上图展示了一个Parquet文件的内容，一个文件中可以存储多个行组，文件的首位都是该文件的Magic Code，用于校验它是否是一个Parquet文件，Footer length记录了文件元数据的大小，通过该值和文件长度可以计算出元数据的偏移量，文件的元数据中包括每一个行组的元数据信息和该文件存储数据的Schema信息。除了文件中每一个行组的元数据，每一页的开始都会存储该页的元数据，在Parquet中，有三种类型的页：数据页、字典页和索引页。数据页用于存储当前行组中该列的值，字典页存储该列值的编码字典，每一个列块中最多包含一个字典页，索引页用来存储当前行组下该列的索引，目前Parquet中还不支持索引页。</p>
 <h3 id="5-主流文件存储格式对比实验"><a href="#5-主流文件存储格式对比实验" class="headerlink" title="5) 主流文件存储格式对比实验"></a><strong>5)</strong> 主流文件存储格式对比实验</h3><p>从存储文件的压缩比和查询速度两个角度对比。<br>​存储文件的压缩比测试：</p>
 <pre><code class="sql">--1）TextFile
@@ -672,10 +672,10 @@ dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;
 <p>hive的搭建方式有三种，分别是</p>
 <p>1、Local/Embedded Metastore Database (Derby)<br>​2、Remote Metastore Database<br>​3、Remote Metastore Server</p>
 <p>一般情况下，我们在学习的时候直接使用hive –service metastore的方式启动服务端，使用hive的方式直接访问登录客户端，除了这种方式之外，hive提供了hiveserver2的服务端启动方式，提供了beeline和jdbc的支持，并且官网也提出，一般在生产环境中，使用hiveserver2的方式比较多，如图：</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/hiveserver2.png" alt="hiveserver2"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/hiveserver2a6412.png" alt="hiveserver2"></p>
 <p>使用hiveserver2的优点如下：</p>
 <p>1、在应用端不需要部署hadoop和hive的客户端<br>​2、hiveserver2不用直接将hdfs和metastore暴露给用户<br>​3、有HA机制，解决应用端的并发和负载问题<br>​4、jdbc的连接方式，可以使用任何语言，方便与应用进行数据交互<br>本文档主要介绍如何进行hive的HA的搭建：<br>如何进行搭建，参照之前hadoop的HA，使用zookeeper完成HA</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/hive%20HA.png" alt="hive HA"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/hiveHAaf62d.png" alt="hive HA"></p>
 <p><strong>1、环境如下:</strong></p>
 <table>
 <thead>
@@ -847,8 +847,9 @@ dfs -du -h /user/hive/warehouse/log_orc_snappy/ ;
 </code></pre>
 <p><strong>4、使用jdbc或者beeline两种方式进行访问</strong></p>
 <p>1） beeline</p>
-<pre><code>!connect jdbc:hive2://node01,node02,node03/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2_zk root 123
-</code></pre><p>2）jdbc</p>
+<pre><code class="shell">!connect jdbc:hive2://node01,node02,node03/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2_zk root 123
+</code></pre>
+<p>2）jdbc</p>
 <pre><code class="java">public class HiveJdbcClient2 {
 
     private static String driverName = &quot;org.apache.hive.jdbc.HiveDriver&quot;;

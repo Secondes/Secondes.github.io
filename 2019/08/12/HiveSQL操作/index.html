@@ -48,7 +48,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://www.yremp.live/images/2020/03/18/79565511_p07587a.jpg".split(",");
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -624,10 +624,10 @@ Where values_row is:
 --插入数据
 insert into psn values(1,&#39;zhangsan&#39;)
 </code></pre>
-<h3 id="2、数据更新和删除"><a href="#2、数据更新和删除" class="headerlink" title="2、数据更新和删除"></a>2、数据更新和删除</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/delete.png" alt="delete"></p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/update.png" alt="update"></p>
-<p>​在官网中我们明确看到hive中是支持Update和Delete操作的，但是实际上，是需要事务的支持的，Hive对于事务的支持有很多的限制，如下图所示：</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/transaction_limitations.png" alt="transaction_limitations"></p>
+<h3 id="2、数据更新和删除"><a href="#2、数据更新和删除" class="headerlink" title="2、数据更新和删除"></a>2、数据更新和删除</h3><p><img src="https://www.yremp.live/images/2020/04/22/deletec1695.png" alt="delete"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/updatecc465.png" alt="update"></p>
+<p>在官网中我们明确看到hive中是支持Update和Delete操作的，但是实际上，是需要事务的支持的，Hive对于事务的支持有很多的限制，如下图所示：</p>
+<p><img src="https://www.yremp.live/images/2020/04/22/transaction_limitationse1bfd.png" alt="transaction_limitations"></p>
 <p>因此，在使用hive的过程中，我们一般不会产生删除和更新的操作，如果你需要测试的话，参考下面如下配置：</p>
 <pre><code class="java">//在hive的hive-site.xml中添加如下配置：
     &lt;property&gt;
@@ -684,7 +684,7 @@ insert into psn values(1,&#39;zhangsan&#39;)
   [LINES TERMINATED BY char]
 : SERDE serde_name [WITH SERDEPROPERTIES (property_name=property_value,property_name=property_value, ...)]
 </code></pre><p>应用案例：</p>
-<p>​1、数据文件</p>
+<p>1、数据文件</p>
 <pre><code>192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-upper.png HTTP/1.1&quot; 304 -
 192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /bg-nav.png HTTP/1.1&quot; 304 -
 192.168.57.4 - - [29/Feb/2019:18:14:35 +0800] &quot;GET /asf-logo.png HTTP/1.1&quot; 304 -
@@ -735,13 +735,13 @@ select * from logtbl;
 <h1 id="HiveServer2"><a href="#HiveServer2" class="headerlink" title="HiveServer2"></a>HiveServer2</h1><h2 id="基本概念介绍"><a href="#基本概念介绍" class="headerlink" title="基本概念介绍"></a>基本概念介绍</h2><p>1、HiveServer2基本介绍</p>
 <pre><code class="sql">HiveServer2 (HS2) is a server interface that enables remote clients to execute queries against Hive and retrieve the results (a more detailed intro here). The current implementation, based on Thrift RPC, is an improved version of HiveServer and supports multi-client concurrency and authentication. It is designed to provide better support for open API clients like JDBC and ODBC.
 </code></pre>
-<p>​HiveServer2是一个服务接口，能够允许远程的客户端去执行SQL请求且得到检索结果。HiveServer2的实现，依托于Thrift RPC，是HiveServer的提高版本，它被设计用来提供更好的支持对于open API例如JDBC和ODBC。</p>
+<p>HiveServer2是一个服务接口，能够允许远程的客户端去执行SQL请求且得到检索结果。HiveServer2的实现，依托于Thrift RPC，是HiveServer的提高版本，它被设计用来提供更好的支持对于open API例如JDBC和ODBC。</p>
 <pre><code>HiveServer is an optional service that allows a remote client to submit requests to Hive, using a variety of programming languages, and retrieve results. HiveServer is built on Apache ThriftTM (http://thrift.apache.org/), therefore it is sometimes called the Thrift server although this can lead to confusion because a newer service named HiveServer2 is also built on Thrift. Since the introduction of HiveServer2, HiveServer has also been called HiveServer1.
-</code></pre><p>​HiveServer是一个可选的服务，只允许一个远程的客户端去提交请求到hive中。（目前已被淘汰）</p>
+</code></pre><p>HiveServer是一个可选的服务，只允许一个远程的客户端去提交请求到hive中。（目前已被淘汰）</p>
 <p>2、Beeline</p>
-<p>​HiveServer2 supports a command shell Beeline that works with HiveServer2. It’s a JDBC client that is based on the SQLLine CLI 。</p>
-<p>​HiveServer2提供了一种新的命令行接口，可以提交执行SQL语句。</p>
-<h2 id="hiveserver2的搭建使用"><a href="#hiveserver2的搭建使用" class="headerlink" title="hiveserver2的搭建使用"></a>hiveserver2的搭建使用</h2><p>​在搭建hiveserver2服务的时候需要修改hdfs的超级用户的管理权限，修改配置如下：</p>
+<p>HiveServer2 supports a command shell Beeline that works with HiveServer2. It’s a JDBC client that is based on the SQLLine CLI 。</p>
+<p>HiveServer2提供了一种新的命令行接口，可以提交执行SQL语句。</p>
+<h2 id="hiveserver2的搭建使用"><a href="#hiveserver2的搭建使用" class="headerlink" title="hiveserver2的搭建使用"></a>hiveserver2的搭建使用</h2><p>在搭建hiveserver2服务的时候需要修改hdfs的超级用户的管理权限，修改配置如下：</p>
 <pre><code class="sql">--在hdfs集群的core-site.xml文件中添加如下配置文件
 &lt;property&gt;
     &lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt;
@@ -756,18 +756,18 @@ hdfs dfsadmin -fs hdfs://node01:8020 -refreshSuperUserGroupsConfiguration
 hdfs dfsadmin -fs hdfs://node02:8020 -refreshSuperUserGroupsConfiguration
 
 </code></pre>
-<h3 id="1、独立hiveserver2模式"><a href="#1、独立hiveserver2模式" class="headerlink" title="1、独立hiveserver2模式"></a>1、独立hiveserver2模式</h3><p>​1、将现有的所有hive的服务停止，不需要修改任何服务，在node03机器上执行hiveserver2或者hive –service hiveserver2的命令，开始启动hiveserver2的服务，hiveserver2的服务也是一个阻塞式窗口，当开启服务后，会开启一个10000的端口，对外提供服务。</p>
-<p>​2、在node04上使用beeline的方式进行登录</p>
-<h3 id="2、共享metastore-server的hiveserver2模式搭建"><a href="#2、共享metastore-server的hiveserver2模式搭建" class="headerlink" title="2、共享metastore server的hiveserver2模式搭建"></a>2、共享metastore server的hiveserver2模式搭建</h3><p>​1、在node03上执行hive –service metastore启动元数据服务</p>
-<p>​2、在node04上执行hiveserver2或者hive –service hiveserver2两个命令其中一个都可以</p>
-<p>​3、在任意一台包含beeline脚本的虚拟机中执行beeline的命令进行连接</p>
+<h3 id="1、独立hiveserver2模式"><a href="#1、独立hiveserver2模式" class="headerlink" title="1、独立hiveserver2模式"></a>1、独立hiveserver2模式</h3><p>1、将现有的所有hive的服务停止，不需要修改任何服务，在node03机器上执行hiveserver2或者hive –service hiveserver2的命令，开始启动hiveserver2的服务，hiveserver2的服务也是一个阻塞式窗口，当开启服务后，会开启一个10000的端口，对外提供服务。</p>
+<p>2、在node04上使用beeline的方式进行登录</p>
+<h3 id="2、共享metastore-server的hiveserver2模式搭建"><a href="#2、共享metastore-server的hiveserver2模式搭建" class="headerlink" title="2、共享metastore server的hiveserver2模式搭建"></a>2、共享metastore server的hiveserver2模式搭建</h3><p>1、在node03上执行hive –service metastore启动元数据服务</p>
+<p>2、在node04上执行hiveserver2或者hive –service hiveserver2两个命令其中一个都可以</p>
+<p>3、在任意一台包含beeline脚本的虚拟机中执行beeline的命令进行连接</p>
 <h2 id="HiveServer2的访问方式"><a href="#HiveServer2的访问方式" class="headerlink" title="HiveServer2的访问方式"></a>HiveServer2的访问方式</h2><h3 id="1、beeline的访问方式"><a href="#1、beeline的访问方式" class="headerlink" title="1、beeline的访问方式"></a>1、beeline的访问方式</h3><p>（1）beeline -u jdbc:hive2://<host>:<port>/<db> -n name<br>​（2）beeline进入到beeline的命令行</db></port></host></p>
 <pre><code>beeline&gt; !connect jdbc:hive2://&lt;host&gt;:&lt;port&gt;/&lt;db&gt; root 123
-</code></pre><p>​注意：</p>
+</code></pre><p>注意：</p>
 <p>​    1、使用beeline方式登录的时候，默认的用户名和密码是不验证的，也就是说随便写用户名和密码即可</p>
 <p>​    2、使用第一种beeline的方式访问的时候，用户名和密码可以不输入</p>
-<p>​   3、使用第二种beeline方式访问的时候，必须输入用户名和密码，用户名和密码是什么无所谓</p>
-<h3 id="2、jdbc的访问方式"><a href="#2、jdbc的访问方式" class="headerlink" title="2、jdbc的访问方式"></a>2、jdbc的访问方式</h3><p>​1、创建普通的java项目，将hive的jar包添加到classpath中，最精简的jar包如下：</p>
+<p>​    3、使用第二种beeline方式访问的时候，必须输入用户名和密码，用户名和密码是什么无所谓</p>
+<h3 id="2、jdbc的访问方式"><a href="#2、jdbc的访问方式" class="headerlink" title="2、jdbc的访问方式"></a>2、jdbc的访问方式</h3><p>1、创建普通的java项目，将hive的jar包添加到classpath中，最精简的jar包如下：</p>
 <pre><code>commons-lang-2.6.jar
 commons-logging-1.2.jar
 curator-client-2.7.1.jar
@@ -790,7 +790,7 @@ log4j-jul-2.5.jar
 log4j-slf4j-impl-2.6.2.jar
 log4j-web-2.6.2.jar
 zookeeper-3.4.6.jar
-</code></pre><p>​2、编辑如下代码：</p>
+</code></pre><p>2、编辑如下代码：</p>
 <pre><code class="java">package com.mashibing;
 
 import java.sql.Connection;

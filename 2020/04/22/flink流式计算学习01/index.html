@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">flink流式计算学习01 | 小舞的个人主页</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "小舞の个人主页";
+  mashiro_option.author_name = "个人主页";
+  mashiro_option.site_url = "https://secondes.github.io/";
+  mashiro_option.v_appId = "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz";
+  mashiro_option.v_appKey = "3es5KSduLLezurh1rn90e0vu";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;},.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(https://www.yremp.live/images/2020/03/18/77865316_p07c784.jpg);">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=640">
+      </div>
+      <div class="header-info">
+        <p>The degree of loving is measured by the degree of giving</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/Secondes" target="_blank" class="social-github" title="github">
+                    <img src="https://www.yremp.live/images/2019/09/03/github2cfca.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://twitter.com/1t5RE1tdGpmcW4Z" target="_blank" class="social-github" title="twitter">
+                    <img src="https://www.yremp.live/images/2019/09/03/twitter68cc0.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=100035330672131" target="_blank" class="social-github" title="facebook">
+                    <img src="https://www.yremp.live/images/2019/09/03/facebook73baf.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://moxiaowu495@gmail.com" target="_blank" class="social-github" title="gmail">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=46029882&amp;website=www.oicqzone.com" target="_blank" class="social-github" title="qq">
+                    <img src="https://www.yremp.live/images/2019/09/03/qqdfdb4.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://www.yremp.live/images/2019/09/03/wechat28a70.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="display:none">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">小舞の</span>
+            <span class="shironeko">个人主页</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif);" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/2461257211944c4dada90.gif">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      flink流式计算学习01</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.secondaries.cn">
+            <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=100">
+          </a>
+        </span>
+        <span>
+          <a href="www.secondaries.cn">小舞</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-4-22<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="流式计算相关学习"><a href="#流式计算相关学习" class="headerlink" title="流式计算相关学习"></a>流式计算相关学习</h1><p><img src="https://www.yremp.live/images/2020/04/28/10521631-793fc60c4d30695c07ccb.png" alt></p>
+<h2 id="概念及术语"><a href="#概念及术语" class="headerlink" title="概念及术语"></a>概念及术语</h2><h3 id="flink的世界观是数据流"><a href="#flink的世界观是数据流" class="headerlink" title="flink的世界观是数据流"></a>flink的世界观是数据流</h3><p>对于flink而言,其所要处理的主要场景就是流数据,批数据是流数据的一个特例,所以flink与spark不同,是真正的流批统一的计算引擎</p>
+<h3 id="什么是无界流-Unbounded-streams"><a href="#什么是无界流-Unbounded-streams" class="headerlink" title="什么是无界流/Unbounded streams?"></a>什么是无界流/Unbounded streams?</h3><p><code>无界流</code> 有定义流的开始,但是没有定义流的结束,它们会永无休止的产生数据.</p>
+<p>无界流的数据必须持续处理,即数据被社区后需要立刻处理,我们不能等到所有数据到达后再处理,任何时候输入都不会完成.</p>
+<h3 id="什么是有界流-Bounded-streams"><a href="#什么是有界流-Bounded-streams" class="headerlink" title="什么是有界流/Bounded streams?"></a>什么是有界流/Bounded streams?</h3><p><code>有界流</code> 有定流的的开始,也有定义流的结束.有界流可以在摄取所有的数据后再进行计算,有界流的所有数据可以被排序,所以无需有序摄取,通常被称之为批处理.</p>
+<h3 id="什么是有状态的计算-stateful-computations"><a href="#什么是有状态的计算-stateful-computations" class="headerlink" title="什么是有状态的计算/stateful computations?"></a>什么是有状态的计算/stateful computations?</h3><p><code>有状态的计算</code> 每次进行数据计算的时候基于之前数据的计算结果,也就是俗称的<strong>状态</strong>做计算,并且每次计算结果都会保存到存储介质中,计算关联上下文context.</p>
+<p>基于有状态的计算不需要对历史数据进行重新计算,提高了计算效率.</p>
+<p><code>无状态的计算</code> 每次进行数据计算只考虑当前的数据,不会使用之前的数据的计算结果.</p>
+<h2 id="安装＆部署"><a href="#安装＆部署" class="headerlink" title="安装＆部署"></a>安装＆部署</h2><p><img src="https://www.yremp.live/images/2020/04/28/QQ20200428133626eb158.png" alt></p>
+<h3 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h3><p>flink系统中包含了两个角色,分别是jobManager和taskManager,是典型的master-slave架构.</p>
+<p>jobManager相当于是master,taskManager相当于是slave</p>
+<p><img src="https://www.yremp.live/images/2020/04/28/1324594-e6a658a530ef4c0b42fb9.png" alt></p>
+<h3 id="jobManager"><a href="#jobManager" class="headerlink" title="jobManager"></a>jobManager</h3><p>负责整个集群的资源管理和任务管理,在一个集群中只能有一个正在工作(active)的jm.如果是HA集群,那么另一个jm一定是standby状态.</p>
+<ol>
+<li>资源调度<ul>
+<li>集群启动,tm会将当前节点的资源信息注册给jm,所有tm全部注册完毕,集群启动成功,此时jm就掌握了整个集群的资源情况</li>
+<li>client提交application给jm后,jm会根据集群中的资源情况,为当前的application分配taskslot资源(也就是槽位,可以理解为spark的executor,在yarn集群中就是container)</li>
+</ul>
+</li>
+<li>任务调度<ul>
+<li>根据各个tm节点上的资源,分发task到taskslot中运行</li>
+<li>job执行过程中,jm会根据设置的触发策略触发checkpoint,通知tm开始checkpoint</li>
+<li>任务执行完毕,jm会将job执行信息反馈给client,并且释放tm资源</li>
+</ul>
+</li>
+</ol>
+<h3 id="taskManager"><a href="#taskManager" class="headerlink" title="taskManager"></a>taskManager</h3><ol>
+<li>负责当前节点上的任务运行及当前节点上的资源管理.tm资源通过taskslot进行了划分,每个taskslot代表了一份固定的资源.例如,具有三个slot的tm会将其管理的内存资源划成三份给每个slot.划分资源意味着subtask之间不会竞争内存资源,但是也意味着它们只拥有自己的固定资源,也就是俗称的内存隔离.这里并没有<strong>cpu</strong>隔离,只是划分了内存资源.</li>
+<li>负责tm之间的数据交换</li>
+</ol>
+<h3 id="client客户端"><a href="#client客户端" class="headerlink" title="client客户端"></a>client客户端</h3><p>负责将当前的任务提交给jm,并获取任务的执行信息.</p>
+<p>提交的常用方式有以下几种:</p>
+<ol>
+<li>命令提交</li>
+<li>web页面提交</li>
+</ol>
+<h3 id="standalone集群安装＆测试"><a href="#standalone集群安装＆测试" class="headerlink" title="standalone集群安装＆测试"></a>standalone集群安装＆测试</h3><pre><code class="shell">wget https://mirrors.tuna.tsinghua.edu.cn/apache/flink/flink-1.9.3/apache-flink-1.9.3.tar.gz
+tar -zxvf apache-flink-1.9.3.tar.gz
+</code></pre>
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/flink/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/flink/</a></p>
+<p>自己选吧,总有一款适合你</p>
+<hr>
+<ol>
+<li><p>修改配置文件</p>
+<pre><code class="shell">vim flink-conf.yaml
+
+jobmanager.rpc.address
+#jm地址
+jobmanager.rpc.port
+#jm端口号
+jobmanager.heap.size
+#jm所能使用的堆内存大小
+taskmanager.heap.size
+#tm所能使用的堆内存大小
+taskmanager.numberOfTaskSlots
+#tm管理的slots个数,一般情况下一个cpu核心对应一个slots,用lscpu指令看你自己的机器
+rest.port
+#web的端口号
+</code></pre>
+</li>
+<li><p>修改slaves配置文件,配上所有的子机名就行</p>
+</li>
+<li><p>分发包到其他节点</p>
+</li>
+<li><p>主节点环境变量</p>
+<pre><code class="shell">vim /etc/profile
+
+export FLINK_HOME=/opt/flink-1.9.3
+export PATH=$FLINK_HOME/bin
+
+source /etc/profile
+</code></pre>
+</li>
+<li><p>启动脚本</p>
+<pre><code class="shell">./start-cluster.sh
+./stop-cluster.sh
+</code></pre>
+</li>
+<li><p>查看webUI,如果操作无误那么此时webUI会正常显示</p>
+</li>
+</ol>
+<h3 id="提交任务到集群"><a href="#提交任务到集群" class="headerlink" title="提交任务到集群"></a>提交任务到集群</h3><ol>
+<li><p>命令提交</p>
+<pre><code class="shell">flink run
+-c #主类
+-d #后台运行
+-p #指定并行度
+</code></pre>
+</li>
+<li><p>web页面提交</p>
+<p>注意:web.submit.enable:true一定要开启,否则不支持web提交(人性化啊兄弟,有人手贱去关这个?)</p>
+</li>
+<li><p>启动scala-shell测试</p>
+<pre><code class="shell">start-scala-shell.sh remote &lt;hostname&gt; &lt;portnumber&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="flink-on-yarn"><a href="#flink-on-yarn" class="headerlink" title="flink on yarn"></a>flink on yarn</h3><p><img src="https://www.yremp.live/images/2020/04/28/QQ20200428133720c1c0e.png" alt></p>
+<p>如果你看不懂,你可能需要补一下yarn的资源申请流程</p>
+<ol>
+<li>每当创建一个flink的yarn session的时候,客户端会先检查请求的资源(container和memory是否可用),然后将所有包含flink的相关jar包和配置上传到hdfs</li>
+<li>客户端会向resourcemanager申请一个yarn的container用来启动applicationmaster.由于客户端已经将配置和jar都上传到了hdfs,applicationmaster会下载这些jar和配置,然后启动application</li>
+<li>jm和am运行于一个container(jobmanager等于applicationmaster)</li>
+<li>am申请启动taskmanager,rm返回的这些container会从hdfs上面下载jar和配置.</li>
+</ol>
+<h3 id="两种运行模式"><a href="#两种运行模式" class="headerlink" title="两种运行模式"></a>两种运行模式</h3><ol>
+<li><p>每次启动的时候都重新启动一个application</p>
+<p>优点:无需长服务,yarn资源相对清闲,可以抽出资源去跑其他任务,比如spark</p>
+<p>缺点:每次都重新申请资源,速度慢</p>
+</li>
+<li><p>启动一个application长服务,每次运行的时候只跑任务</p>
+<p>优点:长服务,每次启动任务无需重新申请资源,直接跑任务就可以</p>
+<p>缺点:yarn抽出了大部分资源给flink,没有其他过多资源给别的任务</p>
+</li>
+</ol>
+<p>需要下载一个hadoop插件并放到flink/lib目录下</p>
+<pre><code class="shell">wget https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.7.5-10.0/flink-shaded-hadoop-2-uber-2.7.5-10.0.jar
+</code></pre>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/" target="_blank" rel="noopener">https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/</a></p>
+<p>总有一款适合你</p>
+<h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><pre><code class="shell">#启动
+yarn-session.sh -n 3 -s 3 -nm flink-session -d -q
+
+-n,--container 在yarn中启动的container数量,实际就是tm的数量
+-s,--slots 每个tm管理的slot的个数
+-nm,--name 给application起个名字
+-d,--detached 后台启动
+-tm,--taskManagerMemory tm的内存大小,单位mb
+-jm,--jobManagerMemory jm的内存大小,单位mb
+-q,--query 显示yarn集群可用资源
+
+#关闭
+yarn application -kill applicationId
+
+#样例
+flink run -c com.mio.wordCount -yid 1111 ~/StudyFlink-1.0-SNAPSHOT.jar
+-yid #可以指定application的ID,不用也行无所谓,在tmp目录下你可以看到一个隐藏的小文件,其中写了这个id
+
+vim /tmp/.yarn-properties-root
+
+flink run -m yarn-cluster -yn 3 -ys 3 -ynm flink-job -c com.mio.wordCount ~/StudyFlink-1.0-SNAPSHOT.jar
+
+-yn,--container #表示分配的container数量
+-d,--detached #设置在后台运行
+-yjm,--jobManagerMemory
+-ytm,--taskManaagerMemory
+-ynm,--name
+-yq,--query
+-yqu,--queue #指定yarn资源队列
+-ys,--slots
+</code></pre>
+<h3 id="HA集群模式"><a href="#HA集群模式" class="headerlink" title="HA集群模式"></a>HA集群模式</h3><p><img src="https://www.yremp.live/images/2020/04/28/QQ202004281336582bd05.png" alt></p>
+<p>修改yarn-site.xml</p>
+<pre><code>&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.am.max-attempts&lt;/name&gt;
+    &lt;value&gt;10&lt;/value&gt;
+    &lt;description&gt;The maximum number of application master execution attempts AppMaster,最大重试次数&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><p>修改flink-conf.yaml</p>
+<pre><code>high-availability: zookeeper
+high-availability.storageDir: hdfs://node01:9000/flink/ha/
+high-availability.zookeeper.quorum: node01:2181,node02:2181,node03:2181
+</code></pre><p>下一期开始api实操</p>
+
+        </div>
+        <!-- .entry-content -->
+        </article></main></div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="javascript:;" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/04/28/flink流式计算学习02/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/-39846256f1b679e9599ac.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                flink流式计算学习02</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/03/24/kafka/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/Secondes/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://www.yremp.live/images/2019/12/25/739c5e1e656724e8211f5.gif" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                kafka</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "QXrHWOweL6iiH8ULUmPjBVhb-gzGzoHsz",
+        appKey: "3es5KSduLLezurh1rn90e0vu",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      
+    <!-- #main -->
+  </div><!-- #primary -->
+
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        //CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 小舞<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/secondes/cdn/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2019</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;"> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i>
+		Thanks for theme Sakura by Mashiro&Hojun,Powered by Hexo,Hosted by Coding Pages
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "","name":"","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=46029882&spec=640">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">小舞の个人主页</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/Secondes" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="mqqwpa://im/chat?chat_type=wpa&uin=46029882&version=1&src_type=web&web_src=oicqzone.com" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2380067436" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-loop="all" data-order="random" data-preload="auto" data-volume="0.7" data-mutex="true" < div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script></div>
+  <script src="/js/snow.js"></script>
+  <script type="text/javascript" src="/assets/autoload.js"></script>
+
+  <div class="skin-menu no-select" id="mainskin" style="position: fixed">
+    <div class="theme-controls row-container">
+        <ul class="menu-list">
+            <li id="white-bg"> <i class="fa fa-television" aria-hidden="true"></i></li>
+            <li id="sakura-bg"> <i class="iconfont icon-sakura"></i></li>
+            <li id="gribs-bg"> <i class="fa fa-slack" aria-hidden="true"></i></li>
+            <li id="KAdots-bg"> <i class="iconfont icon-dots"></i></li>
+            <li id="totem-bg"> <i class="fa fa-optin-monster" aria-hidden="true"></i></li>
+            <li id="pixiv-bg"> <i class="iconfont icon-pixiv"></i></li>
+            <li id="bing-bg"> <i class="iconfont icon-bing"></i></li>
+            <li id="dark-bg"> <i class="fa fa-moon-o" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+	<canvas id="night-mode-cover"></canvas>
+</div> 
+  <-- <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div> -->
+  <div class="changeSkin-gear no-select">
+    <div class="keys" id="setbtn"> 
+		<span id="open-skinMenu">切换主题<i class="iconfont icon-gear inline-block rotating"></i> 
+		</span>
+	</div>
+</div>
+</body>
+</html>

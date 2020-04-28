@@ -48,7 +48,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://www.yremp.live/images/2020/03/18/79565511_p07587a.jpg".split(",");
+  var bg = "https://www.yremp.live/images/2020/04/22/79344899_p091551.jpg".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -316,7 +316,7 @@
 <p>​                    HOLAP：混合型在线分析处理</p>
 <p>​            按照处理方式分类：</p>
 <p>​                    Server OLAP和Client OLAP</p>
-<h5 id="操作："><a href="#操作：" class="headerlink" title="操作："></a>操作：</h5><p><img src="https://github.com/msbbigdata/hive/blob/master/images/OLAP.png" alt="OLAP"></p>
+<h5 id="操作："><a href="#操作：" class="headerlink" title="操作："></a>操作：</h5><p><img src="https://www.yremp.live/images/2020/04/22/OLAP8c6c4.png" alt="OLAP"></p>
 <p>​            钻取：在维的不同层次间的变化，从上层降到下一层，或者说将汇总数据拆分到更细节的数据，比如通过                        对2019年第二季度的总销售数据进行钻取来查看2019年4,5,6,每个月的消费数据，再例如可以钻取                        浙江省来查看杭州市、温州市、宁波市……这些城市的销售数据<br>​            上卷：钻取的逆操作，即从细粒度数据向更高汇总层的聚合，如将江苏省、上海市、浙江省的销售数据进                        行汇总来查看江浙沪地区的销售数据<br>​            切片：选择维中特定的值进行分析，比如只选择电子产品的销售数据或者2019年第二季度的数据<br>​            切块：选择维中特定区间的数据或者某批特定值进行分析，比如选择2019年第一季度到第二季度的销售数                        据或者是电子产品和日用品的销售数据<br>​            旋转：维的位置互换，就像是二维表的行列转换，比如通过旋转来实现产品维和地域维的互换        </p>
 <h3 id="4、数据库与数据仓库的区别"><a href="#4、数据库与数据仓库的区别" class="headerlink" title="4、数据库与数据仓库的区别"></a>4、数据库与数据仓库的区别</h3><p>​        1、数据库是对业务系统的支撑，性能要求高，相应的时间短，而数据仓库则对响应时间没有太多的要求，当然也是越快越好</p>
 <p>​        2、数据库存储的是某一个产品线或者某个业务线的数据，数据仓库可以将多个数据源的数据经过统一的规则清洗之后进行集中统一管理</p>
@@ -324,14 +324,14 @@
 <p>​        4、数据库一次操作的数据量小，数据仓库操作的数据量大</p>
 <p>​        5、数据库使用的是实体-关系（E-R）模型，数据仓库使用的是星型模型或者雪花模型</p>
 <p>​        6、数据库是面向事务级别的操作，数据仓库是面向分析的操作</p>
-<h1 id="02-Hive的架构"><a href="#02-Hive的架构" class="headerlink" title="02 Hive的架构"></a>02 Hive的架构</h1><h2 id="Hive的官方架构图"><a href="#Hive的官方架构图" class="headerlink" title="Hive的官方架构图"></a>Hive的官方架构图</h2><h3 id="1、Hive的架构图"><a href="#1、Hive的架构图" class="headerlink" title="1、Hive的架构图"></a>1、Hive的架构图</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/hive架构图.png" alt="Hive架构图"></p>
+<h1 id="02-Hive的架构"><a href="#02-Hive的架构" class="headerlink" title="02 Hive的架构"></a>02 Hive的架构</h1><h2 id="Hive的官方架构图"><a href="#Hive的官方架构图" class="headerlink" title="Hive的官方架构图"></a>Hive的官方架构图</h2><h3 id="1、Hive的架构图"><a href="#1、Hive的架构图" class="headerlink" title="1、Hive的架构图"></a>1、Hive的架构图</h3><p><img src="https://www.yremp.live/images/2020/04/22/hive6888a.png" alt="Hive架构图"></p>
 <h3 id="2、Hive的服务（角色）"><a href="#2、Hive的服务（角色）" class="headerlink" title="2、Hive的服务（角色）"></a>2、Hive的服务（角色）</h3><h4 id="1、用户访问接口"><a href="#1、用户访问接口" class="headerlink" title="1、用户访问接口"></a>1、用户访问接口</h4><p>​        CLI（Command Line Interface）：用户可以使用Hive自带的命令行接口执行Hive QL、设置参数等功能</p>
 <p>​        JDBC/ODBC：用户可以使用JDBC或者ODBC的方式在代码中操作Hive</p>
 <p>​        Web GUI：浏览器接口，用户可以在浏览器中对Hive进行操作（2.2之后淘汰）</p>
 <h4 id="2、Thrift-Server"><a href="#2、Thrift-Server" class="headerlink" title="2、Thrift Server:"></a>2、Thrift Server:</h4><p>​        Thrift服务运行客户端使用Java、C++、Ruby等多种语言，通过编程的方式远程访问Hive</p>
 <h4 id="3、Driver"><a href="#3、Driver" class="headerlink" title="3、Driver"></a>3、Driver</h4><p>​        Hive Driver是Hive的核心，其中包含解释器、编译器、优化器等各个组件，完成从SQL语句到MapReduce任务的解析优化执行过程</p>
 <h4 id="4、metastore"><a href="#4、metastore" class="headerlink" title="4、metastore"></a>4、metastore</h4><p>​    Hive的元数据存储服务，一般将数据存储在关系型数据库中，为了实现Hive元数据的持久化操作，Hive的安装包中自带了Derby内存数据库，但是在实际的生产环境中一般使用mysql来存储元数据</p>
-<h3 id="3、Hive的访问流程图"><a href="#3、Hive的访问流程图" class="headerlink" title="3、Hive的访问流程图"></a>3、Hive的访问流程图</h3><p><img src="https://github.com/msbbigdata/hive/blob/master/images/访问流程图.png" alt="Hive访问流程图"></p>
+<h3 id="3、Hive的访问流程图"><a href="#3、Hive的访问流程图" class="headerlink" title="3、Hive的访问流程图"></a>3、Hive的访问流程图</h3><p><img src="https://www.yremp.live/images/2020/04/22/d06db05beac5b68bbbbdf.png" alt="Hive访问流程图"></p>
 <h1 id="03-Hive的安装搭建"><a href="#03-Hive的安装搭建" class="headerlink" title="03 Hive的安装搭建"></a>03 Hive的安装搭建</h1><p>Hive可以从源码中编译安装，也可以直接使用官网下载的安装包，在此处我们选择安装包解压安装的方式。</p>
 <p><strong>Hive中最最重要的角色就是metastore</strong></p>
 <p>因此按照metastore的管理共有四种hive的安装搭建方式：官网参考地址如下：</p>
@@ -345,11 +345,11 @@
 <p>​    2、使用远程数据库mysql作为元数据存储</p>
 <p>​    3、使用本地/远程元数据服务模式安装Hive</p>
 <h5 id="详细操作："><a href="#详细操作：" class="headerlink" title="详细操作："></a>详细操作：</h5><p>​    1、使用Hive自带的内存数据库Derby作为元数据存储</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/本地数据库模式安装.png" alt="1563262098436"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/279d6fac2d0090c2d2d8f.png" alt="1563262098436"></p>
 <p>​    2、使用远程数据库mysql作为元数据存储</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/远程数据库模式安装.png" alt="1563262117701">)</p>
+<p><img src="https://www.yremp.live/images/2020/04/22/734f960323661cae2a44a.png" alt="1563262117701">)</p>
 <p>​    3、使用本地/远程元数据服务模式安装Hive</p>
-<p><img src="https://github.com/msbbigdata/hive/blob/master/images/远程元数据服务安装.png" alt="1563262138267"></p>
+<p><img src="https://www.yremp.live/images/2020/04/22/9655b59bed613326a15ff.png" alt="1563262138267"></p>
 
         </div>
         <!-- .entry-content -->
